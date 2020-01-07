@@ -16,23 +16,33 @@
 
 #pragma once
 
-#define EE_HANDS
-
 #ifdef OLED_DRIVER_ENABLE
-#    define OLED_DISPLAY_128X64
-#    define OLED_FONT_H "font_gmk_bad.h"
-#    define OLED_DISABLE_TIMEOUT
-#    define OLED_SCROLL_TIMEOUT_RIGHT 60000
+  #define OLED_DISPLAY_128X64
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_SLEEP
-#    define RGBLIGHT_LIMIT_VAL 200
-#    define RGBLIGHT_HUE_STEP 8
-#    define RGBLIGHT_SAT_STEP 8
-#    define RGBLIGHT_VAL_STEP 8
+  #define RGBLIGHT_ANIMATIONS
+  #define RGBLIGHT_HUE_STEP 8
+  #define RGBLIGHT_SAT_STEP 8
+  #define RGBLIGHT_VAL_STEP 8
 #endif
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 #define SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT 1000
+#define NO_USB_STARTUP_CHECK
+
+// Init encoder pads
+#define ENCODERS_PAD_A { B12 }
+#define ENCODERS_PAD_B { B13 }
+
+#define ENCODERS_PAD_A { encouder1a, encoder2a }
+#define ENCODERS_PAD_B { encouder1b, encoder2b }
+// If encoders clockwise directions are incorrect you can swap the a and b pad definitions
+
+// the resolution can be specified in the same file (the default suggested is 4) might not need
+// #define ENCODER_RESOLUTION 4
+
+// split keyboards - different pinouts for the encoders on each half of a split keyboard,
+// you can define the pinout for the right hald like this
+#define ENCODERS_PAD_A_RIGHT { encouder1a, encoder2a }
+#define ENCODERS_PAD_B_RIGHT { encouder1b, encoder2b }
