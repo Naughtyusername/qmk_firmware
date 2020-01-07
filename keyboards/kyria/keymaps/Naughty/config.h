@@ -35,8 +35,8 @@
 #define ENCODERS_PAD_A { B12 }
 #define ENCODERS_PAD_B { B13 }
 
-#define ENCODERS_PAD_A { encouder1a, encoder2a }
-#define ENCODERS_PAD_B { encouder1b, encoder2b }
+#define ENCODERS_PAD_A { encoder1a, encoder2a }
+#define ENCODERS_PAD_B { encoder1b, encoder2b }
 // If encoders clockwise directions are incorrect you can swap the a and b pad definitions
 
 // the resolution can be specified in the same file (the default suggested is 4) might not need
@@ -44,5 +44,5 @@
 
 // split keyboards - different pinouts for the encoders on each half of a split keyboard,
 // you can define the pinout for the right hald like this
-#define ENCODERS_PAD_A_RIGHT { encouder1a, encoder2a }
-#define ENCODERS_PAD_B_RIGHT { encouder1b, encoder2b }
+#define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
+#define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
