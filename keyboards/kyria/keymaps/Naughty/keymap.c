@@ -13,49 +13,72 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/*
+  88b 88    db    88   88  dP""b8 88  88 888888 Yb  dP 88   88 .dP"Y8 888888 88""Yb 88b 88    db    8b    d8 888888
+  88Yb88   dPYb   88   88 dP   `" 88  88   88    YbdP  88   88 `Ybo." 88__   88__dP 88Yb88   dPYb   88b  d88 88__
+  88 Y88  dP__Yb  Y8   8P Yb  "88 888888   88     8P   Y8   8P o.`Y8b 88""   88"Yb  88 Y88  dP__Yb  88YbdP88 88""
+  88  Y8 dP""""Yb `YbodP'  YboodP 88  88   88    dP    `YbodP' 8bodP' 888888 88  Yb 88  Y8 dP""""Yb 88 YY 88 888888
+
+  My current set up for the Kyria board, Thanks to Thomas for making this awesome keyboard for us! and thanks to the QMK team for
+  providing us with this amazing firmware!
+                                            -Naughtyusername
+*/
+
+
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _QWERTY = 0,
+    _BASE = 0,
     _LOWER,
     _RAISE,
-    _ADJUST
+    _ADJUST,
+    //_Numbers, // currently swapped this to raise, since on my planck im not sure i get much use out of raise.
+    _VIKEYS,
+
 };
+
+ /* |        |      |      |      |      |      |                              |      |      |      |      |      |        | */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
- * Base Layer: QWERTY
+ * Base Layer: BASE
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |     ESC|   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |        |
+ * |     ESC|   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Esc   |
+   |        |      |      |      | LT-VI|      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |     BS |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : | Enter  |
+ * |        | Alt  | Ctrl | Shift|wincmd|      |                              |      |wincmd| Shift| Ctrl | Alt  |        |
  * |-------+------+------+------+------+------+-------------.   ,-------------+------+------+------+------+------+--------|
- * |  Lower |   Z  |   X  |   C  |   V  |   B  |      |      |  |      |      |   N  |   M  | ,  < | . >  | /  ? | Raise  |
+ * | Delete |   Z  |   X  |   C  |   V  |   B  |      |      |  |      |      |   N  |   M  | ,  < | . >  | /  ? | Tab    |
+ * |        |LT-NUM|      |      |      |Lower |      |      |  |      |      | Lower|      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      | Space|  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
+ *                  Rotary: not sure                                                                Rotary: not sure
  */
-    [_QWERTY] = LAYOUT(
-      LT(_RAISE, KC_ESC),       KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
-      MT(MOD_LCTL, KC_BSPC),   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT,                 KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LSFT,   KC_LSFT, KC_LSFT, KC_LSFT, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
+    [_BASE] = LAYOUT(
+      KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R),   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
+      KC_BSPC,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+      KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V,   LT(_LOWER, KC_B),   KC_LSFT,   KC_LSFT, KC_LSFT, _______, LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
               KC_LGUI, KC_DEL, MT(MOD_LALT, KC_ENT), LT(_LOWER, KC_SPC), LT(_RAISE, KC_ESC), LT(_LOWER, KC_ENT), LT(_RAISE, KC_SPC), KC_TAB,  KC_BSPC, KC_RALT
     ),
 /*
  * Lower Layer: Symbols
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  !   |  @   |  {   |  }   |      |                              |      |      |      |      |      |        |
+ * |        |  !   |  @   |  {   |  }   |  `   |                              |      |  +   |  -   |  *   |  /   |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  #   |  $   |  (   |  )   |      |                              |      |      |      |      |      |        |
+ * |        |  #   |  $   |  (   |  )   |  ~   |                              |      |  =   |  '   |  _   |  -   |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  %   |  ^   |  [   |  ]   |      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |  %   |  ^   |  [   |  ]   |      |      |      |  |      |      |      |  &   |  |   |  .   |  \   |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        | Caps | Prnt |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
+ *                  Rotary: not sure                                                                Rotary: not sure
  */
     [_LOWER] = LAYOUT(
       _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                     _______, _______, _______, _______, _______, KC_BSLS,
@@ -64,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______, _______, KC_SCLN, KC_EQL,  KC_EQL,  KC_SCLN, _______, _______, _______
     ),
 /*
- * Raise Layer: Number keys -- consider changing this layer to something other than raise
+ * Raise Layer: Number keys
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |   1  |  2   |  3   |  4   |  5   |                              |  6   |   7  |  8   |  9   |  0   |        |
@@ -76,6 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |  0   |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
+ *                  Rotary: not sure                                                                Rotary: not sure
  */
     [_RAISE] = LAYOUT(
       _______, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,                                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
@@ -84,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
- * Adjust Layer: Function keys, RGB
+ * Adjust Layer: Layer switching, media controls,firmware reset, not sure what else.
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        | F1   |  F2  | F3   | F4   | F5   |                              | F6   | F7   |  F8  | F9   | F10  |        |
@@ -96,6 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
+ *                  Rotary: not sure                                                                Rotary: not sure
  */
     [_ADJUST] = LAYOUT(
       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
@@ -103,20 +128,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
-// /*
-//  * Layer template
-//  *
-//  * ,-------------------------------------------.                              ,-------------------------------------------.
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
-//  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
-//  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
-//  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-//  *                        |      |      |      |      |      |  |      |      |      |      |      |
-//  *                        |      |      |      |      |      |  |      |      |      |      |      |
-//  *                        `----------------------------------'  `----------------------------------'
-//  */
+
+
+/*
+// * Layer template
+// *
+// * ,-------------------------------------------.                              ,-------------------------------------------.
+// * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+// * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+// * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+// * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+// * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+// * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+// * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+// * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+// * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+// *                        |      |      |      |      |      |  |      |      |      |      |      |
+// *                        |      |      |      |      |      |  |      |      |      |      |      |
+// *                        `----------------------------------'  `----------------------------------'
+// *                  Rotary: not sure                                                                Rotary: not sure
+// *
+// *
 //     [_LAYERINDEX] = LAYOUT(
 //       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
 //       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
