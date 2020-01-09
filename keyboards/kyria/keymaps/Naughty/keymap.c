@@ -33,7 +33,6 @@ enum layers {
     _LOWER,
     _RAISE,
     _ADJUST,
-    //_Numbers, // currently swapped this to raise, since on my planck im not sure i get much use out of raise.
     _VIKEYS,
 
 };
