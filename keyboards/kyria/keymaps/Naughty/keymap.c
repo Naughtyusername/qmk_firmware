@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |     BS |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : | Enter  |
  * |        | Alt  | Ctrl | Shift|wincmd|      |                              |      |wincmd| Shift| Ctrl | Alt  |        |
- * |-------+------+------+------+------+------+-------------.   ,-------------+------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+-------|
  * | Delete |   Z  |   X  |   C  |   V  |   B  |      |      |  |      |      |   N  |   M  | ,  < | . >  | /  ? | Tab    |
  * |        |LT-NUM|      |      |      |Lower |      |      |  |      |      | Lower|      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -59,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                  Rotary: not sure                                                                Rotary: not sure
  */
     [_BASE] = LAYOUT(
-      KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R),   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
-      KC_BSPC,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-      KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V,   LT(_LOWER, KC_B),   KC_LSFT,   KC_LSFT, KC_LSFT, _______, LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
-              KC_LGUI, KC_DEL, MT(MOD_LALT, KC_ENT), LT(_LOWER, KC_SPC), LT(_RAISE, KC_ESC), LT(_LOWER, KC_ENT), LT(_RAISE, KC_SPC), KC_TAB,  KC_BSPC, KC_RALT
+      KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
+      KC_BSPC,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,              KC_H, KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+      KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V,          LT(_LOWER, KC_B), LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
+              _______, _______, _______, _______), KC_SPC,          _______, _______, _______, _______,  _______, _______
     ),
 /*
  * Lower Layer: Symbols
@@ -250,19 +250,19 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-// callbacks - not sure if needed? https://beta.docs.qmk.fm/features/feature_encoders
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {/* First encoder */
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-                tap_code(KC_PGUP);
-            }
-    } else if (index == 1) { /* Second encoder */
-        if (clockwise) {
-            tap_code(KC_UP);
-        } else {
-               tap_code(KC_DOWN);
-            }
-        }
-}
+/* callbacks - not sure if needed? https://beta.docs.qmk.fm/features/feature_encoders */
+/* void encoder_update_user(uint8_t index, bool clockwise) { */
+    /* if (index == 0) {/\* First encoder *\/ */
+        /* if (clockwise) { */
+            /* tap_code(KC_PGDN); */
+        /* } else { */
+                /* tap_code(KC_PGUP); */
+            /* } */
+    /* } else if (index == 1) { /\* Second encoder *\/ */
+        /* if (clockwise) { */
+            /* tap_code(KC_UP); */
+        /* } else { */
+               /* tap_code(KC_DOWN); */
+            /* } */
+        /* } */
+/* } */
