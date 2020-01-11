@@ -62,4 +62,4 @@
 // permissive hold
 #define PERMISSIVE_HOLD
 
-#define
+#define RGBLIGHT_SPLIT
