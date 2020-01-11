@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// https://docs.qmk.fm/#/config_options?id=behaviors-that-can-be-configured
+
 #pragma once
 
 #ifdef OLED_DRIVER_ENABLE
@@ -56,3 +58,8 @@
 // you can define the pinout for the right half like this
 #define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
 #define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
+
+// permissive hold
+#define PERMISSIVE_HOLD
+
+#define
