@@ -1,0 +1,13 @@
+*todo for kyria
+
+***fuck i dont remembe how to use this
+
+
+need to set these
+[]
+
+Ignore mod tap
+Permissing Hold
+Tapping force hold
+
+probably set debounce (i use 5 on my planck)
