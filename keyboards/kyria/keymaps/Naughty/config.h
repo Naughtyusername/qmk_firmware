@@ -31,6 +31,16 @@
 #define SPLIT_USB_DETECT
 #define NO_USB_STARTUP_CHECK
 
+// Tap terms
+#define TAPPING_TERM 135 // set to my prefered 135ms
+
+// Nkey rollover
+#define FORCE_NKRO
+
+// Combo Count, adjust this number later!
+#define COMBO_COUNT 1
+
+
 // Init encoder pads
 #define ENCODERS_PAD_A { B12 }
 #define ENCODERS_PAD_B { B13 }
