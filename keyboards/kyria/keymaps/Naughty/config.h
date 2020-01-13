@@ -46,11 +46,11 @@
 #define PERMISSIVE_HOLD
 
 // Init encoder pads
-#define ENCODERS_PAD_A { B12 }
-#define ENCODERS_PAD_B { B13 }
+/* #define ENCODERS_PAD_A { B12 } */
+/* #define ENCODERS_PAD_B { B13 } */
 
-#define ENCODERS_PAD_A { encoder1a, encoder2a }
-#define ENCODERS_PAD_B { encoder1b, encoder2b }
+// #define ENCODERS_PAD_A { encoder1a, encoder2a }
+// #define ENCODERS_PAD_B { encoder1b, encoder2b }
 // If encoders clockwise directions are incorrect you can swap the a and b pad definitions
 
 // the resolution can be specified in the same file (the default suggested is 4) might not need
@@ -58,8 +58,8 @@
 
 // split keyboards - different pinouts for the encoders on each half of a split keyboard,
 // you can define the pinout for the right half like this
-#define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
-#define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
+/* #define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a } */
+// #define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
 
 
 #define RGBLIGHT_SPLIT
