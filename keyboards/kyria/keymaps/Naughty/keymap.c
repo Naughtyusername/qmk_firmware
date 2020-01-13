@@ -79,10 +79,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *       Rotary: Counter Clock - ^ Clockwise - $ | Push -                                    Rotary: not sure
  */
     [_LOWER] = LAYOUT(
-      _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_GRV,                                     _______, _______, _______, _______, _______, _______,
-      _______, KC_HASH, KC_DLR,  KC_LCPO, KC_RPRN, KC_TILD,                                    _______, KC_EQL, KC_QUOT, KC_UNDS, KC_MINS,  _______,
-      _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, _______, _______, _______, _______, _______, _______, KC_AMPR, KC_PIPE,  KC_COMM, KC_DOT,  KC_BSLS,
-      _______, _______, _______, _______, LSFT_T(KC_SPC),     _______,  _______, _______, _______, _______
+      _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_GRV,                                                       _______, _______, _______, _______, _______, _______,
+      _______, KC_HASH, KC_DLR,  KC_LCPO, KC_RPRN, KC_TILD,                                                      _______, KC_EQL, KC_QUOT, KC_UNDS, KC_MINS,  _______,
+      _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, _______, _______, _______,                  _______, _______, _______, KC_AMPR, KC_PIPE,  KC_COMM, KC_DOT,  KC_BSLS,
+                          _______, _______, _______, _______, LSFT_T(KC_SPC),                  _______,  _______, _______, _______, _______
     ),
 /*
  * Raise Layer: Number keys
@@ -100,10 +100,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                  Rotary: not sure                                                                Rotary: 0 when pressed, for now
  */
     [_RAISE] = LAYOUT(
-      _______, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,                                                  KC_6, KC_7, KC_8, KC_9, KC_0,    _______,
-      _______, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,                                              _______, KC_4, KC_5, KC_6, _______, _______,
-      _______, KC_F6,     KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F11, KC_F12,          _______, _______,  _______, KC_1, KC_2, KC_3, _______, _______,
-      _______, _______, _______, _______, _______,                                _______, _______, _______, _______,   KC_0
+      _______, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,                                               KC_6,    KC_7, KC_8, KC_9, KC_0,    _______,
+      _______, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,                                             _______,  KC_4, KC_5, KC_6, _______, _______,
+      _______, KC_F6,     KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F11, KC_F12,          _______, _______, _______,  KC_1, KC_2, KC_3, _______, _______,
+                                _______, _______, _______, _______, _______,          _______, _______, _______, _______,   KC_0
     ),
 /*
  * Adjust Layer: Layer switching, media controls,firmware reset, not sure what else.
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RESET, TO(_BASE), _______, _______, _______, _______,                                         _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                         _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______,
-      KC_MUTE, _______, _______, _______, _______,                                                  _______, _______, _______, _______, KC_MPLY
+                                 KC_MUTE, _______, _______, _______, _______,     _______, _______, _______, _______, KC_MPLY
                        ),
 
  /*
@@ -146,10 +146,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
  [_VIKEYS] = LAYOUT(
-       KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,                   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
-       KC_BSPC,   KC_A, KC_S,  KC_D,   KC_F, KC_G,                                   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-       KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, KC_B, _______, _______,  _______, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
-                                         _______, _______, _______, _______, KC_SPC,                _______, _______,  _______, _______,  _______
+       KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,                                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
+       KC_BSPC,   KC_A, KC_S,  KC_D,   KC_F, KC_G,                                                       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+       KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, KC_B, _______, _______,    _______, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
+                                         _______, _______, _______, _______, KC_SPC,   _______, _______,  _______, _______,  _______
                     ),
 
 /*
@@ -257,36 +257,50 @@ void oled_task_user(void) {
 }
 #endif
 
-#define MEDIA_KEY_DELAY 10
-    // reference if needed https://www.reddit.com/r/olkb/comments/9jzbg1/help_with_rotary_encoder_code/
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
     // Left encoder
-    uint16_t held_keycode_timer = timer_read();
     if (index == 0) {
         switch(biton32(layer_state)) {
-            case 1:
+            case _BASE:
                 if (clockwise) {
-                    register_code(KC_VOLU);
-                    while(timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) {
-                        // no-op
-                    }
-                    tap_code(KC_MUTE); // not sure if needed when already defined in the layer map
-                    unregister_code(KC_VOLU);
+                    tap_code(KC_VOLU);
                 } else {
                     tap_code(KC_VOLD);
                 }
+                break;
+        case _LOWER:
+        case _RAISE:
+        case _ADJUST:
+        case _VIKEYS:
+        default: break;
         }
     }
-
     // Right encoder
-    if (index == 0) {
+    if (index == 1) {
+        switch(biton32(layer_state)) {
+        case _BASE:
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+            break;
+        case _LOWER:
+        case _RAISE:
+        case _ADJUST:
+        case _VIKEYS:
+        default: break;
+        }
 
-        // ...
     }
 }
 #endif
-    /*
+/*
+
+ while(timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) {
+     // no-op
+ }
          // Volume control
          if (clockwise) {
              tap_code(KC_VOLU);
