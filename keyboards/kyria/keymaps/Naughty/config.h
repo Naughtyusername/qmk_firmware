@@ -42,6 +42,8 @@
 // Combo Count, adjust this number later!
 #define COMBO_COUNT 1
 
+// permissive hold
+#define PERMISSIVE_HOLD
 
 // Init encoder pads
 #define ENCODERS_PAD_A { B12 }
@@ -52,14 +54,12 @@
 // If encoders clockwise directions are incorrect you can swap the a and b pad definitions
 
 // the resolution can be specified in the same file (the default suggested is 4) might not need
- #define ENCODER_RESOLUTION 4
+#define ENCODER_RESOLUTION 4
 
 // split keyboards - different pinouts for the encoders on each half of a split keyboard,
 // you can define the pinout for the right half like this
 #define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
 #define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
 
-// permissive hold
-#define PERMISSIVE_HOLD
 
 #define RGBLIGHT_SPLIT

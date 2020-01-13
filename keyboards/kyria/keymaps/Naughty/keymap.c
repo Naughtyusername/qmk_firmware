@@ -52,16 +52,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Delete |   Z  |   X  |   C  |   V  |   B  |      |      |  |      |      |   N  |   M  | ,  < | . >  | /  ? | Tab    |
  * |        |LTRais|      |      |      |Lower |      |      |  |      |      | Lower|      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      | Space|  |      |      |      |      |      |
+ *                        |      | CAPs |      |      | Space|  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
- *                  Rotary: Home and end | Push not sure                                        Rotary: PG up PG down | push not sure
+ *                  Rotary: Home and end | Push not sure Maybe caps, ill try when i get it.     Rotary: PG up PG down | push not sure
  */
     [_BASE] = LAYOUT(
-      KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
-      KC_BSPC,   LALT_T(KC_A) LCTL_T(KC_S),   LSFT_(KC_D),   LGUI_T(KC_F), KC_G,    KC_H, RGUI_T(KC_J),    RSFT_T(KC_K),    RCTL_T(KC_L),    RALT_T(KC_SCLN), KC_ENT,
-      KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, LT(_LOWER, KC_B), LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
-              _______, _______, _______, _______, KC_SPC,          _______, _______, _______, _______,  _______, _______
+      KC_ESC,  KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,                                 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
+      KC_BSPC, LALT_T(KC_A) LCTL_T(KC_S),   LSFT_(KC_D),   LGUI_T(KC_F), KC_G,                  KC_H, RGUI_T(KC_J),    RSFT_T(KC_K),    RCTL_T(KC_L),    RALT_T(KC_SCLN), KC_ENT,
+      KC_DEL,  LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, LT(_LOWER, KC_B),  _______, _______,   LT(_LOWER, KC_N), KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
+                                          _______, KC_CAPS, _______, _______, KC_SPC,           _______, _______, _______, _______, _______
     ),
 /*
  * Lower Layer: Symbols
@@ -90,9 +90,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |   1  |  2   |  3   |  4   |  5   |                              |  6   |   7  |  8   |  9   |  0   |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  F1  | F2   | F3   | F4   | F5   |                              |      |   4  |  5   |  6   |      |        |
+ * |        |  F1  |  F2  | F3   | F4   | F5   |                              |      |   4  |  5   |  6   |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        | F6   |  F7  | F8   | F9   | F10  | F11  | F12  |  |      |      |      |   1  |  2   |  3   |      |        |
+ * |        |  F6  |  F7  | F8   | F9   | F10  | F11  | F12  |  |      |      |      |   1  |  2   |  3   |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |  0   |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -109,37 +109,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Layer switching, media controls,firmware reset, not sure what else.
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * | RESET  | TO1  | TO4  | TO5  | TO6  |      |                              |      |      |      |      |      |        |
+ * | RESET  | TO1  | TO5  | TO6  | TO7  | TO8  |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |MPlay|
  *                        |      |      |      |      |      |  |      |      |      |      |     |
- *                        |      |      |      |      |      |  |      |      |      |      |     |
- *                        `----------------------------------'  `----------------------------------'
- *        Rotary: clock - vol up | counter - vol down | push - mute               Rotary: clock - next media | counter - Prev media | push -
+ *                        `----------------------------------'  `---------------------------------'
+ *        Rotary: clock - vol up | counter - vol down | push - mute               Rotary: clock - next media | counter - Prev media | push - pause
  */
     [_ADJUST] = LAYOUT(
-    RESET, TO(_BASE), TO(), TO(), TO(), TO(), _______,     _______, _______, _______, _______, _______,
+    RESET, TO(_BASE), _______, _______, _______, _______,     _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______,              _______, _______, _______, _______, _______
+    KC_MUTE, _______, _______, _______, _______,              _______, _______, _______, _______, KC_MPLY
                        ),
 
  /*
   * VI Keys Layer:
   * ,-------------------------------------------.                              ,-------------------------------------------.
-  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+  * | Esc    | Q    |   W  |  E   |  R   |  T   |                              |   Y  |  U   |  I   |  O   |  P   |        |
   * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
   * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+  * | BkSpc  |  A   |  S   |   D  |   F  |   G  |                              |  H   |  J   |  K   |  L   |  ;   |enter   |
   * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
   * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+  * | DEl    |  Z   |  X   |   C  |  V   |  B   |      |      |  |      |      |  N   |  M   |  ,   |  .   |  /   |tab     |
   * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
   * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-  *                        |      |      |      |      |      |  |      |      |      |      |      |
+  *                        |      |      |      |      |Space |  |      |      |      |      |      |
   *                        |      |      |      |      |      |  |      |      |      |      |      |
   *                        `----------------------------------'  `----------------------------------'
   *                 Rotary: counter - ^ clock - $ push - idk                                  Rotary: counter - clock - push
@@ -301,40 +301,51 @@ void oled_task_user(void) {
 }
 #endif
 
+#define MEDIA_KEY_DELAY 10
+    // reference if needed https://www.reddit.com/r/olkb/comments/9jzbg1/help_with_rotary_encoder_code/
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
+    // Left encoder
+    uint16_t held_keycode_timer = timer_read();
     if (index == 0) {
-        // Volume control
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
+        switch(biton32(layer_state)) {
+            case 1:
+                if (clockwise) {
+                    register_code(KC_VOLU);
+                    while(timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) (
+                        // no-op
+                                                                               }
+                    tap_code(KC_MUTE); // not sure if needed when already defined in the layer map
+                    unregister_code(KC_VOLU);
+                } else {
+                }
         }
     }
-    else if (index == 1) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
+
+    // Right encoder
+    if (index == 0) {
+
+        // ...
     }
 }
-#endif
 
-/* callbacks - not sure if needed? https://beta.docs.qmk.fm/features/feature_encoders */
-/* void encoder_update_user(uint8_t index, bool clockwise) { */
-    /* if (index == 0) {/\* First encoder *\/ */
-        /* if (clockwise) { */
-            /* tap_code(KC_PGDN); */
-        /* } else { */
-                /* tap_code(KC_PGUP); */
-            /* } */
-    /* } else if (index == 1) { /\* Second encoder *\/ */
-        /* if (clockwise) { */
-            /* tap_code(KC_UP); */
-        /* } else { */
-               /* tap_code(KC_DOWN); */
-            /* } */
-        /* } */
-/* } */
+#endif
+    /*
+         // Volume control
+         if (clockwise) {
+             tap_code(KC_VOLU);
+         } else {
+             tap_code(KC_VOLD);
+         }
+     }
+
+     /* Right encoder
+     else if (index == 1) {
+         // Page up/Page down
+         if (clockwise) {
+             tap_code(KC_PGDN);
+         } else {
+             tap_code(KC_PGUP);
+         }
+            }
+*/
