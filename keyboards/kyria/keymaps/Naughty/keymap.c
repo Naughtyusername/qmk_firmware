@@ -58,10 +58,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                  Rotary: Home and end | Push not sure Maybe caps, ill try when i get it.     Rotary: PG up PG down | push not sure
  */
     [_BASE] = LAYOUT(
-      KC_ESC,  KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,                                 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
-      KC_BSPC, LALT_T(KC_A) LCTL_T(KC_S),   LSFT_(KC_D),   LGUI_T(KC_F), KC_G,                  KC_H, RGUI_T(KC_J),    RSFT_T(KC_K),    RCTL_T(KC_L),    RALT_T(KC_SCLN), KC_ENT,
-      KC_DEL,  LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, LT(_LOWER, KC_B),  _______, _______,   LT(_LOWER, KC_N), KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
-                                          _______, KC_CAPS, _______, _______, KC_SPC,           _______, _______, _______, _______, _______
+      KC_ESC,  KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,                                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
+      KC_BSPC, LALT_T(KC_A), LCTL_T(KC_S),   LSFT_T(KC_D),   LGUI_T(KC_F), KC_G,                                       KC_H, RGUI_T(KC_J),    RSFT_T(KC_K),    RCTL_T(KC_L),    RALT_T(KC_SCLN), KC_ENT,
+      KC_DEL,  LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, LT(_LOWER, KC_B), _______, _______,       _______, _______,   LT(_LOWER, KC_N), KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
+                                                 _______, KC_CAPS, _______, _______, KC_SPC,       _______, _______, _______, _______, _______
     ),
 /*
  * Lower Layer: Symbols
@@ -99,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  *                  Rotary: not sure                                                                Rotary: 0 when pressed, for now
  */
-    [_RAISE] = LAYOUT  (
-      _______, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,                                        KC_6,    KC_7, KC_8, KC_9, KC_0,    _______,
-      _______, KC_F1,      KC_F2,    KC_F3,    KC_F4,    KC_F5,                                   _______, KC_4, KC_5, KC_6, _______, _______,
-      _______, KC_F6,      KC_F7,    KC_F8,    KC_F9,    KC_F10, KC_F11, KC_F12,                  _______, KC_1, KC_2, KC_3, _______, _______,
-      _______, _______, _______, _______, _______,                         _______, _______, _______, _______,   KC_0
+    [_RAISE] = LAYOUT(
+      _______, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,                                                  KC_6, KC_7, KC_8, KC_9, KC_0,    _______,
+      _______, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,                                              _______, KC_4, KC_5, KC_6, _______, _______,
+      _______, KC_F6,     KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F11, KC_F12,          _______, _______,  _______, KC_1, KC_2, KC_3, _______, _______,
+      _______, _______, _______, _______, _______,                                _______, _______, _______, _______,   KC_0
     ),
 /*
  * Adjust Layer: Layer switching, media controls,firmware reset, not sure what else.
@@ -121,10 +121,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        Rotary: clock - vol up | counter - vol down | push - mute               Rotary: clock - next media | counter - Prev media | push - pause
  */
     [_ADJUST] = LAYOUT(
-    RESET, TO(_BASE), _______, _______, _______, _______,     _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,
-    KC_MUTE, _______, _______, _______, _______,              _______, _______, _______, _______, KC_MPLY
+      RESET, TO(_BASE), _______, _______, _______, _______,                                         _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,                                         _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______,
+      KC_MUTE, _______, _______, _______, _______,                                                  _______, _______, _______, _______, KC_MPLY
                        ),
 
  /*
@@ -146,16 +146,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
  [_VIKEYS] = LAYOUT(
-       KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
-       KC_BSPC,   KC_A, KC_S,  KC_D,   KC_F, KC_G,    KC_H, KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-       KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
-                            _______, _______, _______, _______, KC_SPC,          _______, _______, _______, _______,  _______, _______
-
+       KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,                   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
+       KC_BSPC,   KC_A, KC_S,  KC_D,   KC_F, KC_G,                                   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+       KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, KC_B, _______, _______,  _______, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
+                                         _______, _______, _______, _______, KC_SPC,                _______, _______,  _______, _______,  _______
+                    ),
 
 /*
 // * Layer template
 // *
-// * |        |      |      |      |      |      |                              |      |      |      |      |      |        | */
+// * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
 // * ,-------------------------------------------.                              ,-------------------------------------------.
 // * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
 // * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
@@ -178,56 +178,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 //                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 //     ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
 
 };
-*/
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
@@ -269,7 +222,7 @@ static void render_status(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
+        case _BASE:
             oled_write_P(PSTR("Default\n"), false);
             break;
         case _LOWER:
@@ -280,6 +233,9 @@ static void render_status(void) {
             break;
         case _ADJUST:
             oled_write_P(PSTR("Adjust\n"), false);
+            break;
+        case _VIKEYS:
+            oled_write_P(PSTR("ViKeys\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
@@ -312,12 +268,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             case 1:
                 if (clockwise) {
                     register_code(KC_VOLU);
-                    while(timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) (
+                    while(timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) {
                         // no-op
-                                                                               }
+                    }
                     tap_code(KC_MUTE); // not sure if needed when already defined in the layer map
                     unregister_code(KC_VOLU);
                 } else {
+                    tap_code(KC_VOLD);
                 }
         }
     }
@@ -328,7 +285,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         // ...
     }
 }
-
 #endif
     /*
          // Volume control
@@ -339,7 +295,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
          }
      }
 
-     /* Right encoder
+     // Right encoder
      else if (index == 1) {
          // Page up/Page down
          if (clockwise) {
