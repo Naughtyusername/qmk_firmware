@@ -38,6 +38,20 @@ enum layers {
 };
 
 
+// Leader key stuff
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+    LEADER_DICTONARY() {
+        leading = false;
+        leader_end();
+
+        SEQ_ONE_KEY(KC_A) { // inline code
+            SEND_STRING(SS_LCTRL(SS_LALT("\\")));
+        }
+    }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Base Layer: BASE
@@ -55,11 +69,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      | CAPs |      |      | Space|  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
- *                  Rotary: Home and end | Push not sure Maybe caps, ill try when i get it.     Rotary: PG up PG down | push not sure
+ *                  Rotary: clock - end | counter - home | Push - |     Rotary: clock - PGDN | counter - PGUP | push - unsure |
  */
     [_BASE] = LAYOUT(
-      KC_ESC,  KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,                                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
-      KC_BSPC, LALT_T(KC_A), LCTL_T(KC_S),   LSFT_T(KC_D),   LGUI_T(KC_F), KC_G,                                       KC_H, RGUI_T(KC_J),    RSFT_T(KC_K),    RCTL_T(KC_L),    RALT_T(KC_SCLN), KC_ENT,
+      KC_ESC,  KC_Q,   KC_W,   KC_E,       LT(_VIKEYS, KC_R), KC_T,                                                    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
+      KC_BSPC, LALT_T(KC_A), LCTL_T(KC_S), LSFT_T(KC_D), LGUI_T(KC_F), KC_G,                                           KC_H, RGUI_T(KC_J),    RSFT_T(KC_K),    RCTL_T(KC_L),    RALT_T(KC_SCLN), KC_ENT,
       KC_DEL,  LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, LT(_LOWER, KC_B), _______, _______,       _______, _______,   LT(_LOWER, KC_N), KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
                                                  _______, KC_CAPS, _______, _______, KC_SPC,       _______, _______, _______, _______, _______
     ),
@@ -86,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 /*
  * Raise Layer: Number keys
- *
+ * w
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |   1  |  2   |  3   |  4   |  5   |                              |  6   |   7  |  8   |  9   |  0   |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
@@ -100,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                  Rotary: not sure                                                                Rotary: 0 when pressed, for now
  */
     [_RAISE] = LAYOUT(
-      _______, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,                                               KC_6,    KC_7, KC_8, KC_9, KC_0,    _______,
+      _______, KC_1,      KC_2,    KC_3,    KC_4,    KC_5,                                               KC_6,    KC_7, KC_8, KC_9, KC_0,    _______,
       _______, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,                                             _______,  KC_4, KC_5, KC_6, _______, _______,
       _______, KC_F6,     KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F11, KC_F12,          _______, _______, _______,  KC_1, KC_2, KC_3, _______, _______,
                                 _______, _______, _______, _______, _______,          _______, _______, _______, _______,   KC_0
@@ -133,10 +147,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * | Esc    | Q    |   W  |  E   |  R   |  T   |                              |   Y  |  U   |  I   |  O   |  P   |        |
   * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
   * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-  * | BkSpc  |  A   |  S   |   D  |   F  |   G  |                              |  H   |  J   |  K   |  L   |  ;   |enter   |
+  * | BkSpc  |  A   |  S   |   D  |   F  |  G   |                              |   H  |  J   |  K   |  L   |  ;   |enter   |
   * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
   * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-  * | DEl    |  Z   |  X   |   C  |  V   |  B   |      |      |  |      |      |  N   |  M   |  ,   |  .   |  /   |tab     |
+  * | DEl    |  Z   |  X   |   C  |  V   |  B   |      |      |  |      |      |   N  |  M   |  ,   |  .   |  /   |tab     |
   * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
   * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
   *                        |      |      |      |      |Space |  |      |      |      |      |      |
@@ -146,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
  [_VIKEYS] = LAYOUT(
-       KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,                                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
+       KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(VIKEYS, KC_R), KC_T,                                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
        KC_BSPC,   KC_A, KC_S,  KC_D,   KC_F, KC_G,                                                       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
        KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, KC_B, _______, _______,    _______, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
                                          _______, _______, _______, _______, KC_SPC,   _______, _______,  _______, _______,  _______
@@ -188,7 +202,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	return OLED_ROTATION_180;
+    return OLED_ROTATION_180;
 }
 
 static void render_kyria_logo(void) {
@@ -223,7 +237,7 @@ static void render_status(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case _BASE:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_P(PSTR("BASE\n"), false);
             break;
         case _LOWER:
             oled_write_P(PSTR("Lower\n"), false);
@@ -296,26 +310,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
-/*
-
- while(timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY) {
-     // no-op
- }
-         // Volume control
-         if (clockwise) {
-             tap_code(KC_VOLU);
-         } else {
-             tap_code(KC_VOLD);
-         }
-     }
-
-     // Right encoder
-     else if (index == 1) {
-         // Page up/Page down
-         if (clockwise) {
-             tap_code(KC_PGDN);
-         } else {
-             tap_code(KC_PGUP);
-         }
-            }
-*/
