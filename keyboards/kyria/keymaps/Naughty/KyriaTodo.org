@@ -4,5 +4,10 @@
 * Todo
  *Consider changing the MT windows key to G and H or something else. its useful, i need it
  but its not so important that it needs to be right on homerow, i think. worth trying another spot
+ Change the symbols layer again, not super happy with it. utalize thumb cluster more.
 
+ *use tap dance or leader to allow us to toggle into vi mode and out of vi mode
+ * Leader key layer swapping?
+
+ *
 probably set debounce (i use 5 on my planck)

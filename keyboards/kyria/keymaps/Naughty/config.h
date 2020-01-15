@@ -95,6 +95,28 @@
 #define QMK_KEYS_PER_SCAN 4
 
 
+
+
+
+
+
+
+
+// disable for more firmware space
+// #define no_action_macro
+// #define no_action_function
+
+#ifndef no_debug
+#define no_debug
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
+//
+//
+//
+//
+
 /*
   If you define these options you will disable the associated feature, which can save on code size.
 
