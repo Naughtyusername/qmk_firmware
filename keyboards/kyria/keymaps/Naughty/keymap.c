@@ -1,4 +1,5 @@
 /* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +35,8 @@ enum layers {
     _RAISE,
     _ADJUST,
     _VIKEYS,
-
+    _GAMING,
+    _ROGUE
 };
 
 
@@ -42,7 +44,10 @@ enum layers {
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
-    LEADER_DICTONARY() {
+    // use mnemonics, Leader f ... for file management, etc.
+    // todo: leader keys to do my display fusion window managment
+    // todo: ...
+    LEADER_DICTIONARY() {
         leading = false;
         leader_end();
 
@@ -50,7 +55,7 @@ void matrix_scan_user(void) {
             SEND_STRING(SS_LCTRL(SS_LALT("\\")));
         }
     }
-}
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -63,19 +68,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |     BS |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : | Enter  |
  * |        | MTalt|MTctrl|MTshft|MTwin |      |                              |      |MTwin |MTshft|MTctrl|MTalt |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | Delete |   Z  |   X  |   C  |   V  |   B  |      |      |  |      |      |   N  |   M  | ,  < | . >  | /  ? | Tab    |
+ * | Delete |   Z  |   X  |   C  |   V  |   B  |      |      |  |Leader|      |   N  |   M  | ,  < | . >  | /  ? | Tab    |
  * |        |LTRais|      |      |      |Lower |      |      |  |      |      | Lower|      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      | CAPs |      |      | Space|  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      | CAPs |      |      | Space|  |Enter |      |      |      |      |
+ *                        |      |      |      |      | Raise|  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  *                  Rotary: clock - end | counter - home | Push - |     Rotary: clock - PGDN | counter - PGUP | push - unsure |
  */
     [_BASE] = LAYOUT(
       KC_ESC,  KC_Q,   KC_W,   KC_E,       LT(_VIKEYS, KC_R), KC_T,                                                    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
       KC_BSPC, LALT_T(KC_A), LCTL_T(KC_S), LSFT_T(KC_D), LGUI_T(KC_F), KC_G,                                           KC_H, RGUI_T(KC_J),    RSFT_T(KC_K),    RCTL_T(KC_L),    RALT_T(KC_SCLN), KC_ENT,
-      KC_DEL,  LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, LT(_LOWER, KC_B), _______, _______,       _______, _______,   LT(_LOWER, KC_N), KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
-                                                 _______, KC_CAPS, _______, _______, KC_SPC,       _______, _______, _______, _______, _______
+      KC_DEL,  LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, LT(_LOWER, KC_B), _______, _______,       KC_LEAD, _______,   LT(_LOWER, KC_N), KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
+                                     _______, KC_CAPS, _______, _______, LT(_RAISE, KC_SPC),       KC_ENT, _______, _______, _______, _______
     ),
 /*
  * Lower Layer: Symbols
@@ -83,20 +88,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |  !   |  @   |  {   |  }   |  `   |                              |      |  +   |  -   |  *   |  /   |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  #   |  $   | (LCPO|  )   |  ~   |                              |      |  =   |  '   |  _   |  -   |        |
+ * |        |  #   |  $   | (LCPO|  )   |  ~   |                              |      |  =   |  -   |  _   |  '   |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  %   |  ^   |  [   |  ]   |      |      |      |  |      |      |      |  &   |  |   |  .   |  \   |        |
+ * |        |  %   |  ^   |  [   |  ]   |      |      |      |  |      |      |  &   |  |   |  <   |  >   |  \   |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      | Prnt |      |      |Space |  |      |      |      |      |      |
+ *                        |      | Prnt |      |      |Space |  |      |      |  "   |      |      |
  *                        |      |      |      |      |Shift |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  *       Rotary: Counter Clock - ^ Clockwise - $ | Push -                                    Rotary: not sure
  */
     [_LOWER] = LAYOUT(
-      _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_GRV,                                                       _______, _______, _______, _______, _______, _______,
-      _______, KC_HASH, KC_DLR,  KC_LCPO, KC_RPRN, KC_TILD,                                                      _______, KC_EQL, KC_QUOT, KC_UNDS, KC_MINS,  _______,
-      _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, _______, _______, _______,                  _______, _______, _______, KC_AMPR, KC_PIPE,  KC_COMM, KC_DOT,  KC_BSLS,
-                          _______, _______, _______, _______, LSFT_T(KC_SPC),                  _______,  _______, _______, _______, _______
+      _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_GRV,                                                       _______, KC_PLUS, KC_MINS, KC_ASTR, KC_SLSH, _______,
+      _______, KC_HASH, KC_DLR,  KC_LCPO, KC_RPRN, KC_TILD,                                                      _______, KC_EQL, KC_MINS, KC_UNDS, KC_QUOT,  _______,
+      _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, _______, _______, _______,                  _______, _______, KC_AMPR, KC_PIPE,  KC_LT, KC_GT,  KC_BSLS,   _______,
+                          _______, KC_PSCR, _______, _______, LSFT_T(KC_SPC),                  _______,  _______, KC_DQT, _______, _______
     ),
 /*
  * Raise Layer: Number keys
@@ -123,9 +128,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Layer switching, media controls,firmware reset, not sure what else.
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * | RESET  | TO1  | TO5  | TO6  | TO7  | TO8  |                              |      |      |      |      |      |        |
+ * | RESET  | TO1  |GAMING|ROGUE |      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |                              |Left  | Down | Up   | Right|      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -135,8 +140,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        Rotary: clock - vol up | counter - vol down | push - mute               Rotary: clock - next media | counter - Prev media | push - pause
  */
     [_ADJUST] = LAYOUT(
-      RESET, TO(_BASE), _______, _______, _______, _______,                                         _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______,                                         _______, _______, _______, _______, _______, _______,
+      RESET, TO(_BASE), TO(_GAMING), TO(_ROGUE), _______, _______,                                  _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,                                         KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______,
                                  KC_MUTE, _______, _______, _______, _______,     _______, _______, _______, _______, KC_MPLY
                        ),
@@ -160,11 +165,65 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
  [_VIKEYS] = LAYOUT(
-       KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(VIKEYS, KC_R), KC_T,                                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
+       KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,                                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
        KC_BSPC,   KC_A, KC_S,  KC_D,   KC_F, KC_G,                                                       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
        KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, KC_B, _______, _______,    _______, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
                                          _______, _______, _______, _______, KC_SPC,   _______, _______,  _______, _______,  _______
                     ),
+// * Gaming Layer
+// *
+// * ,-------------------------------------------.                              ,-------------------------------------------.
+// * | Esc    | Q    |   W  |  E   |  R   |  T   |                              |   Y  |  U   |  I   |  O   |  P   |        |
+// * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+// * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+// * | BkSpc  |  A   |  S   |   D  |   F  |  G   |                              |   H  |  J   |  K   |  L   |  ;   |enter   |
+// * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+// * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+// * | DEl    |  Z   |  X   |   C  |  V   |  B   |      |      |  |      |      |   N  |  M   |  ,   |  .   |  /   |tab     |
+// * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+// * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+// *                        |      |      |      |      |Space |  |      |      |      |      |      |
+// *                        |      |      |      |      |      |  |      |      |      |      |      |
+// *                        `----------------------------------'  `----------------------------------'
+// *                  Rotary: not sure                                                                Rotary: not sure
+// *
+// *
+
+
+     [_GAMING] = LAYOUT(
+       KC_ESC,    KC_Q,   KC_W,   KC_E,   LT(_VIKEYS, KC_R), KC_T,                                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
+       KC_BSPC,   KC_A, KC_S,  KC_D,   KC_F, KC_G,                                                       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+       KC_DEL,    LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, KC_B, _______, _______,    _______, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
+                                         _______, _______, _______, _______, KC_SPC,   _______, _______,  _______, _______,  _______
+                        ),
+
+// * ROGUE
+// *
+// * ,-------------------------------------------.                              ,-------------------------------------------.
+// * |        |      |      |      |      |      |                              |      | N7   |  N8  | N9   |      |        |
+// * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+// * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+// * |        |      |      |      |      |      |                              |      | N4   |  N5  | N6   |      |        |
+// * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+// * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+// * |        |      |      |      |      |      |      |      |  |      |      |      | N1   |  N2  | N3   |      |        |
+// * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+// * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+// *                        |      |      |      |      |      |  |      |      |      | N0   |      |
+// *                        |      |      |      |      |      |  |      |      |      |      |      |
+// *                        `----------------------------------'  `----------------------------------'
+// *                  Rotary: not sure                                                                Rotary: not sure
+// *
+// *
+
+
+     [_ROGUE] = LAYOUT(
+       _______, _______, _______, _______, _______, _______,                                     _______, KC_KP_7, KC_KP_8, KC_KP_9, _______, _______,
+       _______, _______, _______, _______, _______, _______,                                     _______, KC_KP_4, KC_KP_5, KC_KP_6, _______, _______,
+       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, _______,
+       _______, _______, _______, _______, _______,                            _______, _______, _______, KC_KP_0, _______
+                           ),
+
 
 /*
 // * Layer template
@@ -236,23 +295,29 @@ static void render_status(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write_P(PSTR("BASE\n"), false);
-            break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
-            break;
-        case _RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
-            break;
-        case _VIKEYS:
-            oled_write_P(PSTR("ViKeys\n"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undefined\n"), false);
+    case _BASE:
+        oled_write_P(PSTR("BASE\n"), false);
+        break;
+    case _LOWER:
+        oled_write_P(PSTR("Lower\n"), false);
+        break;
+    case _RAISE:
+        oled_write_P(PSTR("Raise\n"), false);
+        break;
+    case _ADJUST:
+        oled_write_P(PSTR("Adjust\n"), false);
+        break;
+    case _VIKEYS:
+        oled_write_P(PSTR("ViKeys\n"), false);
+        break;
+    case _GAMING:
+        oled_write_P(PSTR("Gaming\n"), false);
+        break;
+    case _ROGUE:
+        oled_write_P(PSTR("Rogue\n"), false);
+        break;
+    default:
+        oled_write_P(PSTR("Undefined\n"), false);
     }
 
     // Host Keyboard LED Status
@@ -287,6 +352,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         case _RAISE:
         case _ADJUST:
         case _VIKEYS:
+        case _GAMING:
+        case _ROGUE:
         default: break;
         }
     }
@@ -304,6 +371,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         case _RAISE:
         case _ADJUST:
         case _VIKEYS:
+        case _GAMING:
+        case _ROGUE:
         default: break;
         }
 
