@@ -1,8 +1,8 @@
 *todo for kyria
 
 
-probably set debounce (i use 5 on my planck)
 * Todo
-***Ignore mod tap
-***Permissing Hold
-***Tapping force hold
+ *Consider changing the MT windows key to G and H or something else. its useful, i need it
+ but its not so important that it needs to be right on homerow, i think. worth trying another spot
+
+probably set debounce (i use 5 on my planck)
