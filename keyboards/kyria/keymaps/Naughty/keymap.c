@@ -51,11 +51,56 @@ void matrix_scan_user(void) {
         leading = false;
         leader_end();
 
-        SEQ_ONE_KEY(KC_A) { // inline code
-            SEND_STRING(SS_LCTRL(SS_LALT("\\")));
+        /*
+          Display fusion keybinds
+          ctrl win ,
+          ctrl win .
+          shift alt T
+          shift alt R
+          ctrl win k
+          ctrl win l
+          ctrl win g
+          ctrl win t
+
+
+          shift alt ctrl left
+          shift alt ctrl right
+          shift ctrl win g
+
+
+
+
+         */
+
+        /*
+        SEQ_ONE_KEY(KC_A) {
         }
-    }
+        SEQ_TWO_KEYS() {
+        }
+        SEQ_TWO_KEYS() {
+        }
+        SEQ_TWO_KEYS() {
+        }
+
+
+
+        SEQ_THREE_KEYS() {
+        }
+        SEQ_FOUR_KEYS() {
+
+        }
+        SEQ_FIVE_KEYS() {
+        */
+        }
 };
+
+    void leader_start(void) {
+        // sequence started.
+    };
+
+    void leader_end(void) {
+        // sequence ended
+    };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -209,7 +254,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // * |        |      |      |      |      |      |      |      |  |      |      |      | N1   |  N2  | N3   |      |        |
 // * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
 // * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-// *                        |      |      |      |      |      |  |      |      |      | N0   |      |
+// *                        |      |      |      |      |TOgame|  |      |      |      | N0   |      |
 // *                        |      |      |      |      |      |  |      |      |      |      |      |
 // *                        `----------------------------------'  `----------------------------------'
 // *                  Rotary: not sure                                                                Rotary: not sure
@@ -218,17 +263,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
      [_ROGUE] = LAYOUT(
-       _______, _______, _______, _______, _______, _______,                                     _______, KC_KP_7, KC_KP_8, KC_KP_9, _______, _______,
-       _______, _______, _______, _______, _______, _______,                                     _______, KC_KP_4, KC_KP_5, KC_KP_6, _______, _______,
-       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, _______,
-       _______, _______, _______, _______, _______,                            _______, _______, _______, KC_KP_0, _______
+       _______, _______, _______, _______, _______, _______,                                        _______, KC_KP_7, KC_KP_8, KC_KP_9, _______, _______,
+       _______, _______, _______, _______, _______, _______,                                        _______, KC_KP_4, KC_KP_5, KC_KP_6, _______, _______,
+       _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, _______,
+                                  _______, _______, _______, _______, _______,    _______, _______, _______,          KC_KP_0, _______
                            ),
 
 
 /*
 // * Layer template
 // *
-// * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
 // * ,-------------------------------------------.                              ,-------------------------------------------.
 // * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
 // * |        |      |      |      |      |      |                              |      |      |      |      |      |        |

@@ -30,20 +30,15 @@
   #define RGBLIGHT_VAL_STEP 8
 #endif
 
-
+ // split rgb
+ #define RGBLIGHT_SPLIT
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 #define SPLIT_USB_DETECT
 #define NO_USB_STARTUP_CHECK
 
-
-
-
 // Nkey rollover
 #define FORCE_NKRO
-
-// Combo Count, adjust this number later!
-// #define COMBO_COUNT 1
 
 // Tap terms
 #define TAPPING_TERM 140 // set to my prefered 135ms
@@ -79,10 +74,11 @@
 #define TAP_CODE_DELAY 10
 
 // leader key
-#define LEADER_TIMEOUT 350
+#define LEADER_TIMEOUT 200 // shorter timing because we ae using per key timing
 #define LEADER_PER_KEY_TIMING // sets the timer for leader key chords to run on each key press rather than overall
 
-#define RGBLIGHT_SPLIT
+
+
 
 // allows to use either side a the master. Loook at the documentation for information
 // https://docs.qmk.fm/#/config_options?id=setting-handedness
