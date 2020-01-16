@@ -59,7 +59,7 @@ void matrix_scan_user(void) {
           shift alt R
           ctrl win k
           ctrl win l
-          ctrl win g
+          ctrl win g f
           ctrl win t
 
 
