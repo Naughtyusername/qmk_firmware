@@ -53,6 +53,11 @@ enum layers {
 #define LGUI_MT LGUI_T(KC_F)
 #define RGUI_MT RGUI_T(KC_J)
 
+enum my_keycodes {
+                  MTALT = SAFE_RANGE,
+
+}
+
 //
 
 

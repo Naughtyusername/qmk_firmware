@@ -23,10 +23,10 @@ enum planck_layers {
   _LOWER,
   _RAISE,
   _ADJUST,
+  _VIKEYS,
   _NAV,
   _GAMING,
-  _ROGUE,
-
+  _ROGUE
 };
 
 #define LOWER MO(_LOWER)
@@ -34,94 +34,21 @@ enum planck_layers {
 
 // custom names to shorten mod tap lengths and such
 // Mod Taps
-#define LALT_MT LALT_T(KC_A)
-#define RALT_MT RALT_T(KC_SCLN)
+#define AL_A LALT_T(KC_A)
+#define AL_SCN RALT_T(KC_SCLN)
 
-#define LCTL_MT LCTL_T(KC_S)
-#define RCTL_MT RCTL_T(KC_L)
+#define CT_S LCTL_T(KC_S)
+#define CT_L RCTL_T(KC_L)
 
-#define LSFT_MT LSFT_T(KC_D)
-#define RSFT_MT RSFT_T(KC_K)
+#define SH_D LSFT_T(KC_D)
+#define SH_K RSFT_T(KC_K)
 
-#define LGUI_MT LGUI_T(KC_F)
-#define RGUI_MT RGUI_T(KC_J)
+#define GU_F LGUI_T(KC_F)
+#define GU_J RGUI_T(KC_J)
 
 //
 
-
-// Leader key stuff
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    // use mnemonics, Leader f ... for file management, etc.
-    // todo: leader keys to do my display fusion window managment
-    // todo: ...
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        /*
-          Display fusion keybinds
-          leader key W binds
-
-          ctrl win ,  - move window bottom left 25%
-          ctrl win .  - move window bottom right 25%
-          ctrl win k - Move window top right 25%
-          ctrl win l - Move window top left 25%
-          ctrl win g - move window bottom 50%
-          ctrl win t - move window top 50%
-
-          shift alt T - move window left monitor, scale appropreiately
-          shift alt R - move window right monitor, scale appropreiately
-
-          shift alt ctrl left - move window left, split 50%
-          shift alt ctrl right - move window right, split 50%
-          shift ctrl win g - maximixe window
-         */
-
-        SEQ_TWO_KEYS(KC_W, KC_DOT) { // move window bottom right 25%
-             SEND_STRING(SS_LCTL(SS_LGUI(".")));
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_COMM) { // move window bottom left 25%
-            SEND_STRING(SS_LCTL(SS_LGUI(",")));
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_K) { // move window top left 25%
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_L) { // move window top right 25%
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_G) { // move window bottom 50%
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_T) { //move window top 50%
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_I) { // move window left, scale appropreiately
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_O) { // move window right, scale appropreiately
-        }
-        // ...
-
-
-
-
-
-
-        }
-};
-
-    void leader_start(void) {
-        // sequence started.
-    };
-
-    void leader_end(void) {
-        // sequence ended
-    };
-
+// clang format
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -137,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_BASE] = LAYOUT_planck_grid(
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
-    KC_BSPC, LALT_MT, LCTL_MT, LSFT_MT, LGUI_MT, KC_G,    KC_H, RGUI_MT, RSFT_MT, RCTL_MT, RALT_MT, KC_ENT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_B),  LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
+    KC_ESC,  KC_Q,    LT(_NAV, KC_W),    KC_E,    LT(_VIKEYS, KC_R),    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
+    KC_BSPC, AL_A,    CT_S,    SH_D,    GU_F,    KC_G,    KC_H,    GU_J,    SH_K,    CT_L,    AL_SCN,  KC_ENT,
+    KC_DEL, LT(_RAISE, KC_Z),    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_B),  LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB ,
     _______, _______, _______, _______, LOWER,   KC_SPC,  KC_SPC,  RAISE,   _______, _______, _______, _______
 ),
 
@@ -187,14 +114,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |Lower |             |Raise |      |      |      |      |
+ * |RGB/IO|      |      |      |Lower |             |Raise |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
     RESET, TO(_BASE), TO(_GAMING), TO(_ROGUE), _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MSTP, KC_MPLY, _______,
+    RGB_TOG, _______, _______, _______, LOWER, KC_SPC, KC_SPC, RAISE, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
                                ),
 
 /* Nav
@@ -278,15 +205,120 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
+void matrix_init_user(void) {
+    // rbglight_enable();
+    // rgblight_setrgb(0x00, 0xFF, 0xFF);
+};
+
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+
 }
 
+// Leader key stuff
+LEADER_EXTERNS();
+void matrix_scan_user(void) {
+    // use mnemonics, Leader f ... for file management, etc.
+    // todo: leader keys to do my display fusion window managment
+    // todo: ...
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
+
+        /*
+          Display fusion keybinds
+          leader key W binds
+
+          ctrl win ,  - move window bottom left 25%
+          ctrl win .  - move window bottom right 25%
+          ctrl win k - Move window top right 25%
+          ctrl win l - Move window top left 25%
+          ctrl win g - move window bottom 50%
+          ctrl win t - move window top 50%
+
+          shift alt T - move window left monitor, scale appropreiately
+          shift alt R - move window right monitor, scale appropreiately
+
+          shift alt ctrl left - move window left, split 50%
+          shift alt ctrl right - move window right, split 50%
+          shift ctrl win g - maximixe window
+         */
+
+        SEQ_TWO_KEYS(KC_W, KC_DOT) { // move window bottom right 25%
+             SEND_STRING(SS_LCTL(SS_LGUI(".")));
+        }
+
+        SEQ_TWO_KEYS(KC_W, KC_COMM) { // move window bottom left 25%
+            SEND_STRING(SS_LCTL(SS_LGUI(",")));
+        }
+
+        SEQ_TWO_KEYS(KC_W, KC_K) { // move window top left 25%
+        }
+
+        SEQ_TWO_KEYS(KC_W, KC_L) { // move window top right 25%
+        }
+
+        SEQ_TWO_KEYS(KC_W, KC_G) { // move window bottom 50%
+        }
+
+        SEQ_TWO_KEYS(KC_W, KC_T) { //move window top 50%
+        }
+
+        SEQ_TWO_KEYS(KC_W, KC_I) { // move window left, scale appropreiately
+        }
+
+        SEQ_TWO_KEYS(KC_W, KC_O) { // move window right, scale appropreiately
+        }
+        // ...
+
+        // synergy commands
+
+        // .. Lead, a(pplications), s(ynergy), s(wap) - swap to other computer.
+
+
+
+
+
+        }
+};
+
+    void leader_start(void) {
+        // sequence started.
+    };
+
+    void leader_end(void) {
+        // sequence ended
+    };
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    switch (keycode) {
+    case _LOWER:
+        break;
+    case _RAISE:
+        break;
+    case _ADJUST:
+        break;
     case _BASE:
-      return false;
-      break;
-  }
-  return true;
+        // ...
+        break;
+    case _VIKEYS:
+        // ...
+        break;
+    case _NAV:
+        // ...
+        break;
+    case _GAMING:
+        // ...
+        break;
+    case _ROGUE:
+        // ...
+        break;
+    default:
+        break;
+    }
+
+    return true;
 }
