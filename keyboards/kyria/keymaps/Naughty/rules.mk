@@ -13,7 +13,7 @@ UNICODE_ENABLE = yes      		 # Unicode
 
 SPLIT_KEYBOARD = yes
 
-LEADER_ENABLE = yes
+LEADER_ENABLE = yes              # enables leader key functionality
 
 # BOOTLOADER = atmel-dfu
 

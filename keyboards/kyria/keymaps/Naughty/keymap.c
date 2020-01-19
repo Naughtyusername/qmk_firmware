@@ -26,7 +26,7 @@
                                             -Naughtyusername
 */
 
-
+// git fetch upstream - git pull upstream master - git push origin master -- or just use magit and ignore gits annoyance
 #include QMK_KEYBOARD_H
 
 enum layers {
@@ -38,6 +38,22 @@ enum layers {
     _GAMING,
     _ROGUE
 };
+
+// custom names to shorten mod tap lengths and such
+// Mod Taps
+#define LALT_MT LALT_T(KC_A)
+#define RALT_MT RALT_T(KC_SCLN)
+
+#define LCTL_MT LCTL_T(KC_S)
+#define RCTL_MT RCTL_T(KC_L)
+
+#define LSFT_MT LSFT_T(KC_D)
+#define RSFT_MT RSFT_T(KC_K)
+
+#define LGUI_MT LGUI_T(KC_F)
+#define RGUI_MT RGUI_T(KC_J)
+
+//
 
 
 // Leader key stuff
@@ -53,44 +69,55 @@ void matrix_scan_user(void) {
 
         /*
           Display fusion keybinds
-          ctrl win ,
-          ctrl win .
-          shift alt T
-          shift alt R
-          ctrl win k
-          ctrl win l
-          ctrl win g f
-          ctrl win t
+          leader key W binds
 
+          ctrl win ,  - move window bottom left 25%
+          ctrl win .  - move window bottom right 25%
+          ctrl win k - Move window top right 25%
+          ctrl win l - Move window top left 25%
+          ctrl win g - move window bottom 50%
+          ctrl win t - move window top 50%
 
-          shift alt ctrl left
-          shift alt ctrl right
-          shift ctrl win g
+          shift alt T - move window left monitor, scale appropreiately
+          shift alt R - move window right monitor, scale appropreiately
 
-
-
-
+          shift alt ctrl left - move window left, split 50%
+          shift alt ctrl right - move window right, split 50%
+          shift ctrl win g - maximixe window
          */
 
-        /*
-        SEQ_ONE_KEY(KC_A) {
+        SEQ_TWO_KEYS(KC_W, KC_DOT) { // move window bottom right 25%
+             SEND_STRING(SS_LCTL(SS_LGUI(".")));
         }
-        SEQ_TWO_KEYS() {
+
+        SEQ_TWO_KEYS(KC_W, KC_COMM) { // move window bottom left 25%
+            SEND_STRING(SS_LCTL(SS_LGUI(",")));
         }
-        SEQ_TWO_KEYS() {
+
+        SEQ_TWO_KEYS(KC_W, KC_K) { // move window top left 25%
         }
-        SEQ_TWO_KEYS() {
+
+        SEQ_TWO_KEYS(KC_W, KC_L) { // move window top right 25%
         }
+
+        SEQ_TWO_KEYS(KC_W, KC_G) { // move window bottom 50%
+        }
+
+        SEQ_TWO_KEYS(KC_W, KC_T) { //move window top 50%
+        }
+
+        SEQ_TWO_KEYS(KC_W, KC_I) { // move window left, scale appropreiately
+        }
+
+        SEQ_TWO_KEYS(KC_W, KC_O) { // move window right, scale appropreiately
+        }
+        // ...
 
 
 
-        SEQ_THREE_KEYS() {
-        }
-        SEQ_FOUR_KEYS() {
 
-        }
-        SEQ_FIVE_KEYS() {
-        */
+
+
         }
 };
 
@@ -122,8 +149,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                  Rotary: clock - end | counter - home | Push - |     Rotary: clock - PGDN | counter - PGUP | push - unsure |
  */
     [_BASE] = LAYOUT(
-      KC_ESC,  KC_Q,   KC_W,   KC_E,       LT(_VIKEYS, KC_R), KC_T,                                                    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ESC,
-      KC_BSPC, LALT_T(KC_A), LCTL_T(KC_S), LSFT_T(KC_D), LGUI_T(KC_F), KC_G,                                           KC_H, RGUI_T(KC_J),    RSFT_T(KC_K),    RCTL_T(KC_L),    RALT_T(KC_SCLN), KC_ENT,
+      KC_ESC,  KC_Q,   KC_W,   KC_E,       LT(_VIKEYS, KC_R), KC_T,                                                   KC_Y, KC_U, KC_I, KC_O, KC_P, KC_ESC,
+      KC_BSPC, LALT_MT, LCTL_MT, LSFT_MT, LGUI_MT, KC_G,                                          KC_H, RGUI_MT, RSFT_MT, RCTL_MT, RALT_MT, KC_ENT,
       KC_DEL,  LT(_RAISE, KC_Z),   KC_X,   KC_C,   KC_V, LT(_LOWER, KC_B), _______, _______,       KC_LEAD, _______,   LT(_LOWER, KC_N), KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
                                      _______, KC_CAPS, _______, _______, LT(_RAISE, KC_SPC),       KC_ENT, _______, _______, _______, _______
     ),
@@ -133,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |  !   |  @   |  {   |  }   |  `   |                              |      |  +   |  -   |  *   |  /   |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  #   |  $   | (LCPO|  )   |  ~   |                              |      |  =   |  -   |  _   |  '   |        |
+ * |        |  #   |  $   |  (   |  )   |  ~   |                              |      |  =   |  -   |  _   |  '   |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |  %   |  ^   |  [   |  ]   |      |      |      |  |      |      |  &   |  |   |  <   |  >   |  \   |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -144,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_LOWER] = LAYOUT(
       _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_GRV,                                                       _______, KC_PLUS, KC_MINS, KC_ASTR, KC_SLSH, _______,
-      _______, KC_HASH, KC_DLR,  KC_LCPO, KC_RPRN, KC_TILD,                                                      _______, KC_EQL, KC_MINS, KC_UNDS, KC_QUOT,  _______,
+      _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_TILD,                                                      _______, KC_EQL, KC_MINS, KC_UNDS, KC_QUOT,  _______,
       _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, _______, _______, _______,                  _______, _______, KC_AMPR, KC_PIPE,  KC_LT, KC_GT,  KC_BSLS,   _______,
                           _______, KC_PSCR, _______, _______, LSFT_T(KC_SPC),                  _______,  _______, KC_DQT, _______, _______
     ),
@@ -154,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |   1  |  2   |  3   |  4   |  5   |                              |  6   |   7  |  8   |  9   |  0   |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  F1  |  F2  | F3   | F4   | F5   |                              |      |   4  |  5   |  6   |      |        |
+ * | Print  |  F1  |  F2  | F3   | F4   | F5   |                              |      |   4  |  5   |  6   |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |  F6  |  F7  | F8   | F9   | F10  | F11  | F12  |  |      |      |      |   1  |  2   |  3   |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -165,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_RAISE] = LAYOUT(
       _______, KC_1,      KC_2,    KC_3,    KC_4,    KC_5,                                               KC_6,    KC_7, KC_8, KC_9, KC_0,    _______,
-      _______, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,                                             _______,  KC_4, KC_5, KC_6, _______, _______,
+      KC_PSCR, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,                                             _______,  KC_4, KC_5, KC_6, _______, _______,
       _______, KC_F6,     KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F11, KC_F12,          _______, _______, _______,  KC_1, KC_2, KC_3, _______, _______,
                                 _______, _______, _______, _______, _______,          _______, _______, _______, _______,   KC_0
     ),

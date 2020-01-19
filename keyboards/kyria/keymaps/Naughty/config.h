@@ -24,7 +24,7 @@
 
 // rgb shit
 #ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_ANIMATIONS
+// #define RGBLIGHT_ANIMATIONS // disabling this removes about 9% of memory usage
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
@@ -62,11 +62,6 @@
 // the tapped key rather to hold a modifier key this allows us to use auto repeat
 // for the tped key.
 
-// #define RETRO_TAPPING // holding and releasing a dual function key without
-// pessing another key will result in nothing happening. with retro enabled
-// releasing the key without pressing another will send the original keycode even
-// if outside the tapping term.
-
 // the resolution can be specified in the same file (the default suggested is 4) might not need
 #define ENCODER_RESOLUTION 2
 
@@ -76,9 +71,6 @@
 // leader key
 #define LEADER_TIMEOUT 200 // shorter timing because we ae using per key timing
 #define LEADER_PER_KEY_TIMING // sets the timer for leader key chords to run on each key press rather than overall
-
-
-
 
 // allows to use either side a the master. Loook at the documentation for information
 // https://docs.qmk.fm/#/config_options?id=setting-handedness
@@ -108,10 +100,6 @@
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #define NO_PRINT
 #endif // !NO_PRINT
-//
-//
-//
-//
 
 /*
   If you define these options you will disable the associated feature, which can save on code size.
