@@ -40,99 +40,6 @@ enum layers {
 };
 
 // custom names to shorten mod tap lengths and such
-// Mod Taps
-#define LALT_MT LALT_T(KC_A)
-#define RALT_MT RALT_T(KC_SCLN)
-
-#define LCTL_MT LCTL_T(KC_S)
-#define RCTL_MT RCTL_T(KC_L)
-
-#define LSFT_MT LSFT_T(KC_D)
-#define RSFT_MT RSFT_T(KC_K)
-
-#define LGUI_MT LGUI_T(KC_F)
-#define RGUI_MT RGUI_T(KC_J)
-
-enum my_keycodes {
-                  MTALT = SAFE_RANGE,
-
-}
-
-//
-
-
-// Leader key stuff
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    // use mnemonics, Leader f ... for file management, etc.
-    // todo: leader keys to do my display fusion window managment
-    // todo: ...
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        /*
-          Display fusion keybinds
-          leader key W binds
-
-          ctrl win ,  - move window bottom left 25%
-          ctrl win .  - move window bottom right 25%
-          ctrl win k - Move window top right 25%
-          ctrl win l - Move window top left 25%
-          ctrl win g - move window bottom 50%
-          ctrl win t - move window top 50%
-
-          shift alt T - move window left monitor, scale appropreiately
-          shift alt R - move window right monitor, scale appropreiately
-
-          shift alt ctrl left - move window left, split 50%
-          shift alt ctrl right - move window right, split 50%
-          shift ctrl win g - maximixe window
-         */
-
-        SEQ_TWO_KEYS(KC_W, KC_DOT) { // move window bottom right 25%
-             SEND_STRING(SS_LCTL(SS_LGUI(".")));
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_COMM) { // move window bottom left 25%
-            SEND_STRING(SS_LCTL(SS_LGUI(",")));
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_K) { // move window top left 25%
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_L) { // move window top right 25%
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_G) { // move window bottom 50%
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_T) { //move window top 50%
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_I) { // move window left, scale appropreiately
-        }
-
-        SEQ_TWO_KEYS(KC_W, KC_O) { // move window right, scale appropreiately
-        }
-        // ...
-
-
-
-
-
-
-        }
-};
-
-    void leader_start(void) {
-        // sequence started.
-    };
-
-    void leader_end(void) {
-        // sequence ended
-    };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -205,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Layer switching, media controls,firmware reset, not sure what else.
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * | RESET  | TO1  |GAMING|ROGUE |      |      |                              |      |      |      |      |      |        |
+ * | RESET  | BASE |GAMING|ROGUE |      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |                              |Left  | Down | Up   | Right|      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
@@ -332,7 +239,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 #ifdef OLED_DRIVER_ENABLE

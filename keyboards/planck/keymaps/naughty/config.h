@@ -38,7 +38,7 @@
 #define FORCE_NKRO
 
 // Tap terms
-#define TAPPING_TERM 140 // set to my prefered 135ms
+#define TAPPING_TERM 140
 
 // tapping term per keycodes
 /* #define TAPPING_TERM_PER_KEY */
@@ -61,8 +61,8 @@
 
 
 // leader key
-#define LEADER_TIMEOUT 200 // shorter timing because we ae using per key timing
-#define LEADER_PER_KEY_TIMING // sets the timer for leader key chords to run on each key press rather than overall
+#define LEADER_TIMEOUT 200
+// #define LEADER_PER_KEY_TIMING // Resets the timer per each chorded key that is hit within the window, need short timeout to make this not feel laggy
 
 // could be useful for laptop?
 /* #define USB_MAX_POWER_CONSUMPTION 500 */

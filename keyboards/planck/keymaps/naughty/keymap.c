@@ -1,5 +1,6 @@
 /* Copyright 2015-2017 Jack Humbert
  *
+
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -26,7 +27,8 @@ enum planck_layers {
   _VIKEYS,
   _NAV,
   _GAMING,
-  _ROGUE
+  _ROGUE,
+  _NUMPAD
 };
 
 #define LOWER MO(_LOWER)
@@ -54,19 +56,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |   Q  |   W  |   E  | VI|R |   T  |   Y  |   U  |   I  |   O  |   P  | Lead |
+ * | Esc  |   Q  |NAV|W |  E   | VI|R |   T  |   Y  |   U  |   I  |   O  |   P  | Lead |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | BKSP |alt A |Ctrl S|Shft D|Win F |   G  |   H  |WinJ  |Sft K |Ctrl L|Alt ; |  ENT |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | DEL  |Z|Rais|   X  |   C  |   V  | LT B |LT N  |   M  |   ,  |   .  |   /  |  TAB |
+ * | DEL  |  Z   |   X  |   C  |   V  | LT B |LT N  |   M  |   ,  |   .  |   /  |  TAB |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |Lower |    Space    |Raise |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_BASE] = LAYOUT_planck_grid(
-    KC_ESC,  KC_Q,    LT(_NAV, KC_W),    KC_E,    LT(_VIKEYS, KC_R),    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
+    KC_ESC,  KC_Q,    LT(_NAV, KC_W),   KC_E,    LT(_VIKEYS, KC_R),    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
     KC_BSPC, AL_A,    CT_S,    SH_D,    GU_F,    KC_G,    KC_H,    GU_J,    SH_K,    CT_L,    AL_SCN,  KC_ENT,
-    KC_DEL, LT(_RAISE, KC_Z),    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_B),  LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB ,
+    KC_DEL,  KC_Z,    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_B),  LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB ,
     _______, _______, _______, _______, LOWER,   KC_SPC,  KC_SPC,  RAISE,   _______, _______, _______, _______
 ),
 
@@ -78,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------|------+------+------+------+------+------+------+------+------+------+------|
  * |      |  %   |  ^   |  [   |  ]   | LT   | LT   |  &   |  |   |  .   |  \   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |Lower |             |Raise |      |      |      |      |
+ * |      |      |      |      |Lower |    SPACE    |Raise |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
@@ -108,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |RESET |      |      |      |      |      |      |      |      |      |      |      |
+ * |RESET |BASE  |GAMING|ROGUE |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -144,44 +146,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Gaming
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * | ESC  |  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   | LEAD |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * | BKS  |  A   |  S   |  D   |  F   |  G   |  H   |  J   |  K   |  L   |  ;   |  ENT |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * | DEL  |  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /   | TAB  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * | BASE | ALT  | CTRL | SHFT |LOWER |    SPC      | RAISE|      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 
  [_GAMING] = LAYOUT_planck_grid(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    TO(_BASE), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-                                ),
+   KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
+   KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT,
+   KC_DEL, LT(_RAISE, KC_Z),    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_B),  LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB ,
+   TO(_BASE), KC_LALT, KC_LCTL, KC_LSFT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   _______, _______, _______, _______
+   ),
 
 
 
 /* ROGUE
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * | ESC  |  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   | LEAD?|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * | BKS  |  A   |  S   |  D   |  F   |  G   |  H   |  J   |  K   |  L   |  ;   |  ENT |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * | DEL  |NUM Z |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /   | TAB  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * | BASE | ALT  | CTRL | SHFT |LOWER |    SPC      | RAISE|      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 
 [_ROGUE] = LAYOUT_planck_grid(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    TO(_BASE), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+   KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
+   KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT,
+   KC_DEL, LT(_NUMPAD, KC_Z),    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_B),  LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB ,
+   TO(_BASE), KC_LALT, KC_LCTL, KC_LSFT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   _______, _______, _______, _______
                               ),
 
+/* NUMPAD
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |  7   |  8   |  9   |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |  4   |  5   |  6   |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |  1   |  2   |  3   |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |BASE  |      |      |      |      |             |Raise |  0   |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_NUMPAD] = LAYOUT_planck_grid(
+    _______, _______, _______, _______, _______, _______, _______,   KC_KP_7, KC_KP_8, KC_KP_9, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______,   KC_KP_4, KC_KP_5, KC_KP_6, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______,   KC_KP_1, KC_KP_2, KC_KP_3, _______, _______,
+    TO(_BASE), _______, _______, _______, _______, _______, _______, _______, KC_KP_0, _______, _______, _______
+                                ),
 
 
 /* TEMPLATE
@@ -232,19 +251,19 @@ void matrix_scan_user(void) {
           Display fusion keybinds
           leader key W binds
 
-          ctrl win ,  - move window bottom left 25%
-          ctrl win .  - move window bottom right 25%
-          ctrl win k - Move window top right 25%
-          ctrl win l - Move window top left 25%
+          ctrl win , - move window bottom left 25%
+          ctrl win . - move window bottom right 25%
+          ctrl win k - Move window top left 25%
+          ctrl win l - Move window top right 25%
           ctrl win g - move window bottom 50%
           ctrl win t - move window top 50%
 
           shift alt T - move window left monitor, scale appropreiately
           shift alt R - move window right monitor, scale appropreiately
 
-          shift alt ctrl left - move window left, split 50%
+          shift alt ctrl left  - move window left, split 50%
           shift alt ctrl right - move window right, split 50%
-          shift ctrl win g - maximixe window
+          shift ctrl win g     - maximixe window
          */
 
         SEQ_TWO_KEYS(KC_W, KC_DOT) { // move window bottom right 25%
@@ -256,27 +275,31 @@ void matrix_scan_user(void) {
         }
 
         SEQ_TWO_KEYS(KC_W, KC_K) { // move window top left 25%
+            SEND_STRING(SS_LCTL(SS_LGUI("k")));
         }
 
         SEQ_TWO_KEYS(KC_W, KC_L) { // move window top right 25%
+            SEND_STRING(SS_LCTL(SS_LGUI("l")));
         }
 
         SEQ_TWO_KEYS(KC_W, KC_G) { // move window bottom 50%
+            SEND_STRING(SS_LCTL(SS_LGUI("g")));
         }
 
         SEQ_TWO_KEYS(KC_W, KC_T) { //move window top 50%
+            SEND_STRING(SS_LCTL(SS_LGUI("t")));
         }
 
         SEQ_TWO_KEYS(KC_W, KC_I) { // move window left, scale appropreiately
+            SEND_STRING(SS_LSFT(SS_LALT("i")));
         }
 
         SEQ_TWO_KEYS(KC_W, KC_O) { // move window right, scale appropreiately
+            SEND_STRING(SS_LSFT(SS_LALT("o")));
         }
-        // ...
-
         // synergy commands
 
-        // .. Lead, a(pplications), s(ynergy), s(wap) - swap to other computer.
+        // .. Lead, a(pplications), s(ynergy), s(wap) - swap cursor/focus to other computer.
 
 
 
