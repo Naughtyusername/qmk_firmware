@@ -264,39 +264,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch(biton32(state)) {
-        case _LOWER:
-            rgblight_sethsv(HSV_GREEN);
-            break;
-        case _RAISE:
-            rgblight_sethsv(HSV_CORAL);
-            break;
-        case _ADJUST:
-            rgblight_sethsv(HSV_RED);
-            break;
-        case _BASE:
-            rgblight_sethsv(HSV_CHARTREUSE);
-            break;
-        case _VIKEYS:
-            // ...
-            break;
-        case _NAV:
-            // ...
-            break;
-        case _GAMING:
-            // ...
-            break;
-        case _ROGUE:
-            // ...
-            break;
-        case _NUMPAD:
-            break;
-        default:
-            break;
+    state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+
+    switch (get_highest_layer(state)) {
+    case _RAISE:
+        rgblight_sethsv(HSV_CORAL);
+        break;
+    case _LOWER:
+        rgblight_sethsv(HSV_GREEN);
+        break;
+    case _ADJUST:
+        rgblight_sethsv(HSV_RED);
+        break;
+    case _BASE:
+        rgblight_sethsv(HSV_CHARTREUSE);
+        break;
+    case _VIKEYS:
+        // ...
+        break;
+    case _NAV:
+        // ...
+        break;
+    case _GAMING:
+        // ...
+        break;
+    case _ROGUE:
+        // ...
+        break;
+    case _NUMPAD:
+        break;
+    default:
+        rgblight_sethsv (0x00,  0xFF, 0xFF);
+        break;
     }
 
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-
+    return state;
 }
 
 // Leader key stuff
