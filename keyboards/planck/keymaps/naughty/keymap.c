@@ -15,6 +15,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+
+/*     switch(layer) { */
+/*     case _LOWER: */
+/*         break; */
+/*     case _RAISE: */
+/*         break; */
+/*     case _ADJUST: */
+/*         break; */
+/*     case _BASE: */
+/*         rgblight_sethsv(255, 255, 255); */
+/*         break; */
+/*     case _VIKEYS: */
+/*         // ... */
+/*         break; */
+/*     case _NAV: */
+/*         // ... */
+/*         break; */
+/*     case _GAMING: */
+/*         // ... */
+/*         break; */
+/*     case _ROGUE: */
+/*         // ...*/
+/*         break; */
+/*     case _NUMPAD: */
+/*         break; */
+/*     default: */
+/*         break; */
+/*     } */
+
+
+
+
+
+
+
+
+
+
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
@@ -56,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |   Q  |NAV|W |  E   | VI|R |   T  |   Y  |   U  |   I  |   O  |   P  | Lead |
+ * | Esc  |   Q  |NAV|W |NUM|E | VI|R |   T  |   Y  |   U  |   I  |   O  |   P  | Lead |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | BKSP |alt A |Ctrl S|Shft D|Win F |   G  |   H  |WinJ  |Sft K |Ctrl L|Alt ; |  ENT |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -66,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_BASE] = LAYOUT_planck_grid(
-    KC_ESC,  KC_Q,    LT(_NAV, KC_W),   KC_E,    LT(_VIKEYS, KC_R),    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
+    KC_ESC,  KC_Q,    LT(_NAV, KC_W),   LT(_RAISE, KC_E),    LT(_VIKEYS, KC_R),    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
     KC_BSPC, AL_A,    CT_S,    SH_D,    GU_F,    KC_G,    KC_H,    GU_J,    SH_K,    CT_L,    AL_SCN,  KC_ENT,
     KC_DEL,  KC_Z,    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_B),  LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB ,
     _______, _______, _______, _______, LOWER,   KC_SPC,  KC_SPC,  RAISE,   _______, _______, _______, _______
@@ -76,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |  !   |  @   |  {   |  }   |  `   |      |  +   |  -   |  *   |  /   |      |
  * |------|------+------+------+------+------+------+------+------+------+------+------|
- * |      |  #   |  $   |  (   |  )   |  ~   |      |  =   |  -   |  _   |  '   |      |
+ * |      |  #   |  $   |  (   |  )   |  ~   |      |  =   |  -   |  _   |  '   | Caps |
  * |------|------+------+------+------+------+------+------+------+------+------+------|
  * |      |  %   |  ^   |  [   |  ]   | LT   | LT   |  &   |  |   |  .   |  \   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -85,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT_planck_grid(
     _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_GRV,  _______, KC_PLUS, KC_MINS, KC_ASTR, KC_SLSH, _______,
-    _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_TILD, _______, KC_EQL, KC_MINS, KC_UNDS, KC_QUOT, _______,
+    _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_TILD, _______, KC_EQL, KC_MINS, KC_UNDS, KC_QUOT, KC_CAPS,
     _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, _______, KC_AMPR, KC_PIPE,  KC_LT, KC_GT,  KC_BSLS, _______,
     _______, _______, _______, _______, LOWER, KC_SPC, KC_SPC, RAISE, _______, _______, _______, _______
 ),
@@ -224,14 +263,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-void matrix_init_user(void) {
-    // rbglight_enable();
-    // rgblight_setrgb(0x00, 0xFF, 0xFF);
-};
-
-
 layer_state_t layer_state_set_user(layer_state_t state) {
+    switch(biton32(state)) {
+        case _LOWER:
+            rgblight_sethsv(HSV_GREEN);
+            break;
+        case _RAISE:
+            rgblight_sethsv(HSV_CORAL);
+            break;
+        case _ADJUST:
+            rgblight_sethsv(HSV_RED);
+            break;
+        case _BASE:
+            rgblight_sethsv(HSV_CHARTREUSE);
+            break;
+        case _VIKEYS:
+            // ...
+            break;
+        case _NAV:
+            // ...
+            break;
+        case _GAMING:
+            // ...
+            break;
+        case _ROGUE:
+            // ...
+            break;
+        case _NUMPAD:
+            break;
+        default:
+            break;
+    }
 
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 
@@ -297,24 +359,37 @@ void matrix_scan_user(void) {
         SEQ_TWO_KEYS(KC_W, KC_O) { // move window right, scale appropreiately
             SEND_STRING(SS_LSFT(SS_LALT("o")));
         }
+        // i3 - linux window manager commands (consider actually just making these the same as display fusion, or the opposit.)
+
         // synergy commands
 
         // .. Lead, a(pplications), s(ynergy), s(wap) - swap cursor/focus to other computer.
 
 
-
-
-
+        // File system
+        SEQ_THREE_KEYS(KC_F, KC_A, KC_R) { // summon 'Everything'
+            SEND_STRING(SS_LALT(SS_LCTL(SS_LSFT("r"))));
         }
+
+        SEQ_THREE_KEYS(KC_F, KC_A, KC_F) { // summon 'Everything'
+            // SEND_STRING(); // open fman. its not summonable like everything so do ...
+        }
+
+    }
+}
+
+// test - lets us enable the rgb? hopefully
+void matrix_init_user() {
+    rgblight_enable();
+
+}
+
+void keyboard_post_init_user(void) {
+	rgblight_enable_noeeprom();
+	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+	rgblight_disable_noeeprom();
 };
 
-    void leader_start(void) {
-        // sequence started.
-    };
-
-    void leader_end(void) {
-        // sequence ended
-    };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -338,6 +413,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case _ROGUE:
         // ...
+        break;
+    case _NUMPAD:
         break;
     default:
         break;
