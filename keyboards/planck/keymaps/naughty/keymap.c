@@ -15,48 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
-/*     switch(layer) { */
-/*     case _LOWER: */
-/*         break; */
-/*     case _RAISE: */
-/*         break; */
-/*     case _ADJUST: */
-/*         break; */
-/*     case _BASE: */
-/*         rgblight_sethsv(255, 255, 255); */
-/*         break; */
-/*     case _VIKEYS: */
-/*         // ... */
-/*         break; */
-/*     case _NAV: */
-/*         // ... */
-/*         break; */
-/*     case _GAMING: */
-/*         // ... */
-/*         break; */
-/*     case _ROGUE: */
-/*         // ...*/
-/*         break; */
-/*     case _NUMPAD: */
-/*         break; */
-/*     default: */
-/*         break; */
-/*     } */
-
-
-
-
-
-
-
-
-
-
 #include QMK_KEYBOARD_H
 #include "muse.h"
-
 
 enum planck_layers {
   _BASE,
@@ -73,8 +33,9 @@ enum planck_layers {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
-// custom names to shorten mod tap lengths and such
-// Mod Taps
+// tap dancing
+
+// Mod Taps - custom names to shorten mod tap lengths and such
 #define AL_A LALT_T(KC_A)
 #define AL_SCN RALT_T(KC_SCLN)
 
@@ -86,10 +47,6 @@ enum planck_layers {
 
 #define GU_F LGUI_T(KC_F)
 #define GU_J RGUI_T(KC_J)
-
-//
-
-// clang format
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -109,43 +66,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BSPC, AL_A,    CT_S,    SH_D,    GU_F,    KC_G,    KC_H,    GU_J,    SH_K,    CT_L,    AL_SCN,  KC_ENT,
     KC_DEL,  KC_Z,    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_B),  LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB ,
     _______, _______, _______, _______, LOWER,   KC_SPC,  KC_SPC,  RAISE,   _______, _______, _______, _______
-),
+                             ),
 
 /* Lower | Todo: See if we can remove LT in here, couldn't in gui editor. if so add <> in instead of .
  * ,-----------------------------------------------------------------------------------.
  * |      |  !   |  @   |  {   |  }   |  `   |      |  +   |  -   |  *   |  /   |      |
- * |------|------+------+------+------+------+------+------+------+------+------+------|
- * |      |  #   |  $   |  (   |  )   |  ~   |      |  =   |  -   |  _   |  '   | Caps |
- * |------|------+------+------+------+------+------+------+------+------+------+------|
- * |      |  %   |  ^   |  [   |  ]   | LT   | LT   |  &   |  |   |  .   |  \   |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |  #   |  $   |  (   |  )   |  ~   |  "   |  =   |  -   |  _   |  '   | Caps |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |  %   |  ^   |  [   |  ]   | LT   |  &   |  |   |  <   |  >   |  \   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |Lower |    SPACE    |Raise |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
     _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_GRV,  _______, KC_PLUS, KC_MINS, KC_ASTR, KC_SLSH, _______,
-    _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_TILD, _______, KC_EQL, KC_MINS, KC_UNDS, KC_QUOT, KC_CAPS,
+    _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_TILD, KC_DQT, KC_EQL, KC_MINS, KC_UNDS, KC_QUOT, KC_CAPS,
     _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, _______, KC_AMPR, KC_PIPE,  KC_LT, KC_GT,  KC_BSLS, _______,
     _______, _______, _______, _______, LOWER, KC_SPC, KC_SPC, RAISE, _______, _______, _______, _______
-),
+                              ),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |      |   1  |   2  |   3  |   4  |   5  |   6  |  7   |  8   |  9   |   0  |      |
+ * |      |   1  |   2  |   3  |   4  |   5  |   6  |  7   |  8   |  9   |  0   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Prnt  |  F1  |  F2  |  F3  | F4   |  F5  | F11  |  4   |  5   |  6   |      |      |
+ * |      |  F1  |  F2  |  F3  | F4   |  F5  | F11  |  4   |  5   |  6   |  0   |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F6  |  F7  |  F8  | F9   | F10  | F12  |  1   |  2   |  3   |      |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |Lower |   Space     |Raise |  0   |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      | Prnt |Lower |   Space     |Raise |  0   |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
     _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,         KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    KC_PSCR, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_F11,       KC_4,    KC_5,    KC_6, XXXXXXX,  XXXXXXX,
+    _______, KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_F11,       KC_4,    KC_5,    KC_6,    KC_0,  XXXXXXX,
     _______, KC_F6,     KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F12,      KC_1,    KC_2,    KC_3, XXXXXXX,  XXXXXXX,
-    _______, _______, _______, _______, LOWER,  KC_SPC, KC_SPC,   RAISE,         KC_0,  XXXXXXX,  XXXXXXX, XXXXXXX
-),
+    _______, _______, _______, KC_PSCR, LOWER,  KC_SPC, KC_SPC,   RAISE,         KC_0,  XXXXXXX,  XXXXXXX, XXXXXXX
+                              ),
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
@@ -164,7 +121,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MSTP, KC_MPLY, _______,
     RGB_TOG, _______, _______, _______, LOWER, KC_SPC, KC_SPC, RAISE, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
                                ),
-
 /* Nav
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -181,8 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-                                ),
-
+                             ),
 /* Gaming
  * ,-----------------------------------------------------------------------------------.
  * | ESC  |  Q   |  W   |  E   |  R   |  T   |  Y   |  U   |  I   |  O   |  P   | LEAD |
@@ -191,18 +146,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | DEL  |  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /   | TAB  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | BASE | ALT  | CTRL | SHFT |LOWER |    SPC      | RAISE|      |      |      |      |
+ * | BASE | ALT  | CTRL | SHFT |      |    SPC      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 
  [_GAMING] = LAYOUT_planck_grid(
    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
    KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT,
-   KC_DEL, LT(_RAISE, KC_Z),    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_B),  LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB ,
-   TO(_BASE), KC_LALT, KC_LCTL, KC_LSFT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   _______, _______, _______, _______
-   ),
-
-
+   KC_DEL,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB ,
+   TO(_BASE), KC_LALT, KC_LCTL, KC_LSFT, _______, KC_SPC,KC_SPC, _______, _______, _______, _______, _______
+                                ),
 
 /* ROGUE
  * ,-----------------------------------------------------------------------------------.
@@ -219,15 +172,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ROGUE] = LAYOUT_planck_grid(
    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
    KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT,
-   KC_DEL, LT(_NUMPAD, KC_Z),    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_B),  LT(_LOWER, KC_N),    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB ,
+   KC_DEL, LT(_NUMPAD, KC_Z), KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TAB,
    TO(_BASE), KC_LALT, KC_LCTL, KC_LSFT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   _______, _______, _______, _______
                               ),
-
 /* NUMPAD
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |  7   |  8   |  9   |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |  4   |  5   |  6   |      |      |
+ * |      |      |      |      |      |      |      |  4   |  5   |  6   |  0   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |  1   |  2   |  3   |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -236,12 +188,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_NUMPAD] = LAYOUT_planck_grid(
     _______, _______, _______, _______, _______, _______, _______,   KC_KP_7, KC_KP_8, KC_KP_9, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______,   KC_KP_4, KC_KP_5, KC_KP_6, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______,   KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_0, _______,
     _______, _______, _______, _______, _______, _______, _______,   KC_KP_1, KC_KP_2, KC_KP_3, _______, _______,
     TO(_BASE), _______, _______, _______, _______, _______, _______, _______, KC_KP_0, _______, _______, _______
-                                ),
-
-
+                               ),
 /* TEMPLATE
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -253,6 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
+
 /* [_TEMPLATE] = LAYOUT_planck_grid(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -261,7 +212,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 ),
 */
 
+    };
+
+void keyboard_post_init_user(void) {
+	rgblight_enable_noeeprom();
+	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+	rgblight_disable_noeeprom();
 };
+
+// test - lets us enable the rgb? hopefully
+void matrix_init_user() {
+    rgblight_enable();
+
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
@@ -271,30 +234,31 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         rgblight_sethsv(HSV_CORAL);
         break;
     case _LOWER:
-        rgblight_sethsv(HSV_GREEN);
+        rgblight_sethsv(239, 75, 100);
         break;
     case _ADJUST:
         rgblight_sethsv(HSV_RED);
         break;
     case _BASE:
-        rgblight_sethsv(HSV_CHARTREUSE);
+        rgblight_sethsv(269, 100, 100);
         break;
     case _VIKEYS:
-        // ...
+        rgblight_sethsv(HSV_BLUE);
         break;
     case _NAV:
-        // ...
+        rgblight_sethsv(51, 75, 100);
         break;
     case _GAMING:
-        // ...
+        rgblight_sethsv(105, 79, 100);
         break;
     case _ROGUE:
-        // ...
+        rgblight_sethsv(129, 100, 100);
         break;
     case _NUMPAD:
+        rgblight_sethsv(159, 56, 100);
         break;
     default:
-        rgblight_sethsv (0x00,  0xFF, 0xFF);
+        rgblight_sethsv(HSV_CHARTREUSE);
         break;
     }
 
@@ -379,19 +343,6 @@ void matrix_scan_user(void) {
 
     }
 }
-
-// test - lets us enable the rgb? hopefully
-void matrix_init_user() {
-    rgblight_enable();
-
-}
-
-void keyboard_post_init_user(void) {
-	rgblight_enable_noeeprom();
-	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-	rgblight_disable_noeeprom();
-};
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
