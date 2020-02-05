@@ -1,9 +1,9 @@
 OLED_DRIVER_ENABLE = yes   # Enables the use of OLED displays
-ENCODER_ENABLE = yes       # ENables the use of one or more encoders
+ENCODER_ENABLE = yes       # Enables the use of one or more encoders
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 FORCE_NKRO = yes           # costs space, but i like it. consider making it toggleable
-COMBO_ENABLE = no 		   # not sure i need or want this, read more
-
+COMBO_ENABLE = no 		     # not sure i need or want this, read more
+TAP_DANCE_ENABLE = yes     # enable tap dance
 
 RGBLIGHT_STARTUP_ANIMATION = yes # RGB startup animation
 EXTRAKEY_ENABLE = yes     		 # Audio control and System control
