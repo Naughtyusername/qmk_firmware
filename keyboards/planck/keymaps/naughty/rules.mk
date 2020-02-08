@@ -1,6 +1,6 @@
 FORCE_NKRO         		= yes		     # costs space, but i like it. consider making it toggleable
 COMBO_ENABLE      		= no
-TAP_DANCE_ENABLE      = yes
+TAP_DANCE_ENABLE      = no
 
 EXTRAKEY_ENABLE  		= yes			 # Audio control and System control
 

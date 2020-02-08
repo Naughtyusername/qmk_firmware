@@ -20,7 +20,6 @@
 
 #define TAPPING_FORCE_HOLD // prevents keys with modifiers from repeating without sending their modifier code.
 
-
 // leader key
 #define LEADER_TIMEOUT 280
 #define LEADER_PER_KEY_TIMING // Resets the timer per each chorded key that is hit within the window, need short timeout to make this not feel laggy
