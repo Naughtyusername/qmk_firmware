@@ -26,23 +26,7 @@
   -Naughtyusername
 */
 
-// Todo: define some more things to make it more readable. (colors i like, cleaner keybinds, etc.)
-
 #include "naughty.h"
-
-#define LAYOUT_planck_base( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A \
-  ) \
-  LAYOUT_wrapper( \
-   KC_ESC,  K01,    K02,     K03,     K04,     K05,    K06,     K07,     K08,     K09,     K0A,     KC_LEAD, \
-   KC_BSPC, K11,    K12,     K13,     K14,     K15,    K16,     K17,     K18,     K19,     K1A,     KC_ENT, \
-   KC_DEL,  K21,    K22,     K23,     K24,     K25,    K26,     K27,     K28,     K29,     K2A,     KC_TAB, \
-   KC_HOME, KC_END, KC_PGUP, KC_PGDN, LOWER,   KC_SPC, KC_SPC,  RAISE,  KC_INS, KC_CAPS, KC_VOLD, KC_VOLU \
-                  )
-/* Re-pass though to allow templates to be used */
-#define LAYOUT_planck_base_wrapper(...)       LAYOUT_planck_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -57,11 +41,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Home | End  | PGUp | PGDN |Lower |    Space    |Raise | INS  | CAPS | VOLD | VOLU |
  * `-----------------------------------------------------------------------------------'
  */
-[_BASE] = LAYOUT_planck_base_wrapper(
-    _________________MQWERTY_L1_________________, _________________MQWERTY_R1_________________,
-    _________________MQWERTY_L2_________________, _________________MQWERTY_R2_________________,
-    _________________MQWERTY_L3_________________, _________________MQWERTY_R3_________________
-                             ),
+   [_BASE] = LAYOUT_ortho_4x12_wrapper(
+   KC_ESC,  _________________MQWERTY_L1_________________, _________________MQWERTY_R1_________________, KC_LEAD,
+   KC_BSPC, _________________MQWERTY_L2_________________, _________________MQWERTY_R2_________________, KC_ENT,
+   KC_DEL,  _________________MQWERTY_L3_________________, _________________MQWERTY_R3_________________, KC_TAB,
+   KC_HOME, KC_END, KC_PGUP, KC_PGDN, LOWER, KC_SPC,      KC_SPC, RAISE, KC_INS, KC_CAPS, KC_VOLD, KC_VOLU
+                                     ),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
