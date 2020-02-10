@@ -18,7 +18,7 @@
 #pragma once
 #include QMK_KEYBOARD_H
 #include "muse.h"
-#include "wrapper.h"
+#include "wrappers.h"
 #include "quantum.h"
 #include "action.h"
 #include "version.h"
