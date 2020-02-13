@@ -1,6 +1,3 @@
-
-// temp
-/*
   typedef struct {
   bool is_press_action;
   int state;
@@ -24,15 +21,18 @@
 
   // tap dancing key initilizations
   enum {
-  TD_MUTE_PLAY = 0,
-  TD_HOME_END,
-  TD_TG_BASE,
-  TD_TG_VI,
-  TD_TG_NUM,
-  TD_TDFNA_VI,
+        TDMuPl = 0,     // mute/play
+        TDStrStp,       // media start/stop
+        TDHoEn,         // home end
+
+        TDtgBase,       // toggle base
+        TDtgVi,         // toggle vi
+        TDtgNum,        // toggle number
+        TD_FNA_VI,      // toggle function advanced vi
   };
- */
-/*
+
+
+
 //Determine the current tap dance state
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
@@ -83,21 +83,21 @@ void ql_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   ql_tap_state.state = 0;
 }
-*/
+
 
 //Tap Dance Definitions
-// qk_tap_dance_action_t tap_dance_actions[] = {
-                                             // misc
-                                             /* [TD_MUTE_PLAY]   =      ACTION_TAP_DANCE_DOUBLE(KC_MUTE, KC_MPLY), */
-                                             /* [TD_HOME_END]    =      ACTION_TAP_DANCE_DOUBLE(KC_HOME, KC_END), */
+qk_tap_dance_action_t tap_dance_actions[] = {
+// misc
+[TD_MUTE_PLAY]   =      ACTION_TAP_DANCE_DOUBLE(KC_MUTE, KC_MPLY), */
+[TD_HOME_END]    =      ACTION_TAP_DANCE_DOUBLE(KC_HOME, KC_END), */
 
-                                             /* // layers */
-                                             /* [TD_TG_BASE]     =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_Z, _BASE), */
-                                             /* [TD_TG_NUM]      =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_E, _RAISE), */
-                                             /* [TD_TG_VI]       =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_R, _VIKEYS), */
+// layers */
+[TD_TG_BASE]     =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_Z, _BASE), */
+[TD_TG_NUM]      =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_E, _RAISE), */
+[TD_TG_VI]       =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_R, _VIKEYS), */
 
-                                             /* //                                             [TD_TDFNA_VI]    =      ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 200), */
-                                             // gaming layers ? theory
-// };
+//[TD_TDFNA_VI]    =      ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 200), */
+gaming layers ? theory
+};
 
 // end of tap dancing

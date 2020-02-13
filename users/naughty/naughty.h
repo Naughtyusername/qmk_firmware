@@ -51,6 +51,11 @@
 #define LT_V LT(_LOWER, KC_V)
 #define LT_M LT(_LOWER, KC_M)
 
+#define SH_Spc RSFT_T(KC_SPC)
+#define RsSPC LT(RAISE, KC_SPC)
+#define LwENT LT(LOWER, KC_ENT)
+
+
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
