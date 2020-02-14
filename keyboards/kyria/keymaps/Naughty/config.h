@@ -51,12 +51,12 @@
 // permissive hold
 #define PERMISSIVE_HOLD
 
+// ignore mod tap interrupt
+#define IGNORE_MOD_TAP_INTERRUPT // requires holding both keys for the tapping term
+// to trigger the function/mod
+
 // debounce delay
 #define DEBOUNCE 5 // 5 is what i use on planck. adjust as needed
-
-// ignore mod tap interrupt // https://docs.qmk.fm/#/feature_advanced_keycodes?id=mod-tap
-// #define IGNORE_MOD_TAP_INTERRUPT // requires holding both keys for the tapping term
-// to trigger the function/mod
 
 #define TAPPING_FORCE_HOLD // when the user holds a key after tap this repeats
 // the tapped key rather to hold a modifier key this allows us to use auto repeat

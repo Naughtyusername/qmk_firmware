@@ -1,5 +1,6 @@
 #pragma once
 #include "naughty.h"
+// thanks to Drashna for the idea of the wrappers!
 /*
 Since our quirky block definitions are basically a list of comma separated
 arguments, we need a wrapper in order for these definitions to be
@@ -14,18 +15,6 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_kyria_wrapper(...)            LAYOUT(__VA_ARGS__)
-
-/*
-Blocks for each of the four major keyboard layouts
-Organized so we can quickly adapt and modify all of them
-at once, rather than for each keyboard, one at a time.
-And this allows for much cleaner blocks in the keymaps.
-For instance Tap/Hold for Control on all of the layouts
-
-NOTE: These are all the same length.  If you do a search/replace
-  then you need to add/remove underscores to keep the
-  lengths consistent.
-*/
 
 #define _________________MQWERTY_L1_________________        KC_Q,    NV_W,    NM_E,    VI_R,    KC_T
 #define _________________MQWERTY_L2_________________        AL_A,    CT_S,    SH_D,    GU_F,    KC_G
@@ -42,16 +31,13 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________FUNC_RIGHT________________         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
 
-#define ___________________BLANK___________________        _______, _______, _______, _______, _______
-
-
 #define _________________LOWER_L1__________________        KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_GRV
 #define _________________LOWER_L2__________________        KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_TILD
-#define _________________LOWER_L3__________________        KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_GT
+#define _________________LOWER_L3__________________        KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_LT
 
-#define _________________LOWER_R1__________________        _______, KC_PLUS, KC_MINS, KC_ASTR, KC_SLSH // copy paste on Y? or copy on Y pase on Slsh (P)
+#define _________________LOWER_R1__________________        _______, KC_PLUS, KC_SCLN, KC_ASTR, KC_SLSH // copy paste on Y? or copy on Y pase on Slsh (P)
 #define _________________LOWER_R2__________________        KC_DQT,  KC_EQL,  KC_MINS, KC_UNDS, KC_QUOT
-#define _________________LOWER_R3__________________        KC_LT, _______, KC_AMPR, KC_PIPE, KC_BSLS
+#define _________________LOWER_R3__________________        KC_GT, KC_COLN, KC_AMPR, KC_PIPE, KC_BSLS
 
 
 
@@ -144,4 +130,4 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
 #define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
 
-
+#define ___________________BLANK___________________        _______, _______, _______, _______, _______

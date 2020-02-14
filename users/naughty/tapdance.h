@@ -1,3 +1,4 @@
+
   typedef struct {
   bool is_press_action;
   int state;
@@ -88,16 +89,16 @@ void ql_reset (qk_tap_dance_state_t *state, void *user_data) {
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
 // misc
-[TD_MUTE_PLAY]   =      ACTION_TAP_DANCE_DOUBLE(KC_MUTE, KC_MPLY), */
-[TD_HOME_END]    =      ACTION_TAP_DANCE_DOUBLE(KC_HOME, KC_END), */
+[TD_MUTE_PLAY]   =      ACTION_TAP_DANCE_DOUBLE(KC_MUTE, KC_MPLY),
+[TD_HOME_END]    =      ACTION_TAP_DANCE_DOUBLE(KC_HOME, KC_END),
 
-// layers */
-[TD_TG_BASE]     =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_Z, _BASE), */
-[TD_TG_NUM]      =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_E, _RAISE), */
-[TD_TG_VI]       =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_R, _VIKEYS), */
+// layers
+[TD_TG_BASE]     =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_Z, _BASE),
+[TD_TG_NUM]      =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_E, _RAISE),
+[TD_TG_VI]       =      ACTION_TAP_DANCE_LAYER_TOGGLE(KC_R, _VIKEYS),
 
-//[TD_TDFNA_VI]    =      ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 200), */
-gaming layers ? theory
+[TD_TDFNA_VI]    =      ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 200),
+//gaming layers ? theory
 };
 
 // end of tap dancing
