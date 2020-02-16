@@ -83,9 +83,9 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________NUMPAD_L2__________________       _______, _______, _______, _______, _______
 #define _________________NUMPAD_L3__________________       _______, _______, _______, _______, _______
 
-#define _________________NUMPAD_R1__________________       KC_KP_7, KC_KP_8, KC_KP_9, _______, _______
-#define _________________NUMPAD_R2__________________       KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_0, _______
-#define _________________NUMPAD_R3__________________       KC_KP_1, KC_KP_2, KC_KP_3, _______, _______
+#define _________________NUMPAD_R1__________________       _______, KC_KP_7, KC_KP_8, KC_KP_9, _______
+#define _________________NUMPAD_R2__________________       _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_0
+#define _________________NUMPAD_R3__________________       _______, KC_KP_1, KC_KP_2, KC_KP_3, _______
 
 
 #define _________________GAMING_L1__________________       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
