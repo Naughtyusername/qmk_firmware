@@ -25,7 +25,21 @@
 
 #ifdef TAP_DANCE_ENABLE
 #    include "tapdance.h"
+// include tap dance short name definitions here later
 #endif  // TAP_DANCE_ENABLE
+
+enum userspace_layers {
+                       _BASE = 0,
+                       _LOWER,
+                       _RAISE,
+                       _ADJUST,
+                       _VIKEYS,
+                       _NAV,
+                       _GAMING,
+                       _GAMING2,
+                       _ROGUE,
+                       _NUMPAD
+};
 
 // Mod Taps - custom names to shorten mod tap lengths and such
 #define AL_A LALT_T(KC_A)
@@ -62,16 +76,3 @@
 #define RAISE MO(_RAISE)
 
 // define another set of tri layer state things for gaming layers, i think it would be really useful
-
-enum userspace_layers {
-     _BASE = 0,
-     _LOWER,
-     _RAISE,
-     _ADJUST,
-     _VIKEYS,
-     _NAV,
-     _GAMING,
-     _GAMING2,
-     _ROGUE,
-     _NUMPAD
-};

@@ -27,11 +27,6 @@
 */
 #include "naughty.h"
 
-typedef struct {
-  bool is_press_action;
-  int state;
-} tap;
-
 // git fetch upstream - git pull upstream master - git push origin master -- or just use magit and ignore gits annoyance
 
 // int cur_dance (qk_tap_dance_state_t *state);

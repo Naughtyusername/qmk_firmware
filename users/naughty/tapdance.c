@@ -18,17 +18,27 @@ void dance_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
+  if (state_>count >= 3) {
+    //reset the keyboard if you tap the key more than three times
+    reset_keyboard();
+    reset_tap_dance(state);
+  }
+}
+
 // Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    // misc
-    [TDMuPl] = ACTION_TAP_DANCE_DOUBLE(KC_MUTE, KC_MPLY),
-    [TDHoEn] = ACTION_TAP_DANCE_DOUBLE(KC_HOME, KC_END),
+   [TD_RESET]        = action_tap_dance_fn(safe_reset),
 
-    // layers
-    [TDTG_BASE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_Z, _BASE),
-    [TDTG_NUM]  = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_E, _RAISE),
-    [TDTG_VI]   = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_R, _VIKEYS),
+   // encoder tap dancers
+   [TDMuPl]          = ACTION_TAP_DANCE_DOUBLE(KC_MUTE, KC_MPLY),
+   [TDHoEn]          = ACTION_TAP_DANCE_DOUBLE(KC_HOME, KC_END),
 
-    // [TD_FNA_VI]    =      ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 200),
-    // gaming layers ? theory
+   // layers
+   [TDTG_BASE]       = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_Z, _BASE),
+   [TDTG_NUM]        = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_E, _RAISE),
+   [TDTG_VI]         = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_R, _VIKEYS),
+
+   // [TD_FNA_VI]    =      ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 200),
+   // gaming layers ? theory
 };
