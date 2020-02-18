@@ -23,13 +23,9 @@
 #include "action.h"
 #include "version.h"
 
-// #ifdef TAP_DANCE_ENABLE
-// #    include "tapdance.h"
-// #endif  // TAP_DANCE_ENABLE
-
-/* enum custom_keycodes { */
-
-/* } */
+#ifdef TAP_DANCE_ENABLE
+#    include "tapdance.h"
+#endif  // TAP_DANCE_ENABLE
 
 // Mod Taps - custom names to shorten mod tap lengths and such
 #define AL_A LALT_T(KC_A)
