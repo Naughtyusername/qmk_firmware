@@ -40,8 +40,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        [_BASE] = LAYOUT_wrapper(
        KC_ESC,  _________________MQWERTY_L1_________________,                                        _________________MQWERTY_R1_________________, KC_CAPS,
        KC_BSPC, _________________MQWERTY_L2_________________,                                        _________________MQWERTY_R2_________________, KC_ENT,
-       KC_DEL,  _________________MQWERTY_L3_________________, _______, KC_AMPR,    KC_LEAD, _______, _________________MQWERTY_R3_________________, KC_TAB,
-                                  KC_MUTE, _______, _______, KC_QUOT, RsSPC,    LwENT, KC_GT, KC_LT, _______, _______
+       KC_DEL,  _________________MQWERTY_L3_________________, KC_LT, KC_AMPR,    KC_LEAD, KC_GT, _________________MQWERTY_R3_________________, KC_TAB,
+                                   KC_MUTE, _______, _______, KC_QUOT, RsSPC,    LwENT, _______, _______, _______, _______
                                 ),
 
        [_LOWER] = LAYOUT_wrapper(
