@@ -56,8 +56,9 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________ADJUST_L3_________________        _______, _______, _______, _______, _______
 
 #define _________________ADJUST_R1_________________        _______, _______, _______, _______, _______
-#define _________________ADJUST_R2_________________        _______, _______, _______, _______, _______
+#define _________________ADJUST_R2_________________        _______, _______, KC_MSTP, KC_MPLY, KC_MUTE
 #define _________________ADJUST_R3_________________        _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
+// realistically wont ever use this i dont think?
 #define _________________ADJUST_R4_________________        RAISE, _______, KC_MSTP, KC_MPLY, KC_MUTE
 
 
