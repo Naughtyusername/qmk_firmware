@@ -1,5 +1,5 @@
-
-// temp
+#pragma once
+#include "naughty.h"
 
 // Leader key stuff
 LEADER_EXTERNS();

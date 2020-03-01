@@ -1,20 +1,3 @@
-/*
-  Copyright 2017 Christopher Courtney <drashna@live.com> @drashna
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #pragma once
 #include QMK_KEYBOARD_H
 #include "muse.h"
@@ -28,18 +11,20 @@
 // include tap dance short name definitions here later
 #endif  // TAP_DANCE_ENABLE
 
+// clang-format off
 enum userspace_layers {
-                       _BASE = 0,
-                       _LOWER,
-                       _RAISE,
-                       _ADJUST,
-                       _VIKEYS,
-                       _NAV,
-                       _GAMING,
-                       _GAMING2,
-                       _ROGUE,
-                       _NUMPAD
+    _BASE = 0,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+    _VIKEYS,
+    _NAV,
+    _GAMING,
+    _GAMING2,
+    _ROGUE,
+    _NUMPAD
 };
+// clang-format on
 
 // Mod Taps - custom names to shorten mod tap lengths and such
 #define AL_A LALT_T(KC_A)
@@ -66,11 +51,9 @@ enum userspace_layers {
 #define RsSPC LT(RAISE, KC_SPC)
 #define LwENT LT(LOWER, KC_ENT)
 
-#define _GAM  _GAMING
-#define _GAM2  _GAMING2
-#define _ROG  _ROGUE
-
-
+#define _GAM _GAMING
+#define _GAM2 _GAMING2
+#define _ROG _ROGUE
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)

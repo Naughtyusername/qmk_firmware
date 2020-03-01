@@ -29,8 +29,6 @@
 
 // git fetch upstream - git pull upstream master - git push origin master -- or just use magit and ignore gits annoyance
 
-// int cur_dance (qk_tap_dance_state_t *state);
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        [_BASE] = LAYOUT_wrapper(
        KC_ESC,  _________________MQWERTY_L1_________________,                                        _________________MQWERTY_R1_________________, KC_CAPS,
@@ -253,44 +251,58 @@ void oled_task_user(void) {
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
-    // Left encoder
-    if (index == 0) {
-        switch(biton32(layer_state)) {
-            case _BASE:
-                if (clockwise) {
-                    tap_code(KC_VOLU);
-                } else {
-                    tap_code(KC_VOLD);
-                }
-                break;
-        case _LOWER:
-        case _RAISE:
-        case _ADJUST:
-        case _VIKEYS:
-        case _GAMING:
-        case _ROGUE:
-        default: break;
-        }
+  // Left encoder
+  if (index == 0) {
+    switch(biton32(layer_state)) {
+    case _BASE:
+      if (clockwise) {
+        tap_code(KC_VOLU);
+      } else {
+        tap_code(KC_VOLD);
+      }
+      break;
+    case _LOWER:
+    case _RAISE:
+    case _ADJUST:
+    case _VIKEYS:
+    case _GAMING:
+      if (clockwise) {
+        tap_code(KC_VOLU);
+      } else {
+        tap_code(KC_VOLD);
+      }
+      break;
+    case _GAMING2:
+      if (clockwise) {
+        tap_code(KC_VOLU);
+      } else {
+        tap_code(KC_VOLD);
+      }
+      break;
+    case _ROGUE:
+    default: break;
     }
-    // Right encoder
-    if (index == 1) {
-        switch(biton32(layer_state)) {
-        case _BASE:
-            if (clockwise) {
-              tap_code(KC_PGDN);
-            } else {
-              tap_code(KC_PGUP);
-            }
-            break;
-        case _LOWER:
-        case _RAISE:
-        case _ADJUST:
-        case _VIKEYS:
-        case _GAMING:
-        case _ROGUE:
-        default: break;
-        }
+  }
+  // Right encoder
+  if (index == 1) {
+    switch(biton32(layer_state)) {
+    case _BASE:
+      if (clockwise) {
+        tap_code(KC_PGDN);
+      } else {
+        tap_code(KC_PGUP);
+      }
+      break;
+    case _LOWER:
+    case _RAISE:
+    case _ADJUST:
+    case _VIKEYS:
+    case _GAMING:
+    case _GAMING2:
+    case _ROGUE:
+    default: break;
+    }
 
-    }
+  }
 }
 #endif

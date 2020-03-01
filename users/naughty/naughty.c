@@ -16,8 +16,8 @@ __attribute__ ((weak))
 void matrix_scan_user(void){
 
 #ifdef TAP_DANCE_ENABLE  // run
-
 #endif // !TAP_DANCE_ENABLE
 
-  matrix_scan_keymap();
+  __attribute__ ((weak))
+void matrix_scan_keymap(); {
 }
