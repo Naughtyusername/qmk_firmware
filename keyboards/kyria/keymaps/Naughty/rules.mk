@@ -5,7 +5,7 @@ ENCODER_ENABLE = yes       # Enables the use of one or more encoders
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 FORCE_NKRO = yes           # costs space, but i like it. consider making it toggleable
 COMBO_ENABLE = no					 # not sure i need or want this, read more
-TAP_DANCE_ENABLE = yes     # enable tap dance
+#TAP_DANCE_ENABLE = yes     # enable tap dance
 LEADER_ENABLE = yes
 
 RGBLIGHT_STARTUP_ANIMATION = yes # RGB startup animation

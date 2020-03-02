@@ -1,0 +1,4 @@
+SRC += naughty.c
+
+
+# ...

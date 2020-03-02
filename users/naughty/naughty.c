@@ -5,12 +5,13 @@
 // customization of the keymap.  Use _keymap instead of _user
 // functions in the keymaps
 __attribute__((weak)) void matrix_init_keymap(void) {}
-
 // Call user matrix init, then call the keymap's init function
-void matrix_init_user(void) { matrix_init_keymap(); }
+void matrix_init_user(void) {
+    matrix_init_keymap();
+    rgblight_enable();
+}
 
 __attribute__((weak)) void matrix_scan_keymap(void) {}
-
 // No global matrix scan code, so just run keymap's matix
 // scan function
 void matrix_scan_user(void) { matrix_scan_keymap(); }
@@ -26,9 +27,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
+layer_state_t                       layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 
-layer_state_t layer_state_set_user(layer_state_t state) { return layer_state_set_keymap(state); }
+    switch (get_highest_layer(state)) {
+        case _RAISE:
+            rgblight_sethsv(HSV_CORAL);
+            break;
+        case _LOWER:
+            rgblight_sethsv(HSV_SPRINGGREEN);
+            break;
+        case _ADJUST:
+            rgblight_sethsv(HSV_RED);
+            break;
+        case _BASE:
+            rgblight_sethsv(HSV_PURPLE);
+            break;
+        case _VIKEYS:
+            rgblight_sethsv(HSV_BLUE);
+            break;
+        case _NAV:
+            rgblight_sethsv(HSV_TEAL);
+            break;
+        case _GAMING:
+            rgblight_sethsv(HSV_ORANGE);
+            break;
+        case _ROGUE:
+            rgblight_sethsv(HSV_CHARTREUSE);
+            break;
+        case _NUMPAD:
+            rgblight_sethsv(HSV_CYAN);
+            break;
+        default:
+            rgblight_sethsv(HSV_CHARTREUSE);
+            break;
+    }
 
+    return layer_state_set_keymap(state);
+    /* return state; */
+}
 __attribute__((weak)) void led_set_keymap(uint8_t usb_led) {}
 
 void led_set_user(uint8_t usb_led) { led_set_keymap(usb_led); }

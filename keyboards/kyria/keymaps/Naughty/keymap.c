@@ -101,54 +101,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-void matrix_scan_user(void) {}
-
-void keyboard_post_init_user(void){
-    /* rgblight_enable_noeeprom(); // enables Rgb, without saving settings */
-    /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // sets mode to static */
-    /* rgblight_disable_noeeprom(); */
-};
-
-void matrix_init_user() { rgblight_enable(); }
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-
-    switch (get_highest_layer(state)) {
-        case _RAISE:
-            rgblight_sethsv(HSV_CORAL);
-            break;
-        case _LOWER:
-            rgblight_sethsv(HSV_SPRINGGREEN);
-            break;
-        case _ADJUST:
-            rgblight_sethsv(HSV_RED);
-            break;
-        case _BASE:
-            rgblight_sethsv(HSV_PURPLE);
-            break;
-        case _VIKEYS:
-            rgblight_sethsv(HSV_BLUE);
-            break;
-        case _NAV:
-            rgblight_sethsv(HSV_TEAL);
-            break;
-        case _GAMING:
-            rgblight_sethsv(HSV_ORANGE);
-            break;
-        case _ROGUE:
-            rgblight_sethsv(HSV_CHARTREUSE);
-            break;
-        case _NUMPAD:
-            rgblight_sethsv(HSV_CYAN);
-            break;
-        default:
-            rgblight_sethsv(HSV_CHARTREUSE);
-            break;
-    }
-
-    return state;
-}
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
