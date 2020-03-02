@@ -66,22 +66,15 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
     return layer_state_set_keymap(state);
     /* return state; */
 }
-__attribute__((weak)) void led_set_keymap(uint8_t usb_led) {}
-
-void led_set_user(uint8_t usb_led) { led_set_keymap(usb_led); }
 
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
-
 void suspend_power_down_user(void) { suspend_power_down_keymap(); }
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
-
 void suspend_wakeup_init_user(void) {}
 
 __attribute__((weak)) void startup_keymap(void) {}
-
 void startup_user(void) {}
 
 __attribute__((weak)) void shutdown_keymap(void) {}
-
 void shutdown_user(void) { shutdown_keymap(); }
