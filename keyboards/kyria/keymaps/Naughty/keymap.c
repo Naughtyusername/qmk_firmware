@@ -26,7 +26,7 @@
                                             -Naughtyusername
 */
 #include "naughty.h"
-
+#include "quantum.h"
 // git fetch upstream - git pull upstream master - git push origin master -- or just use magit and ignore gits annoyance
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
