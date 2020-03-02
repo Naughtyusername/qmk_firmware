@@ -26,9 +26,8 @@
                                             -Naughtyusername
 */
 #include "naughty.h"
-#include "quantum.h"
 // git fetch upstream - git pull upstream master - git push origin master -- or just use magit and ignore gits annoyance
-
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        [_BASE] = LAYOUT_wrapper(
        KC_ESC,  _________________MQWERTY_L1_________________,                                        _________________MQWERTY_R1_________________, KC_CAPS,
@@ -100,74 +99,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     TO(_GAM), _______, _______, _______, KC_SPC,     _______, _______, _______, _______, _______
                                 ),
 };
+// clang-format on
 
-void matrix_scan_user(void) {
+void matrix_scan_user(void) {}
 
-}
-
-// tap dance start
-// tap dance end
-
-
-
-
-
-
-
-void keyboard_post_init_user(void) {
-  /* rgblight_enable_noeeprom(); // enables Rgb, without saving settings */
-  /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // sets mode to static */
-  /* rgblight_disable_noeeprom(); */
+void keyboard_post_init_user(void){
+    /* rgblight_enable_noeeprom(); // enables Rgb, without saving settings */
+    /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // sets mode to static */
+    /* rgblight_disable_noeeprom(); */
 };
 
-void matrix_init_user() {
-    rgblight_enable();
-}
+void matrix_init_user() { rgblight_enable(); }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 
     switch (get_highest_layer(state)) {
-    case _RAISE:
-        rgblight_sethsv(HSV_CORAL);
-        break;
-    case _LOWER:
-        rgblight_sethsv(HSV_SPRINGGREEN);
-        break;
-    case _ADJUST:
-        rgblight_sethsv(HSV_RED);
-        break;
-    case _BASE:
-        rgblight_sethsv(HSV_PURPLE);
-        break;
-    case _VIKEYS:
-        rgblight_sethsv(HSV_BLUE);
-        break;
-    case _NAV:
-        rgblight_sethsv(HSV_TEAL);
-        break;
-    case _GAMING:
-        rgblight_sethsv(HSV_ORANGE);
-        break;
-    case _ROGUE:
-        rgblight_sethsv(HSV_CHARTREUSE);
-        break;
-    case _NUMPAD:
-        rgblight_sethsv(HSV_CYAN);
-        break;
-    default:
-        rgblight_sethsv(HSV_CHARTREUSE);
-        break;
+        case _RAISE:
+            rgblight_sethsv(HSV_CORAL);
+            break;
+        case _LOWER:
+            rgblight_sethsv(HSV_SPRINGGREEN);
+            break;
+        case _ADJUST:
+            rgblight_sethsv(HSV_RED);
+            break;
+        case _BASE:
+            rgblight_sethsv(HSV_PURPLE);
+            break;
+        case _VIKEYS:
+            rgblight_sethsv(HSV_BLUE);
+            break;
+        case _NAV:
+            rgblight_sethsv(HSV_TEAL);
+            break;
+        case _GAMING:
+            rgblight_sethsv(HSV_ORANGE);
+            break;
+        case _ROGUE:
+            rgblight_sethsv(HSV_CHARTREUSE);
+            break;
+        case _NUMPAD:
+            rgblight_sethsv(HSV_CYAN);
+            break;
+        default:
+            rgblight_sethsv(HSV_CHARTREUSE);
+            break;
     }
 
     return state;
 }
 
 #ifdef OLED_DRIVER_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-}
+oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
+// clang-format off
 static void render_kyria_logo(void) {
     static const char PROGMEM kyria_logo[] = {
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,192,224,240,112,120, 56, 60, 28, 30, 14, 14, 14,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 14, 14, 14, 30, 28, 60, 56,120,112,240,224,192,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -191,6 +177,7 @@ static void render_qmk_logo(void) {
   oled_write_P(qmk_logo, false);
 }
 
+// clang-format on
 static void render_status(void) {
     // QMK Logo and version information
     render_qmk_logo();
@@ -199,38 +186,38 @@ static void render_status(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
-    case _BASE:
-        oled_write_P(PSTR("BASE\n"), false);
-        break;
-    case _LOWER:
-        oled_write_P(PSTR("LOWER\n"), false);
-        break;
-    case _RAISE:
-        oled_write_P(PSTR("RAISE\n"), false);
-        break;
-    case _ADJUST:
-        oled_write_P(PSTR("ADJUST\n"), false);
-        break;
-    case _NAV:
-      oled_write_P(PSTR("NAV\n"), false);
-      break;
-    case _VIKEYS:
-        oled_write_P(PSTR("VIKEYS\n"), false);
-        break;
-    case _GAMING:
-        oled_write_P(PSTR("GAMING\n"), false);
-        break;
-    case _GAMING2:
-        oled_write_P(PSTR("GAMING2\n"), false);
-        break;
-    case _ROGUE:
-        oled_write_P(PSTR("ROGUE\n"), false);
-        break;
-    case _NUMPAD:
-      oled_write_P(PSTR("NUMPAD\n"), false);
-      break;
-    default:
-        oled_write_P(PSTR("UNDEFINED\n"), false);
+        case _BASE:
+            oled_write_P(PSTR("BASE\n"), false);
+            break;
+        case _LOWER:
+            oled_write_P(PSTR("LOWER\n"), false);
+            break;
+        case _RAISE:
+            oled_write_P(PSTR("RAISE\n"), false);
+            break;
+        case _ADJUST:
+            oled_write_P(PSTR("ADJUST\n"), false);
+            break;
+        case _NAV:
+            oled_write_P(PSTR("NAV\n"), false);
+            break;
+        case _VIKEYS:
+            oled_write_P(PSTR("VIKEYS\n"), false);
+            break;
+        case _GAMING:
+            oled_write_P(PSTR("GAMING\n"), false);
+            break;
+        case _GAMING2:
+            oled_write_P(PSTR("GAMING2\n"), false);
+            break;
+        case _ROGUE:
+            oled_write_P(PSTR("ROGUE\n"), false);
+            break;
+        case _NUMPAD:
+            oled_write_P(PSTR("NUMPAD\n"), false);
+            break;
+        default:
+            oled_write_P(PSTR("UNDEFINED\n"), false);
     }
 
     // Host Keyboard LED Status
@@ -242,7 +229,7 @@ static void render_status(void) {
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_kyria_logo();
     }
@@ -251,58 +238,59 @@ void oled_task_user(void) {
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
-  // Left encoder
-  if (index == 0) {
-    switch(biton32(layer_state)) {
-    case _BASE:
-      if (clockwise) {
-        tap_code(KC_VOLU);
-      } else {
-        tap_code(KC_VOLD);
-      }
-      break;
-    case _LOWER:
-    case _RAISE:
-    case _ADJUST:
-    case _VIKEYS:
-    case _GAMING:
-      if (clockwise) {
-        tap_code(KC_VOLU);
-      } else {
-        tap_code(KC_VOLD);
-      }
-      break;
-    case _GAMING2:
-      if (clockwise) {
-        tap_code(KC_VOLU);
-      } else {
-        tap_code(KC_VOLD);
-      }
-      break;
-    case _ROGUE:
-    default: break;
+    // Left encoder
+    if (index == 0) {
+        switch (biton32(layer_state)) {
+            case _BASE:
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+                break;
+            case _LOWER:
+            case _RAISE:
+            case _ADJUST:
+            case _VIKEYS:
+            case _GAMING:
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+                break;
+            case _GAMING2:
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+                break;
+            case _ROGUE:
+            default:
+                break;
+        }
     }
-  }
-  // Right encoder
-  if (index == 1) {
-    switch(biton32(layer_state)) {
-    case _BASE:
-      if (clockwise) {
-        tap_code(KC_PGDN);
-      } else {
-        tap_code(KC_PGUP);
-      }
-      break;
-    case _LOWER:
-    case _RAISE:
-    case _ADJUST:
-    case _VIKEYS:
-    case _GAMING:
-    case _GAMING2:
-    case _ROGUE:
-    default: break;
+    // Right encoder
+    if (index == 1) {
+        switch (biton32(layer_state)) {
+            case _BASE:
+                if (clockwise) {
+                    tap_code(KC_PGDN);
+                } else {
+                    tap_code(KC_PGUP);
+                }
+                break;
+            case _LOWER:
+            case _RAISE:
+            case _ADJUST:
+            case _VIKEYS:
+            case _GAMING:
+            case _GAMING2:
+            case _ROGUE:
+            default:
+                break;
+        }
     }
-
-  }
 }
 #endif
