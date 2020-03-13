@@ -16,7 +16,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_kyria_wrapper(...)            LAYOUT(__VA_ARGS__)
 
-#define _________________MQWERTY_L1_________________        KC_Q,    NV_W,    NM_E,    VI_R,    KC_T
+#define _________________MQWERTY_L1_________________        KC_Q,    NV_W,    KC_E,    VI_R,    KC_T
 #define _________________MQWERTY_L2_________________        AL_A,    CT_S,    SH_D,    GU_F,    KC_G
 #define _________________MQWERTY_L3_________________        KC_Z,    KC_X,    KC_C,    LT_V,    KC_B
 

@@ -42,7 +42,6 @@ enum userspace_layers {
 
 #define VI_R LT(_VIKEYS, KC_R)
 #define NV_W LT(_NAV, KC_W)
-#define NM_E LT(_RAISE, KC_E)
 
 #define LT_V LT(_LOWER, KC_V)
 #define LT_M LT(_LOWER, KC_M)
