@@ -21,6 +21,7 @@ enum userspace_layers {
     _NAV,
     _GAMING,
     _GAMING2,
+    _GAMING3,
     _ROGUE,
     _NUMPAD
 };
@@ -53,6 +54,7 @@ enum userspace_layers {
 
 #define _GAM _GAMING
 #define _GAM2 _GAMING2
+#define _GAM3 _GAMING3
 #define _ROG _ROGUE
 
 #define LOWER MO(_LOWER)

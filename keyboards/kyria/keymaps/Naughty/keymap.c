@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_ESC,  _________________MQWERTY_L1_________________,                                        _________________MQWERTY_R1_________________, KC_CAPS,
        KC_BSPC, _________________MQWERTY_L2_________________,                                        _________________MQWERTY_R2_________________, KC_ENT,
        KC_DEL,  _________________MQWERTY_L3_________________, KC_LT, KC_AMPR,        KC_LEAD, KC_GT, _________________MQWERTY_R3_________________, KC_TAB,
-                                   KC_MUTE, _______, _______, KC_QUOT, RsSPC,        LwENT, _______, _______, _______, _______
+                                    KC_MUTE, KC_TAB, KC_ASTR, KC_QUOT, RsSPC,        LwENT, _______, _______, _______, _______
                                 ),
 
        [_LOWER] = LAYOUT_wrapper(
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      [_GAMING] = LAYOUT_wrapper(
        _______, _________________GAMING_L1__________________,                                        _________________GAMING_R1__________________, _______,
        _______, _________________GAMING_L2__________________,                                        _________________GAMING_R2__________________, _______,
-       _______, _________________GAMING_L3__________________,   KC_F9,   KC_F5,     _______, _______, _________________GAMING_R3__________________, _______,
+       _______, _________________GAMING_L3__________________,   KC_F9,   KC_F5,     TO(_GAM3), _______, _________________GAMING_R3__________________, _______,
                                       TO(_BASE), KC_U, KC_Y, MO(_GAM2), KC_SPC,     TO(_GAM2), _______, _______, _______, _______
    ),
 
@@ -82,8 +82,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _________________GAMING2_L1__________________,                                        _________________GAMING2_R1__________________, _______,
        _______, _________________GAMING2_L2__________________,                                        _________________GAMING2_R2__________________, _______,
        _______, _________________GAMING2_L3__________________,     KC_F9, KC_F5,     _______, _______, _________________GAMING2_R3__________________, _______,
-                                    TO(_GAM), _______, _______, _______, KC_SPC,     _______, _______, _______, _______, _______
+                                       TO(_GAM), KC_LEAD, KC_Y, _______, KC_SPC,     _______, _______, _______, _______, _______
                                  ),
+     [_GAMING3] = LAYOUT_wrapper(
+       _______, _________________GAMING3_L1__________________,                                        _________________GAMING3_R1__________________, _______,
+       _______, _________________GAMING3_L2__________________,                                        _________________GAMING3_R2__________________, _______,
+       _______, _________________GAMING3_L3__________________,     KC_F9, KC_F5,     _______, _______, _________________GAMING3_R3__________________, _______,
+                                             TO(_GAM), KC_U, KC_Y, KC_I, KC_SPC,     _______, _______, _______, _______, _______
+       ),
 
      [_ROGUE] = LAYOUT_wrapper(
        _______, _________________ROGUE_L1__________________,                                        _________________ROGUE_R1__________________, _______,
@@ -161,6 +167,9 @@ static void render_status(void) {
         case _GAMING2:
             oled_write_P(PSTR("GAMING2\n"), false);
             break;
+        case _GAMING3:
+            oled_write_P(PSTR("GAMING3\n"), false);
+            break;
         case _ROGUE:
             oled_write_P(PSTR("ROGUE\n"), false);
             break;
@@ -168,7 +177,7 @@ static void render_status(void) {
             oled_write_P(PSTR("NUMPAD\n"), false);
             break;
         default:
-            oled_write_P(PSTR("UNDEFINED\n"), false);
+            oled_write_P(PSTR("YOU FORGOT\nTO NAME IT\n"), false);
     }
 
     // Host Keyboard LED Status
@@ -200,24 +209,40 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
             case _LOWER:
+                if (clockwise) {
+                } else {
+                }
+                break;
             case _RAISE:
+                if (clockwise) {
+                } else {
+                }
+                break;
             case _ADJUST:
+                if (clockwise) {
+                } else {
+                }
+                break;
             case _VIKEYS:
+                if (clockwise) {
+                } else {
+                }
+                break;
             case _GAMING:
                 if (clockwise) {
-                    tap_code(KC_VOLU);
                 } else {
-                    tap_code(KC_VOLD);
                 }
                 break;
             case _GAMING2:
                 if (clockwise) {
-                    tap_code(KC_VOLU);
                 } else {
-                    tap_code(KC_VOLD);
                 }
                 break;
             case _ROGUE:
+                if (clockwise) {
+                } else {
+                }
+                break;
             default:
                 break;
         }
@@ -233,12 +258,46 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 }
                 break;
             case _LOWER:
+                if (clockwise) {
+                } else {
+                }
+                break;
             case _RAISE:
+                if (clockwise) {
+                } else {
+                }
+                break;
             case _ADJUST:
+                if (clockwise) {
+                } else {
+                }
+                break;
             case _VIKEYS:
+                if (clockwise) {
+                } else {
+                }
+                break;
             case _GAMING:
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+                break;
             case _GAMING2:
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+                break;
             case _ROGUE:
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+                break;
             default:
                 break;
         }

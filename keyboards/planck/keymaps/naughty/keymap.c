@@ -28,6 +28,7 @@
 
 #include "naughty.h"
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_BASE] = LAYOUT_ortho_4x12_wrapper(
      KC_ESC,  _________________MQWERTY_L1_________________, _________________MQWERTY_R1_________________, KC_LEAD,
@@ -75,8 +76,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_ESC,  _________________GAMING_L1__________________, _________________GAMING_R1__________________,   KC_LEAD,
      KC_BSPC, _________________GAMING_L2__________________, _________________GAMING_R2__________________,   KC_ENT,
      KC_DEL,  _________________GAMING_L3__________________, _________________GAMING_R3__________________,   KC_TAB ,
-     TO(_BASE), KC_LALT, KC_LCTL, KC_LSFT, _______, KC_SPC,KC_SPC, _______, _______, _______, _______, _______
+     TO(_BASE), KC_LALT, KC_LCTL, KC_LSFT, MO(_GAM2), KC_SPC,KC_SPC, MO(_NUMPAD), _______, _______, _______, _______
                                          ),
+
+   [_GAMING2] = LAYOUT_ortho_4x12_wrapper(
+     KC_ESC,  _________________GAMING2_L1__________________, _________________GAMING2_R1__________________,   KC_LEAD,
+     KC_BSPC, _________________GAMING2_L2__________________, _________________GAMING2_R2__________________,   KC_ENT,
+     KC_DEL,  _________________GAMING2_L3__________________, _________________GAMING2_R3__________________,   KC_TAB ,
+     TO(_BASE), KC_LALT, KC_LCTL, KC_LSFT, _______, KC_SPC,KC_SPC, _______, _______, _______, _______, _______
+     ),
 
    [_ROGUE] = LAYOUT_ortho_4x12_wrapper(
      KC_ESC,  _________________ROGUE_L1__________________, _________________ROGUE_R1__________________, KC_LEAD,
@@ -102,55 +110,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
+// clang-format on
 void keyboard_post_init_user(void) {
   /* rgblight_enable_noeeprom(); // enables Rgb, without saving settings */
   /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // sets mode to static */
   /* rgblight_disable_noeeprom(); */
 };
 
-void matrix_init_user() {
-    rgblight_enable();
-}
+/* layer_state_t layer_state_set_user(layer_state_t state) { */
+/*     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST); */
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+/*     switch (get_highest_layer(state)) { */
+/*     case _RAISE: */
+/*         rgblight_sethsv(HSV_CORAL); */
+/*         break; */
+/*     case _LOWER: */
+/*         rgblight_sethsv(HSV_SPRINGGREEN); */
+/*         break; */
+/*     case _ADJUST: */
+/*         rgblight_sethsv(HSV_RED); */
+/*         break; */
+/*     case _BASE: */
+/*         rgblight_sethsv(HSV_PURPLE); */
+/*         break; */
+/*     case _VIKEYS: */
+/*         rgblight_sethsv(HSV_BLUE); */
+/*         break; */
+/*     case _NAV: */
+/*         rgblight_sethsv(HSV_TEAL); */
+/*         break; */
+/*     case _GAMING: */
+/*         rgblight_sethsv(HSV_ORANGE); */
+/*         break; */
+/*     case _GAMING2: */
+/*       rgblight_sethsv(HSV_GREEN); */
+/*       break; */
+/*     case _ROGUE: */
+/*         rgblight_sethsv(HSV_CHARTREUSE); */
+/*         break; */
+/*     case _NUMPAD: */
+/*         rgblight_sethsv(HSV_CYAN); */
+/*         break; */
+/*     default: */
+/*         rgblight_sethsv(HSV_CHARTREUSE); */
+/*         break; */
+/*     } */
 
-    switch (get_highest_layer(state)) {
-    case _RAISE:
-        rgblight_sethsv(HSV_CORAL);
-        break;
-    case _LOWER:
-        rgblight_sethsv(HSV_SPRINGGREEN);
-        break;
-    case _ADJUST:
-        rgblight_sethsv(HSV_RED);
-        break;
-    case _BASE:
-        rgblight_sethsv(HSV_PURPLE);
-        break;
-    case _VIKEYS:
-        rgblight_sethsv(HSV_BLUE);
-        break;
-    case _NAV:
-        rgblight_sethsv(HSV_TEAL);
-        break;
-    case _GAMING:
-        rgblight_sethsv(HSV_ORANGE);
-        break;
-    case _ROGUE:
-        rgblight_sethsv(HSV_CHARTREUSE);
-        break;
-    case _NUMPAD:
-        rgblight_sethsv(HSV_CYAN);
-        break;
-    default:
-        rgblight_sethsv(HSV_CHARTREUSE);
-        break;
-    }
-
-    return state;
-}
+/*     return state; */
+/* } */
 
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
