@@ -15,6 +15,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_kyria_wrapper(...)            LAYOUT(__VA_ARGS__)
+#define LAYOUT_zima_wrapper(...)            LAYOUT(__VA_ARGS__)
 
 #define ___________________BLANK___________________        _______, _______, _______, _______, _______
 
@@ -140,3 +141,16 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 /* #define _________________something_R1__________________       _______, _______, _______, _______, _______ */
 /* #define _________________something_R2__________________       _______, _______, _______, _______, _______ */
 /* #define _________________something_R3__________________       _______, _______, _______, _______, _______ */
+
+#define _________________ZIMA_MAIN_K1__________________          RESET,   TG(1),   TG(2)
+#define _________________ZIMA_MAIN_K2__________________          KC_P7,   KC_P8,   KC_P9
+#define _________________ZIMA_MAIN_K3__________________          KC_P4,   KC_P5,   KC_P6
+#define _________________ZIMA_MAIN_K4__________________          KC_P1,   KC_P2,   KC_P3
+
+
+
+
+
+
+
+
