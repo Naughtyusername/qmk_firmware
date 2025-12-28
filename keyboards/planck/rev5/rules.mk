@@ -1,0 +1,1 @@
+FIRMWARE_FORMAT = bin
