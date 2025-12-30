@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include QMK_KEYBOARD_H
 
 enum layers {
@@ -25,7 +26,6 @@ enum layers {
 
 // Aliases for readability
 #define BASE DF(_BASE)
-
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 #define FKEYS MO(_FUNCTION)
@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      _______, _______, _______,   BASE , _______, _______,                                       _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______, _______, _______, _______,                                       _______, _______, _______, _______,  _______, _______,
       _______, _______, _______, _______, _______, _______,                                       _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______,  _______,
                                  _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______

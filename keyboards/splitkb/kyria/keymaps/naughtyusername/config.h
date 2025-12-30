@@ -36,6 +36,7 @@
 #endif
 
 // custom
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
 // Layer specific lighting
 #define RGB_LIGHT_LAYERS
