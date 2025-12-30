@@ -18,7 +18,7 @@
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    undef RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #    define RGBLIGHT_EFFECT_SNAKE
 #    define RGBLIGHT_EFFECT_KNIGHT
@@ -31,7 +31,17 @@
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
 #    ifndef RGBLIGHT_LIMIT_VAL
-#    	define RGBLIGHT_LIMIT_VAL 150
+#        define RGBLIGHT_LIMIT_VAL 150
 #    endif
 #endif
 
+// custom
+
+// Layer specific lighting
+#define RGB_LIGHT_LAYERS
+
+#define TRI_LAYER_LOWER_LAYER 1
+#define TRI_LAYER_UPPER_LAYER 2
+#define TRI_LAYER_ADJUST_LAYER 5
+
+#define ENCODER_DIRECTION_FLIP

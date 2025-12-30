@@ -12,9 +12,9 @@
 enum mitosis_layers
 {
 	_BASE,
-	_SHIFTED,
-	_FUNCTION,
-	_FUNCSHIFT
+	_LOWER,
+	_RAISE,
+	_ADJUST
 };
 
 enum mitosis_keycodes
@@ -29,7 +29,13 @@ enum mitosis_keycodes
 #define LONGPRESS_DELAY 150
 #define LAYER_TOGGLE_DELAY 300
 
+// custom ones above is defaults other than renaming
+#define LOW MO(_LOWER)
+#define RAI MO(_RAISE)
+
 /* Mitosis Base layer
+   i think due to the limited keys we might use my old homerow mirroed
+   Alt, Shift, Ctrl, Super layouts, the forward thumb keys are to important for base things and the other ones are too far off
 
  * LEFT SIDE                                       RIGHT SIDE
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
@@ -42,9 +48,9 @@ enum mitosis_keycodes
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * |       |       |       | Bkspc |               |  Del  |       |       |       |
+ * | LALT  | LSHFT | LGUI  | Bkspc |               |  Del  | RGUI  | RSHFT | RALT  |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |       |       | Enter | Space |               | Space |       |       |       |
+ * | ESC   | LCTRL | Raise | Space |               | Enter | Lower | RCTRL | TAB   |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
@@ -54,11 +60,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_DOT,  KC_COMM, KC_SLSH,
-             _______, _______, _______, _______,       _______, _______, _______, _______,
-             _______, _______, _______, _______,       _______, _______, _______, _______
+             KC_LALT, KC_LSFT, KC_LGUI, KC_BSPC,        KC_DEL,  KC_RGUI, KC_RSFT, KC_RALT,
+             KC_ESC, KC_LCTL,  RAI,     KC_SPC,         KC_ENT,     LOW ,  KC_RCTL, KC_TAB
   ),
 
-/* Mitosis Layer Template (Horizontal Thumbs)
+/* Mitosis Lower layer - combined with raise for tri-layer Adjust
+
+ * LEFT SIDE                                       RIGHT SIDE
+ * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
+ * |   1   |   2   |   3   |   4   |   5   |       |   6   |   7   |   8   |   9   |   0   |
+ * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
+ * |   !   |   @   |   #   |   $   |   %   |       |   ^   |   &   |   *   |   `   |   \   |
+ * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
+ * |       |   <   |   {   |   [   |   (   |       |   )   |   ]   |   }   |   >   |       |
+ * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
+ *
+ * Left Thumb Cluster                              Right Thumb Cluster
+ * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
+ * |       |       |       |   -   |               |       |       |       |       |
+ * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
+ * |       |       | RAISE | SPC   |RAI = ADJ Here |       |LowerH |       |       |
+ * `-------'-------'-------'-------'               `-------'-------'-------'-------'
+ */
+
+  [_LOWER] = LAYOUT(
+
+     KC_1  ,  KC_2  ,  KC_3  ,  KC_4  ,  KC_5  ,        KC_6  ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0  ,
+    KC_EXLM,  KC_AT , KC_HASH, KC_DLR , KC_PERC,       KC_CIRC, KC_AMPR, KC_ASTR, KC_GRV, KC_BSLS,
+    _______, KC_LT  , KC_LCBR, KC_LBRC, KC_LPRN,       KC_RPRN, KC_RBRC, KC_RCBR, KC_GT, _______,
+             _______, _______, _______, KC_MINS,       _______, _______, _______, _______,
+             _______, _______,   RAI  , KC_SPC ,       _______, _______, _______, _______
+  ),
+
+/* Mitosis Raise layer - combine with lower for tri-layer Adjust
 
  * LEFT SIDE                                       RIGHT SIDE
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
@@ -77,44 +111,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
-  [_SHIFTED] = LAYOUT( /* Shifted Layer, layered so that tri_layer can be used, or selectively
-                                         able to modify individual key's shifted behaviour */
+  [_RAISE] = LAYOUT(
+
     _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
              _______, _______, _______, _______,       _______, _______, _______, _______,
              _______, _______, _______, _______,       _______, _______, _______, _______
-  ),
+    ),
 
-/* Mitosis Layer Template (Horizontal Thumbs)
-
- * LEFT SIDE                                       RIGHT SIDE
- * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
- * |       |       |       |       |       |       |       |       |       |       |       |
- * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |       |       |       |       |       |       |       |       |       |       |       |
- * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |       |       |       |       |       |       |       |       |       |       |       |
- * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
- *
- * Left Thumb Cluster                              Right Thumb Cluster
- * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * |       |       |       |       |               |       |       |       |       |
- * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |       |       |       |       |               |       |       |       |       |
- * `-------'-------'-------'-------'               `-------'-------'-------'-------'
- */
-
-  [_FUNCTION] = LAYOUT( /* Function Layer, primary alternative layer featuring numpad on right hand,
-                                           cursor keys on left hand, and all symbols*/
-    KC_AMPR, KC_PERC, KC_UP,   KC_CIRC, KC_PIPE,       KC_LBRC, KC_7,    KC_8,    KC_9,    KC_MINS,
-    KC_AT,   KC_LEFT, KC_DOWN, KC_RGHT, KC_HASH,       KC_LPRN, KC_4,    KC_5,    KC_6,    KC_PLUS,
-    KC_ASTR, KC_UNDS, KC_EXLM, KC_DLR,  KC_BSLS,       KC_LCBR, KC_1,    KC_2,    KC_3,    KC_ENT,
-             KC_HOME, KC_GRV,  KC_PWR,  _______,       _______, KC_EQL,  KC_TILD, KC_DOT,
-             KC_END,  _______, _______, _______,       _______, KC_0,    _______, KC_PSCR
-  ),
-
-/* Mitosis Layer Template (Horizontal Thumbs)
+/* Mitosis This is for the Adjust layer
  *
  * LEFT SIDE                                       RIGHT SIDE
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
@@ -133,18 +139,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
-  [_FUNCSHIFT] = LAYOUT( /* Function Shifted Layer, secondary alternative layer with closing brackets,
+  [_ADJUST] = LAYOUT( /* Function Shifted Layer, secondary alternative layer with closing brackets,
                                                     and F-keys under their numpad equivalents*/
-    _______, _______, _______, _______, _______,       KC_RBRC, KC_F7,   KC_F8,   KC_F9,   KC_F10,
-    _______, _______, _______, _______, _______,       KC_RPRN, KC_F4,   KC_F5,   KC_F6,   KC_F11,
-    _______, _______, _______, _______, _______,       KC_RCBR, KC_F1,   KC_F2,   KC_F3,   KC_F12,
+    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
              _______, _______, _______, _______,       _______, _______, _______, _______,
              _______, _______, _______, _______,       _______, _______, _______, _______
   )
 
 };
 
-/* Mitosis Layer Template (Horizontal Thumbs)
+
+
+/********************************************************************************************
+* Mitosis BLANK TEMPLATES FOR WHEN WE ADD MORE
  *
  * LEFT SIDE                                       RIGHT SIDE
  * Main Grid                                       Main Grid
@@ -173,6 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______, _______, _______, _______,       _______, _______, _______, _______,
              _______, _______, _______, _______,       _______, _______, _______, _______
 
+********************************************************************************************
 */
 
 // clang-format on
@@ -190,13 +200,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 key_timer    = timer_read();
                 singular_key = true;
-                layer_on(_FUNCTION);
+                layer_on(_RAISE);
             } else {
                 if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
-                    layer_off(_FUNCTION);
+                    layer_off(_RAISE);
                 }
             }
-            update_tri_layer(_FUNCTION, _SHIFTED, _FUNCSHIFT);
+            update_tri_layer(_RAISE, _LOWER, _ADJUST);
             return false;
             break;
         // SHIFT is handled as LSHIFT in the general case
@@ -204,15 +214,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 key_timer    = timer_read();
                 singular_key = true;
-                layer_on(_SHIFTED);
+                layer_on(_LOWER);
                 register_code(KC_LSFT);
             } else {
                 if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
-                    layer_off(_SHIFTED);
+                    layer_off(_LOWER);
                     unregister_code(KC_LSFT);
                 }
             }
-            update_tri_layer(_FUNCTION, _SHIFTED, _FUNCSHIFT);
+            update_tri_layer(_RAISE, _LOWER, _ADJUST);
             return false;
             break;
         // switch multiplexing for media, short tap for volume up, long press for play/pause
@@ -261,8 +271,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 
-    // FUNCSHIFT has been shifted by the SHIFT handling, some keys need to be excluded
-    if (layer == _FUNCSHIFT) {
+    // ADJUST has been shifted by the SHIFT handling, some keys need to be excluded
+    if (layer == _ADJUST) {
         // F1-F12 should be sent as unshifted keycodes,
         // and ] needs to be unshifted or it is sent as }
         if ((keycode >= KC_F1 && keycode <= KC_F12) || keycode == KC_RBRC) {
@@ -282,15 +292,15 @@ void matrix_scan_user(void) {
 
     switch (layer) {
         case _BASE:
-            set_led_off;
-            break;
-        case _FUNCTION:
             set_led_blue;
             break;
-        case _SHIFTED:
+        case _RAISE:
+            set_led_white;
+            break;
+        case _LOWER:
             set_led_red;
             break;
-        case _FUNCSHIFT:
+        case _ADJUST:
             set_led_green;
             break;
         default:
