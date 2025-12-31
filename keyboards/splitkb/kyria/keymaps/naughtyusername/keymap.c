@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | LShift |   Z  |   X  |   C  |   V  |   B  | [ {  |CapsLk|  |F-keys|  ] } |   N  |   M  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | MUTE | LGUI | LAlt | Space| RAISE|  | LOWR | ENTER| AltGr| RGUI | Menu |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      | Raise|      |  |      |Lower |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_BASE] = LAYOUT(
@@ -61,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  Lower Layer - arrow keys over Vi for the niche cases
  *
 //  * ,-------------------------------------------.                              ,-------------------------------------------.
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+//  * |        |  1   |  2   |  3   |  4   |  5   |                              |  6   |  7   |  8   |  9   |  0   |        |
 //  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |                              | Left | Down |  UP  |Right |      |        |
+//  * |        |      |      |      |      |      |                              |      |  4   |  5   |  6   |      |        |
 //  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |      | Caps |  | FKEYS|      |      |      |      |      |      |        |
+//  * |        |      |      |      |      |      |      | Caps |  | FKEYS|      |      |  1   |  2   |  3   |      |        |
 //  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
 //  *                        |      |      |      |      |Raise |  |LOWER |      |      |      |      |
 //  *                        |      |      |      |      |Adjust|  |WHld  |      |      |      |      |
@@ -73,9 +73,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
     [_LOWER] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                      _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______,                                      KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
+      _______,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  _______,
+      _______, _______, _______, _______, _______, _______,                                      _______,   KC_4,    KC_5,    KC_6,  _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,   KC_1,    KC_2,    KC_3, _______, _______,
                                  _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
     ),
 
@@ -83,41 +83,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Raise Layer: Numbers and symbols
  * probably change the asdf row to be something a bit more usable, we should be able to shift hit the numbers just fine
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |    `   |  1   |  2   |  3   |  4   |  5   |                              |   6  |  7   |  8   |  9   |  0   |   =    |
+ * |    ~   |  %   |  $   |  -   |  |   |  [   |                              |   ]  |  +   |  #   |  <   |  >   |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |    ~   |  !   |  @   |  #   |  $   |  %   |                              |   ^  |  &   |  *   |  (   |  )   |   +    |
+ * |    `   |  !   |  *   |  =   |  &   |  (   |                              |   )  |  ^   |  _   |  "   |  :   |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |    |   |   \  |  :   |  ;   |  -   |  [   |  {   |      |  |FNKEYS|   }  |   ]  |  _   |  ,   |  .   |  /   |   ?    |
+ * |        |   \  |      |      |      |  {   |      |      |  |FNKEYS|      |   }  |  @   |  ,   |  .   |  /   |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |Raise |  |Lower |      |      |      |      |
  *                        |      |      |      |      |Adjust|  |Adjust|      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_RAISE] = LAYOUT(
-      KC_GRV ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
-     KC_TILD , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
-     KC_PIPE , KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LBRC, KC_LCBR, _______,     _______, KC_RCBR, KC_RBRC, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
-                                 _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
+     KC_TILD, KC_PERC, KC_DLR, KC_MINS, KC_PIPE, KC_LBRC,                                       KC_RBRC, KC_PLUS, KC_HASH, KC_LT,  KC_GT,   _______,
+     KC_GRV,  KC_EXLM, KC_ASTR, KC_EQL, KC_AMPR, KC_LPRN,                                       KC_RPRN, KC_CIRC, KC_UNDS, KC_DQT, KC_COLN, _______,
+     _______, KC_BSLS, _______, _______, _______, KC_LCBR, _______, _______,  _______, _______, KC_RCBR, KC_AT,  _______, _______, _______, _______,
+                                _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
     ),
 
 /*
  * Function Layer: Function keys
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  F9  | F10  | F11  | F12  |      |                              |      |      |      |      |      |        |
+ * |        |  F9  | F10  | F11  | F12  |      |                              | PGUP |Home  | End  |Insert|      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  F5  |  F6  |  F7  |  F8  |      |                              |      | Super| Shift| Ctrl |  ALT |        |
+ * |        |  F5  |  F6  |  F7  |  F8  |      |                              | Left | Down |  Up  | Right|      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  F1  |  F2  |  F3  |  F4  |      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |  F1  |  F2  |  F3  |  F4  |      |      |      |  |      |      | PGDW |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_FUNCTION] = LAYOUT(
-      _______,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                                     _______, KC_LGUI, KC_LSFT, KC_LCTL, KC_LALT, _______,
-      _______,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12, _______,                                     KC_PGUP, KC_HOME, KC_END,  KC_INS,  _______, _______,
+      _______,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+      _______,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 , _______, _______, _______, _______, _______, KC_PGDN, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Default layer settings, RGB
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      | BASE |      |      |                              |      |      |      |      |      |        |
+ * |        | BASE |      |      |      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                       _______, _______, _______, _______,  _______, _______,
+      _______, TG(_BASE), _______, _______, _______, _______,                                       _______, _______, _______, _______,  _______, _______,
       _______, _______, _______, _______, _______, _______,                                       _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______,  _______,
                                  _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
@@ -164,13 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
-/* The default OLED and rotary encoder code can be found at the bottom of qmk_firmware/keyboards/splitkb/kyria/rev1/rev1.c
- * These default settings can be overriden by your own settings in your keymap.c
- * For your convenience, here's a copy of those settings so that you can uncomment them if you wish to apply your own modifications.
- * DO NOT edit the rev1.c file; instead override the weakly defined default functions by your own.
-*/
-
-// per layer rgb
+// Layer state checking for RGB and other tri-layer handling
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _BASE:
@@ -192,13 +186,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgblight_sethsv_noeeprom(HSV_WHITE); // White for default
             break;
     }
-    return state;
+
+  state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+
+  return state;
 }
 
-
+// Oled code below
 // Below is the default settings for oled and such,  i just uncommented them, havent edited yet 12/29/25
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
-
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
 
@@ -258,6 +254,7 @@ bool oled_task_user(void) {
     return false;
 }
 
+// Rotary encoder code
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
