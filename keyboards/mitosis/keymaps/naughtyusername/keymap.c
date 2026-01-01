@@ -204,38 +204,50 @@ TD(TD_A_TAB), KC_S, KC_D, KC_F, KC_G,                 KC_H,    KC_J,    KC_K,   
              QK_BOOT, _______, _______, _______,       _______, _______, _______, _______
   ),
 
-/* Mitosis Mod keys on homerow layer, wanna test this again, i know i loved it.
-   we need to test chording with this, this time, it seems perfecte even tho in the past
-   it was close enough to perfect for me
-
- * LEFT SIDE                                       RIGHT SIDE
- * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
- * |Esc / Q|   W   |   E   |   R   |   T   |       |   Y   |   U   |   I   |   O   |   P   |
- * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |SHIFT A|ALT S  |CTRL D |GUI F  |   G   |       |GUI H  |CTRL J |ALT K  |SHIFT L|   ;   |
- * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |   Z   |   X   |   C   |   V   |   B   |       |   N   |   M   |   ,   |   .   |   /   |
- * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
- *
- * Left Thumb Cluster                              Right Thumb Cluster
- * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * | LALT  | LSHFT | LGUI  | Bkspc |               |  Del  | RGUI  | RSHFT | RALT  |
- * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * | ESC   | LCTRL | SPRAI | Space |               | Enter |ENTLOW | RCTRL | TAB   |
- * `-------'-------'-------'-------'               `-------'-------'-------'-------'
- */
-
-// Mods on homerow
-  [_MODHMRW] = LAYOUT(
-    TD(TD_Q_ESC),KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
-    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_DOT,  KC_COMM, KC_SLSH,
-
-             KC_LALT, KC_LSFT, KC_LGUI, KC_BSPC,        KC_DEL,  KC_RGUI, KC_RSFT, KC_RALT,
-             KC_ESC,  KC_LCTL, SP_RAI,  KC_SPC,         KC_ENT,  ENT_LOW ,  KC_RCTL, KC_TAB
-  )
-
 };
+
+// flow tap customizing, will probably need refinment
+bool is_flow_tap_key(uint16_t keycode) {
+    if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
+        return false; // Disable Flow Tap on hotkeys.
+    }
+    switch (get_tap_keycode(keycode)) {
+        case KC_SPC:
+        case KC_A ... KC_Z:
+        case KC_DOT:
+        case KC_COMM:
+        case KC_SCLN:
+        case KC_SLSH:
+            return true;
+    }
+    return false;
+}
+
+// example code - this function takes precidence over flow_tap_key also
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
+                           uint16_t prev_keycode) {
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        return FLOW_TAP_TERM;
+    }
+    return 0;
+}
+
+/*****************************************************************************/
+/* uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,         */
+/*                            uint16_t prev_keycode) {                       */
+/*     if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {      */
+/*         switch (keycode) {                                                */
+/*             case LCTL_T(KC_F):                                            */
+/*             case RCTL_T(KC_H):                                            */
+/*               return FLOW_TAP_TERM - 25;  // Short timeout on these keys. */
+/*                                                                           */
+/*             default:                                                      */
+/*               return FLOW_TAP_TERM;  // Longer timeout otherwise.         */
+/*         }                                                                 */
+/*     }                                                                     */
+/*     return 0;  // Disable Flow Tap.                                       */
+/* }                                                                         */
+/*****************************************************************************/
 
 // clang-format off
 // process record user input function

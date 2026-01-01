@@ -4,11 +4,16 @@
 // permissive hold / hold on other key press
 #define CHORDAL_HOLD
 #define PERMISSIVE_HOLD
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
-// tap dance
+#define CAPS_WORD_IDLE_TIMEOUT 3000 // 3 seconds.
+
+// helps us type fast and not mis-input home row mods
+#define FLOW_TAP_TERM 150
+
+// Tap terms for TD and Chords
 #define TAPPING_TERM 175
 #define TAPPING_TERM_PER_KEY
-#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
 #define LONGPRESS_DELAY 150
 #define LAYER_TOGGLE_DELAY 300
