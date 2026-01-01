@@ -1,6 +1,7 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
+#include "keycodes.h"
 #include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -21,7 +22,7 @@ enum mitosis_layers {
 
 // Custom keycodes
 enum custom_keycodes {
-  KC_COMPILE = SAFE_RANGE, // Use SAFE_RANGE for custom codes
+  KC_COMPILE, // Use SAFE_RANGE for custom codes
   KC_ASSIGN,
   KC_ARROP,
   KC_DCLN,
@@ -30,9 +31,17 @@ enum custom_keycodes {
 // Tap dance codes
 enum tapdancers {
   TD_Q_ESC,
+  TD_A_TAB,
 };
 
-
+enum homerowmods {
+    SupA,
+    SupScln,
+    AltS,
+    AltL,
+    CtlD,
+    CtlK,
+};
 
 // custom ones above is defaults other than renaming
 #define LOW MO(_LOWER)
@@ -45,6 +54,7 @@ enum tapdancers {
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Q twice for Escape
     [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
+    [TD_A_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_TAB),
 };
 
 /* Mitosis Base layer
@@ -54,28 +64,28 @@ tap_dance_action_t tap_dance_actions[] = {
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
  * |Esc / Q|   W   |   E   |   R   |   T   |       |   Y   |   U   |   I   |   O   |   P   |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |   A   |   S   |   D   |   F   |   G   |       |   H   |   J   |   K   |   L   |   ;   |
+ * |TAB / A|   S   |   D   |   F   |   G   |       |   H   |   J   |   K   |   L   |   ;   |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
  * |   Z   |   X   |   C   |   V   |   B   |       |   N   |   M   |   ,   |   .   |   /   |
  * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * | LALT  | LSHFT | LGUI  | Bkspc |               |  Del  | RGUI  | RSHFT | RALT  |
+ * |       |       |       |CapsWrd|               |       |       |       |       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * | ESC   | LCTRL | SPRAI |       |               |       |ENTLOW | RCTRL | TAB   |
+ * | ESC   |       |SPC/RAI| Bkspc |               | Del   |ENT/LOW| RCTRL | FUNCT |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT( /* Malt Layout, customised for reduced columns (ex: quote and shift locations) */
-TD(TD_Q_ESC),KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
-    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_DOT,  KC_COMM, KC_SLSH,
+TD(TD_Q_ESC), KC_W, KC_E, KC_R, KC_T,                 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+TD(TD_A_TAB), KC_S, KC_D, KC_F, KC_G,                 KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
+    KC_Z,     KC_X, KC_C, KC_V, KC_B,                 KC_N,    KC_M,    KC_DOT,  KC_COMM, KC_SLSH,
 
-             KC_LALT, KC_LSFT, KC_LGUI, KC_BSPC,        KC_DEL,  KC_RGUI, KC_RSFT, KC_RALT,
-             KC_ESC,  KC_LCTL, SP_RAI,  KC_SPC,         KC_ENT,  ENT_LOW ,  KC_RCTL, KC_TAB
+         _______, _______, _______, CW_TOGG,        _______,  _______, _______, _______,
+         KC_ESC,  KC_LCTL, SP_RAI,  KC_BSPC,        KC_DEL,  ENT_LOW ,  KC_RCTL, _______
   ),
 
 /* Mitosis Raise layer - combine with lower for tri-layer Adjust
@@ -113,24 +123,24 @@ TD(TD_Q_ESC),KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I, 
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
  * |   1   |   2   |   3   |   4   |   5   |       |   6   |   7   |   8   |   9   |   0   |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |       |       |       |       |       |       |       |   4   |   5   |   6   |       |
+ * |       |       | VOLUP |VOLDOWN| MUTE  |       |   .   |   4   |   5   |   6   |   0   |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |       |       |       |       |       |       |       |   1   |   2   |   3   |       |
+ * |       |       | Prev  |Ply/Pau| Next  |       |       |   1   |   2   |   3   |       |
  * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
  * |       |       |       |       |               | Delete|       |       |       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |       |       | RAISE | SPC   |RAI = ADJ Here | Enter |LowerH |       |       |
+ * |       |       |SPC/RAI|       |               | Enter |HOLDING|       |       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
   [_LOWER] = LAYOUT(
 
-      KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-    _______, _______, _______, _______, _______,       _______, KC_4,    KC_5,    KC_6, _______,
-    _______, _______, _______, _______, _______,       _______, KC_1,    KC_2,    KC_3, _______,
+      KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,   KC_7,    KC_8,    KC_9, KC_0,
+    _______, _______, KC_VOLU, KC_VOLD, KC_MUTE,       KC_DOT, KC_4,    KC_5,    KC_6, KC_0,
+    _______, _______, KC_MPRV, KC_MPLY, KC_MNXT,       _______, KC_1,    KC_2,    KC_3, _______,
 
              _______, _______, _______, _______,       _______, _______, _______, _______,
              _______, _______, _______, _______,       _______, _______, _______, _______
