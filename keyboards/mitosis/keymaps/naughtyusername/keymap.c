@@ -9,6 +9,7 @@
 // entirely and just use numbers.
 
 // clang-format off
+// Layers
 enum mitosis_layers {
 	_BASE = 0,
 	_LOWER,
@@ -18,13 +19,20 @@ enum mitosis_layers {
     _MODHMRW // Home row with modifiers - currently a copy paste of the base layer just for testing again
 };
 
+// Custom keycodes
+enum custom_keycodes {
+  KC_COMPILE = SAFE_RANGE, // Use SAFE_RANGE for custom codes
+  KC_ASSIGN,
+  KC_ARROP,
+  KC_DCLN,
+};
+
+// Tap dance codes
 enum tapdancers {
   TD_Q_ESC,
 };
 
 
-#define LONGPRESS_DELAY 150
-#define LAYER_TOGGLE_DELAY 300
 
 // custom ones above is defaults other than renaming
 #define LOW MO(_LOWER)
@@ -55,7 +63,7 @@ tap_dance_action_t tap_dance_actions[] = {
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
  * | LALT  | LSHFT | LGUI  | Bkspc |               |  Del  | RGUI  | RSHFT | RALT  |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * | ESC   | LCTRL | SPRAI | Space |               | Enter |ENTLOW | RCTRL | TAB   |
+ * | ESC   | LCTRL | SPRAI |       |               |       |ENTLOW | RCTRL | TAB   |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
@@ -69,6 +77,35 @@ TD(TD_Q_ESC),KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I, 
              KC_LALT, KC_LSFT, KC_LGUI, KC_BSPC,        KC_DEL,  KC_RGUI, KC_RSFT, KC_RALT,
              KC_ESC,  KC_LCTL, SP_RAI,  KC_SPC,         KC_ENT,  ENT_LOW ,  KC_RCTL, KC_TAB
   ),
+
+/* Mitosis Raise layer - combine with lower for tri-layer Adjust
+
+ * LEFT SIDE                                       RIGHT SIDE
+ * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
+ * |   %   |   $   |   -   |   |   |   [   |       |   ]   |   +   |   #   |   <   |   >   |
+ * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
+ * |   !   |   *   |   =   |   &   |   (   |       |   )   |   ^   |   _   |   "   |  ::   |
+ * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
+ * |       |       |   ->  |   :=  |   {   |       |   }   |   @   |   ,   |   .   |   /   |
+ * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
+ *
+ * Left Thumb Cluster                              Right Thumb Cluster
+ * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
+ * |       |       |       |       |               |       |       |       |       |
+ * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
+ * |       |       |HOLDING|       |               | Space |LOW/ADJ|       |       |
+ * `-------'-------'-------'-------'               `-------'-------'-------'-------'
+ */
+
+  [_RAISE] = LAYOUT(
+
+    KC_PERC, KC_DLR, KC_MINS, KC_PIPE, KC_LBRC,       KC_RBRC, KC_PLUS, KC_HASH, KC_LT, KC_GT,
+    KC_EXLM, KC_ASTR, KC_EQL, KC_AMPR, KC_LPRN,       KC_RPRN, KC_CIRC, KC_UNDS, KC_DQT, KC_DCLN,
+    _______, _______, KC_ARROP, KC_ASSIGN, KC_LCBR,       KC_RCBR, KC_AT, _______, _______, _______,
+
+             _______, _______, _______, _______,       _______, _______, _______, _______,
+             _______, _______, _______, _______,       KC_SPC, _______, _______, _______
+    ),
 
 /* Mitosis Lower layer - combined with raise for tri-layer Adjust
  *
@@ -99,36 +136,8 @@ TD(TD_Q_ESC),KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I, 
              _______, _______, _______, _______,       _______, _______, _______, _______
   ),
 
-/* Mitosis Raise layer - combine with lower for tri-layer Adjust
+/* Funtion layer
 
- * LEFT SIDE                                       RIGHT SIDE
- * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
- * |   ~   |   %   |   $   |   -   |   [   |       |   ]   |   +   |   #   |   <   |   >   |
- * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |   `   |   %   |   *   |   =   |   (   |       |   )   |   ^   |   _   |   "   |   :   |
- * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |       |   \   |       |       |   {   |       |   }   |   @   |   ,   |   .   |   /   |
- * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
- *
- * Left Thumb Cluster                              Right Thumb Cluster
- * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * |       |       |       |       |               |       |       |       |       |
- * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |       |       |       |       |               |       |       |       |       |
- * `-------'-------'-------'-------'               `-------'-------'-------'-------'
- */
-
-  [_RAISE] = LAYOUT(
-
-    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
-
-             _______, _______, _______, _______,       _______, _______, _______, _______,
-             _______, _______, _______, _______,       _______, _______, _______, _______
-    ),
-
-/* Funtion layer with some nav keys on the right side
  * LEFT SIDE                                       RIGHT SIDE
  * Main Grid                                       Main Grid
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
@@ -156,11 +165,11 @@ TD(TD_Q_ESC),KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I, 
              _______, _______, _______, _______,       _______, _______, _______, _______
   ),
 
-/* Mitosis This is for the Adjust layer
+/* Adjust layer
  *
  * LEFT SIDE                                       RIGHT SIDE
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
- * |  BASE |       |       |       |       |       |       |       |       |       |       |
+ * |  BASE |       |       |       |Compile|       |       |       |       |       |       |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
  * |       |       |       |       |       |       |       |       |       |       |       |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
@@ -177,7 +186,7 @@ TD(TD_Q_ESC),KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I, 
 
   [_ADJUST] = LAYOUT( /* Function Shifted Layer, secondary alternative layer with closing brackets,
                                                     and F-keys under their numpad equivalents*/
-  TG(_BASE), _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+  TG(_BASE), _______, _______, _______, KC_COMPILE,       _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
 
@@ -208,24 +217,55 @@ TD(TD_Q_ESC),KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I, 
 
 // Mods on homerow
   [_MODHMRW] = LAYOUT(
-    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+    TD(TD_Q_ESC),KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
+    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_DOT,  KC_COMM, KC_SLSH,
 
-             _______, _______, _______, _______,       _______, _______, _______, _______,
-             _______, _______, _______, _______,       _______, _______, _______, _______
+             KC_LALT, KC_LSFT, KC_LGUI, KC_BSPC,        KC_DEL,  KC_RGUI, KC_RSFT, KC_RALT,
+             KC_ESC,  KC_LCTL, SP_RAI,  KC_SPC,         KC_ENT,  ENT_LOW ,  KC_RCTL, KC_TAB
   )
 
 };
 
-// clang-format on
+// clang-format off
+// process record user input function
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // do things
-    return 0;
-};
+    if (record->event.pressed) {
+        switch (keycode) {
+            case KC_COMPILE:
+                // This sends "qmk compile" followed by the Enter key.
+                // Ensure you are in the correct QMK firmware directory in your terminal.
+                SEND_STRING("qmk compile -kb mitosis -km naughtyusername" SS_TAP(X_ENTER));
+                return false; // Stop normal key processing
+            case KC_ASSIGN:
+              // these have to be tap_code16 for correct types, non shifted keys dont need the 16 typedef
+                // Type ':'
+                tap_code16(KC_COLON);
+                // Type '='
+                tap_code16(KC_EQUAL);
+                return false; // Skip default handling
+          case KC_ARROP:
+          // arrow operator for odin/C
+          tap_code(KC_MINS);
+          tap_code16(KC_GT);
+          return false;
+          // double colon
+          case KC_DCLN:
+          tap_code16(KC_COLON);
+          tap_code16(KC_COLON);
+        }
+    }
+    return true; // Continue with normal key processing
+}
 
+// update tri-layer state
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    state = update_tri_layer_state(
+                                   state,
+                                   _LOWER,
+                                   _RAISE,
+                                   _ADJUST
+                                   );
 
     return state;
 }
@@ -252,6 +292,8 @@ void matrix_scan_user(void) {
             break;
     }
 };
+
+
 
 // clang-format off
 /********************************************************************************************
