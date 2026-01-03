@@ -17,12 +17,12 @@ enum mitosis_layers {
 	_RAISE,
     _FUNCTION,
 	_ADJUST,
-    _MODHMRW // Home row with modifiers - currently a copy paste of the base layer just for testing again
+    _GAMING,
 };
 
 // Custom keycodes
 enum custom_keycodes {
-  KC_COMPILE, // Use SAFE_RANGE for custom codes
+  KC_COMPILE = SAFE_RANGE,
   KC_ASSIGN,
   KC_ARROP,
   KC_DCLN,
@@ -31,17 +31,18 @@ enum custom_keycodes {
 // Tap dance codes
 enum tapdancers {
   TD_Q_ESC,
-  TD_A_TAB,
 };
 
-enum homerowmods {
-    SupA,
-    SupScln,
-    AltS,
-    AltL,
-    CtlD,
-    CtlK,
-};
+// Home row mods - GACS (GUI, Alt, Ctrl, Shift)
+#define HM_A LGUI_T(KC_A)
+#define HM_S LALT_T(KC_S)
+#define HM_D LCTL_T(KC_D)
+#define HM_F LSFT_T(KC_F)
+
+#define HM_J RSFT_T(KC_J)
+#define HM_K RCTL_T(KC_K)
+#define HM_L RALT_T(KC_L)
+#define HM_SCLN RGUI_T(KC_SCLN)
 
 // custom ones above is defaults other than renaming
 #define LOW MO(_LOWER)
@@ -54,38 +55,38 @@ enum homerowmods {
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Q twice for Escape
     [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
-    [TD_A_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_TAB),
 };
 
 /* Mitosis Base layer
- * i think due to the limited keys we might use my old homerow mirroed
- * Alt, Shift, Ctrl, Super layouts, the forward thumb keys are to important for base things and the other ones are too far off
  * LEFT SIDE                                       RIGHT SIDE
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
  * |Esc / Q|   W   |   E   |   R   |   T   |       |   Y   |   U   |   I   |   O   |   P   |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |TAB / A|   S   |   D   |   F   |   G   |       |   H   |   J   |   K   |   L   |   ;   |
+ * | A/GUI | S/ALT | D/CTL | F/SFT |   G   |       |   H   | J/SFT | K/CTL | L/ALT |;/GUI  |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
  * |   Z   |   X   |   C   |   V   |   B   |       |   N   |   M   |   ,   |   .   |   /   |
  * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * |       |       |       |CapsWrd|               |       |       |       |       |
+ * |OS_SHFT|OS_CTRL|OS_ALT |CapsWrd|               |  ESC  |       |       |       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * | ESC   |       |SPC/RAI| Bkspc |               | Del   |ENT/LOW| RCTRL | FUNCT |
+ * |  TAB  | CTRL  |SPC/RAI| Bkspc |               | Del   |ENT/LOW|OSL(FN)|       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
+ *
+ * COMBOS: J+K = Escape
+ * KEY OVERRIDES: Shift+Backspace = Delete
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_BASE] = LAYOUT( /* Malt Layout, customised for reduced columns (ex: quote and shift locations) */
-TD(TD_Q_ESC), KC_W, KC_E, KC_R, KC_T,                 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-TD(TD_A_TAB), KC_S, KC_D, KC_F, KC_G,                 KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
-    KC_Z,     KC_X, KC_C, KC_V, KC_B,                 KC_N,    KC_M,    KC_DOT,  KC_COMM, KC_SLSH,
+  [_BASE] = LAYOUT( /* Malt Layout with Home Row Mods (GACS) */
+TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,    KC_I,    KC_O,       KC_P,
+    HM_A,     HM_S,     HM_D,    HM_F,    KC_G,                 KC_H,    HM_J,    HM_K,    HM_L,       HM_SCLN,
+    KC_Z,     KC_X,     KC_C,    KC_V,    KC_B,                 KC_N,    KC_M,    KC_DOT,  KC_COMM,    KC_SLSH,
 
-         _______, _______, _______, CW_TOGG,        _______,  _______, _______, _______,
-         KC_ESC,  KC_LCTL, SP_RAI,  KC_BSPC,        KC_DEL,  ENT_LOW ,  KC_RCTL, _______
+         OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LALT), CW_TOGG,        KC_ESC,  _______, _______, _______,
+         KC_TAB,        KC_LCTL,       SP_RAI,        KC_BSPC,        KC_DEL,  ENT_LOW, OSL(_FUNCTION),  _______
   ),
 
 /* Mitosis Raise layer - combine with lower for tri-layer Adjust
@@ -151,7 +152,7 @@ TD(TD_A_TAB), KC_S, KC_D, KC_F, KC_G,                 KC_H,    KC_J,    KC_K,   
  * LEFT SIDE                                       RIGHT SIDE
  * Main Grid                                       Main Grid
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
- * |   F9  |   F10 |  F11  |  F12  |       |       | PGUP  | HOME  | END   | INSERT|       |
+ * |   F9  |   F10 |  F11  |  F12  | PRTSC |       | PGUP  | HOME  | END   | INSERT|       |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
  * |   F5  |  F6   |   F7  |  F8   |       |       | LEFT  | DOWN  | UP    | RIGHT |       |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
@@ -162,48 +163,112 @@ TD(TD_A_TAB), KC_S, KC_D, KC_F, KC_G,                 KC_H,    KC_J,    KC_K,   
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
  * |       |       |       |       |               |       |       |       |       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |       |       |       |       |               |       |       |       |       |
+ * |       |       |       |       |               |       |       | HOLD  |       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
 */
 
   [_FUNCTION] = LAYOUT(
-    KC_F9, KC_F10, KC_F11, KC_F12, _______,       KC_PGUP, KC_HOME, KC_END , KC_INS, _______,
-       KC_F5, KC_F6, KC_F7, KC_F8, _______,       KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______,
-       KC_F1, KC_F2, KC_F3, KC_F4, _______,       KC_PGDN, _______, _______, _______, _______,
+    KC_F9,   KC_F10, KC_F11, KC_F12, KC_PSCR,       KC_PGUP, KC_HOME, KC_END , KC_INS, _______,
+    KC_F5,   KC_F6,  KC_F7,  KC_F8,  _______,       KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______,
+    KC_F1,   KC_F2,  KC_F3,  KC_F4,  _______,       KC_PGDN, _______, _______, _______, _______,
 
              _______, _______, _______, _______,       _______, _______, _______, _______,
              _______, _______, _______, _______,       _______, _______, _______, _______
   ),
 
-/* Adjust layer
+/* Adjust layer - System controls and settings
  *
  * LEFT SIDE                                       RIGHT SIDE
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
- * |  BASE |       |       |       |Compile|       |       |       |       |       |       |
+ * |  BASE |       |       |       |Compile|       |MS_UP  |MS_BTN1|MS_BTN2|MS_BTN3| NKRO  |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |       |       |       |       |       |       |       |       |       |       |       |
+ * |       |       |       |       |       |       |MS_LEFT|MS_DOWN|MS_UP  |MS_RGHT|       |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |       |       |       |       |       |       |       |       |       |       |       |
+ * |       |       |       |       | GAME  |       |MS_DOWN|WH_DOWN|WH_UP  |       |       |
  * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
  * |       |       |       |       |               |       |       |       |       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |FLASH  |       |       |       |               |       |       |       |       |
+ * |EE_CLR | BOOT  |       |       |               |       |       |       |       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
-  [_ADJUST] = LAYOUT( /* Function Shifted Layer, secondary alternative layer with closing brackets,
-                                                    and F-keys under their numpad equivalents*/
-  TG(_BASE), _______, _______, _______, KC_COMPILE,       _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+  [_ADJUST] = LAYOUT( /* System controls - accessed by holding LOWER + RAISE */
+  TG(_BASE), _______, _______, _______, KC_COMPILE,       MS_UP,   MS_BTN1, MS_BTN2, MS_BTN3, NK_TOGG,
+    _______, _______, _______, _______, _______,          MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, _______,
+    _______, _______, _______, _______, TG(_GAMING),      MS_DOWN, MS_WHLD, MS_WHLU, _______, _______,
 
              _______, _______, _______, _______,       _______, _______, _______, _______,
-             QK_BOOT, _______, _______, _______,       _______, _______, _______, _______
+             EE_CLR,  QK_BOOT, _______, _______,       _______, _______, _______, _______
   ),
 
+/* Gaming layer - No home row mods, standard layout
+ *
+ * LEFT SIDE                                       RIGHT SIDE
+ * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
+ * |   Q   |   W   |   E   |   R   |   T   |       |   Y   |   U   |   I   |   O   |   P   |
+ * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
+ * |   A   |   S   |   D   |   F   |   G   |       |   H   |   J   |   K   |   L   |   ;   |
+ * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
+ * |   Z   |   X   |   C   |   V   |   B   |       |   N   |   M   |   ,   |   .   |   /   |
+ * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
+ *
+ * Left Thumb Cluster                              Right Thumb Cluster
+ * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
+ * | SHIFT |  ESC  |  TAB  |   1   |               |       |       |       |       |
+ * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
+ * | CTRL  |  ALT  | SPACE | BKSPC |               |  DEL  | ENTER |  FN   | BASE  |
+ * `-------'-------'-------'-------'               `-------'-------'-------'-------'
+ */
+
+  [_GAMING] = LAYOUT(
+    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                 KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
+    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                 KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+
+             KC_LSFT, KC_ESC,  KC_TAB,  KC_1,                 _______, _______, _______, _______,
+             KC_LCTL, KC_LALT, KC_SPC,  KC_BSPC,              KC_DEL,  KC_ENT,  MO(_FUNCTION), TG(_GAMING)
+  ),
+
+};
+
+// Configure tapping term for home row mods
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // Pinkies get longer tapping term (weaker fingers)
+        case HM_A:
+        case HM_SCLN:
+            return 185;
+        // Other home row mods
+        case HM_S:
+        case HM_D:
+        case HM_F:
+        case HM_J:
+        case HM_K:
+        case HM_L:
+            return 165;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+// Combos - J+K = Escape (vim classic!)
+const uint16_t PROGMEM jk_combo[] = {HM_J, HM_K, COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(jk_combo, KC_ESC),
+};
+
+uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);
+
+// Key overrides - Shift+Backspace = Delete
+const key_override_t shift_bspc_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+
+// Add all overrides to array
+const key_override_t *key_overrides[] = {
+    &shift_bspc_override,
 };
 
 // flow tap customizing, will probably need refinment
