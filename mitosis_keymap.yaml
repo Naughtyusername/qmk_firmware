@@ -1,0 +1,198 @@
+layout: {qmk_keyboard: mitosis, layout_name: LAYOUT}
+layers:
+  L0:
+  - [TD(TD Q ESC), W, E, R, T, Y, U, I, O, P]
+  - [HM A, HM S, HM D, HM F, G, H, HM J, HM K, HM L, HM SCLN]
+  - [Z, X, C, V, B, N, M, ., ',', /]
+  - - {t: LSFT, h: sticky}
+    - {t: LCTL, h: sticky}
+    - {t: LALT, h: sticky}
+    - CW TOGG
+    - ESC
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - TAB
+    - LCTL
+  - - SP RAI
+    - BSPC
+    - DEL
+    - ENT LOW
+    - OSL( FUNCTION)
+    - {t: ▽, type: trans}
+  L1:
+  - ['%', $, '-', '|', '[', ']', +, '#', <, '>']
+  - ['!', '*', '=', '&', (, ), ^, _, '"', DCLN]
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - ARROP
+    - ASSIGN
+    - '{'
+    - '}'
+    - '@'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - SPC
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  L2:
+  - ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - VOLU
+    - VOLD
+    - MUTE
+    - .
+    - '4'
+    - '5'
+    - '6'
+    - '0'
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - MPRV
+    - MPLY
+    - MNXT
+    - {t: ▽, type: trans}
+    - '1'
+    - '2'
+    - '3'
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  L3:
+  - - F9
+    - F10
+    - F11
+    - F12
+    - PSCR
+    - PGUP
+    - HOME
+    - END
+    - INS
+    - {t: ▽, type: trans}
+  - - F5
+    - F6
+    - F7
+    - F8
+    - {t: ▽, type: trans}
+    - LEFT
+    - DOWN
+    - UP
+    - RGHT
+    - {t: ▽, type: trans}
+  - - F1
+    - F2
+    - F3
+    - F4
+    - {t: ▽, type: trans}
+    - PGDN
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  L4:
+  - - TG( BASE)
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - COMPILE
+    - MS UP
+    - MS BTN1
+    - MS BTN2
+    - MS BTN3
+    - NK TOGG
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - MS LEFT
+    - MS DOWN
+    - MS UP
+    - MS RGHT
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - TG( GAMING)
+    - MS DOWN
+    - MS WHLD
+    - MS WHLU
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - EE CLR
+    - QK BOOT
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  L5:
+  - [Q, W, E, R, T, Y, U, I, O, P]
+  - [A, S, D, F, G, H, J, K, L, ;]
+  - [Z, X, C, V, B, N, M, ',', ., /]
+  - - LSFT
+    - ESC
+    - TAB
+    - '1'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - LCTL
+    - LALT
+  - [SPC, BSPC, DEL, ENT, MO( FUNCTION), TG( GAMING)]

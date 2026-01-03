@@ -14,190 +14,352 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Kyria keymap ported from Mitosis layout
+// Maintains Mitosis core layout with Kyria hardware features (RGB, OLED, encoders)
+
+#include "keycodes.h"
 #include QMK_KEYBOARD_H
 
-enum layers {
+// Each layer gets a name for readability, which is then used in the keymap matrix below.
+// The underscores don't mean anything - you can have a layer called STUFF or any other name.
+// Layer names don't all need to be of the same length, obviously, and you can also skip them
+// entirely and just use numbers.
+
+// clang-format off
+// Layers - imported from Mitosis
+enum kyria_layers {
     _BASE = 0,
     _LOWER,
     _RAISE,
     _FUNCTION,
     _ADJUST,
+    _GAMING,
 };
 
-// Aliases for readability
-#define BASE DF(_BASE)
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
-#define FKEYS MO(_FUNCTION)
-#define ADJUST MO(_ADJUST)
+// Custom keycodes - imported from Mitosis
+enum custom_keycodes {
+  KC_COMPILE = SAFE_RANGE,
+  KC_ASSIGN,
+  KC_ARROP,
+  KC_DCLN,
+};
 
+// Tap dance codes - imported from Mitosis
+enum tapdancers {
+  TD_Q_ESC,
+};
+
+// Home row mods - GACS (GUI, Alt, Ctrl, Shift) - imported from Mitosis
+#define HM_A LGUI_T(KC_A)
+#define HM_S LALT_T(KC_S)
+#define HM_D LCTL_T(KC_D)
+#define HM_F LSFT_T(KC_F)
+
+#define HM_J RSFT_T(KC_J)
+#define HM_K RCTL_T(KC_K)
+#define HM_L RALT_T(KC_L)
+#define HM_SCLN RGUI_T(KC_SCLN)
+
+// Layer tap definitions - imported from Mitosis
+#define LOW MO(_LOWER)
+#define RAI MO(_RAISE)
+// make space and enter work with mod time layer swapping
+#define SP_RAI LT(_RAISE, KC_SPACE)
+#define ENT_LOW LT(_LOWER, KC_ENTER)
+
+// Kyria-specific aliases (keeping from original Kyria keymap for outer columns)
 #define CTL_TAB MT(MOD_LCTL, KC_TAB)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
 
-// clang-format off
+// Tap Dance definitions - imported from Mitosis
+tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Q twice for Escape
+    [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
+};
+
+/* Kyria Base layer (ported from Mitosis)
+ *
+ * MITOSIS LAYOUT PHILOSOPHY:
+ * - Home row mods (GACS: GUI, Alt, Ctrl, Shift)
+ * - Tap dance Q/ESC on Q key
+ * - Space with layer tap to RAISE
+ * - Enter with layer tap to LOWER
+ * - Combo: J+K = Escape
+ * - Key override: Shift+Backspace = Delete
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |  ESC   | Q/ESC|   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |Ctrl/Tab| A/GUI| S/ALT| D/CTL| F/SFT|   G  |                              |   H  | J/SFT| K/CTL| L/ALT|;/GUI |Ctrl/' "|
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |      |  |      |      |   N  |   M  |  .   |  ,   |  /   | RShift |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |EncBtn|OS_CTL|  TAB |SPC/RA| BKSPC|  |  DEL |ENT/LO|OSL-FN| RALT |EncBtn|
+ *                        |      |      |      | Raise|      |  | Lower|      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ *
+ * COMBOS: J+K = Escape (vim muscle memory!)
+ * KEY OVERRIDES: Shift+Backspace = Delete
+ * ENCODERS: Left = Volume control, Right = Page Up/Down
+ */
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*
- * Base Layer: BASE
+
+  [_BASE] = LAYOUT( /* Malt Layout with Home Row Mods (GACS) */
+     KC_ESC  ,TD(TD_Q_ESC), KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_BSPC,
+     CTL_TAB ,    HM_A    ,  HM_S   ,  HM_D  ,   HM_F ,   KC_G ,                                        KC_H,   HM_J ,  HM_K ,   HM_L ,HM_SCLN,CTL_QUOT,
+     KC_LSFT ,    KC_Z    ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , _______, _______,     _______, _______, KC_N,   KC_M ,KC_DOT, KC_COMM,KC_SLSH, KC_RSFT,
+                              KC_MUTE, OSM(MOD_LCTL), KC_TAB, SP_RAI, KC_BSPC,     KC_DEL, ENT_LOW, OSL(_FUNCTION), KC_RALT, KC_MUTE
+  ),
+
+/* Kyria Raise layer (ported from Mitosis) - combine with lower for tri-layer Adjust
+ *
+ * Symbols and programming operators optimized for Odin
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |  Esc   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
+ * |        |   %  |  $   |  -   |  |   |  [   |                              |   ]  |  +   |  #   |  <   |  >   |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |Ctrl/Tab|   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |Ctrl/' "|
+ * |        |   !  |  *   |  =   |  &   |  (   |                              |   )  |  ^   |  _   |  "   |  ::  |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  | [ {  |CapsLk|  |F-keys|  ] } |   N  |   M  | ,  < | . >  | /  ? | RShift |
+ * |        |      |      |  ->  |  :=  |  {   |      |      |  |      |      |   }  |  @   |  .   |  ,   |  /   |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | MUTE | LGUI | LAlt | Space| RAISE|  | LOWR | ENTER| AltGr| RGUI | Menu |
- *                        |      |      |      | Raise|      |  |      |Lower |      |      |      |
+ *                        |      |HOLDNG|      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_BASE] = LAYOUT(
-     KC_ESC  , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_BSPC,
-     CTL_TAB , KC_A ,  KC_S   ,  KC_D  ,   KC_F ,   KC_G ,                                        KC_H,   KC_J ,  KC_K ,   KC_L ,KC_SCLN,CTL_QUOT,
-     KC_LSFT , KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B ,KC_LBRC, KC_CAPS,     FKEYS  , KC_RBRC, KC_N,   KC_M ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
-                              KC_MUTE , KC_LGUI, KC_LALT, KC_SPC , TL_UPPR,     TL_LOWR, KC_ENT,  KC_RALT, KC_RGUI, KC_APP
+
+  [_RAISE] = LAYOUT(
+    _______, KC_PERC, KC_DLR, KC_MINS, KC_PIPE, KC_LBRC,                                       KC_RBRC, KC_PLUS, KC_HASH, KC_LT,   KC_GT,   _______,
+    _______, KC_EXLM, KC_ASTR, KC_EQL, KC_AMPR, KC_LPRN,                                       KC_RPRN, KC_CIRC, KC_UNDS, KC_DQT,  KC_DCLN, _______,
+    _______, _______, _______, KC_ARROP, KC_ASSIGN, KC_LCBR, _______, _______,  _______, _______, KC_RCBR, KC_AT,  KC_DOT, KC_COMM, KC_SLSH, _______,
+                                _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
     ),
 
-/*
- * Raise Layer: Numbers and symbols
- * probably change the asdf row to be something a bit more usable, we should be able to shift hit the numbers just fine
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |    ~   |  %   |  $   |  -   |  |   |  [   |                              |   ]  |  +   |  #   |  <   |  >   |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |    `   |  !   |  *   |  =   |  &   |  (   |                              |   )  |  ^   |  _   |  "   |  :   |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  \   |      |      |      |  {   |      |      |  |FNKEYS|      |   }  |  @   |  ,   |  .   |  /   |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      | Space|Raise |  |Lower | Enter|      |      |      |
- *                        |      |      |      |      |Adjust|  |Adjust|      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
-    [_RAISE] = LAYOUT(
-     KC_TILD, KC_PERC, KC_DLR, KC_MINS, KC_PIPE, KC_LBRC,                                       KC_RBRC, KC_PLUS, KC_HASH, KC_LT,  KC_GT,   _______,
-     KC_GRV,  KC_EXLM, KC_ASTR, KC_EQL, KC_AMPR, KC_LPRN,                                       KC_RPRN, KC_CIRC, KC_UNDS, KC_DQT, KC_COLN, _______,
-     _______, KC_BSLS, _______, _______, _______, KC_LCBR, _______, _______,  _______, _______, KC_RCBR, KC_AT,  _______, _______, _______, _______,
-                                _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
-    ),
-
-/*
- *  Lower Layer - arrow keys over Vi for the niche cases
+/* Kyria Lower layer (ported from Mitosis) - combined with raise for tri-layer Adjust
  *
-//  * ,-------------------------------------------.                              ,-------------------------------------------.
-//  * |        |  1   |  2   |  3   |  4   |  5   |                              |  6   |  7   |  8   |  9   |  0   |        |
-//  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |                              |      |  4   |  5   |  6   |      |        |
-//  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |      | Caps |  | FKEYS|      |      |  1   |  2   |  3   |      |        |
-//  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-//  *                        |      |      |      |      |Raise |  |LOWER |      |      |      |      |
-//  *                        |      |      |      |      |Adjust|  |WHld  |      |      |      |      |
-//  *                        `----------------------------------'  `----------------------------------'
+ * Numbers and media controls
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |  1   |  2   |  3   |  4   |  5   |                              |  6   |  7   |  8   |  9   |  0   |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |      |      | VOLUP|VOLDOWN MUTE |                              |  .   |  4   |  5   |  6   |  0   |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      | Prev |Ply/Pau Next |      |      |  |      |      |      |  1   |  2   |  3   |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |SPC/RA|      |      |      |  |HOLDNG|      |      |      |      |
+ *                        |      | Raise|      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
  */
 
-    [_LOWER] = LAYOUT(
+  [_LOWER] = LAYOUT(
       _______,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  _______,
-      _______, _______, _______, _______, _______, _______,                                      _______,   KC_4,    KC_5,    KC_6,  _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,   KC_1,    KC_2,    KC_3, _______, _______,
+      _______, _______, _______, KC_VOLU, KC_VOLD, KC_MUTE,                                       KC_DOT,   KC_4,    KC_5,    KC_6,    KC_0, _______,
+      _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______,  _______, _______, _______,  KC_1,    KC_2,    KC_3, _______, _______,
                                  _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
-    ),
+  ),
 
-/*
- * Function Layer: Function keys
+/* Function layer (ported from Mitosis)
+ *
+ * Function keys and navigation
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  F9  | F10  | F11  | F12  |      |                              | PGUP |Home  | End  |Insert|      |        |
+ * |        |  F9  | F10  | F11  | F12  |PRTSC |                              | PGUP | HOME | END  |INSERT|      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  F5  |  F6  |  F7  |  F8  |      |                              | Left | Down |  Up  | Right|      |        |
+ * |        |  F5  |  F6  |  F7  |  F8  |      |                              | LEFT | DOWN |  UP  | RIGHT|      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |  F1  |  F2  |  F3  |  F4  |      |      |      |  |      |      | PGDW |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      | HOLD |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_FUNCTION] = LAYOUT(
-      _______,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12, _______,                                     KC_PGUP, KC_HOME, KC_END,  KC_INS,  _______, _______,
+
+  [_FUNCTION] = LAYOUT(
+      _______,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12, KC_PSCR,                                     KC_PGUP, KC_HOME, KC_END,  KC_INS,  _______, _______,
       _______,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
       _______,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 , _______, _______, _______, _______, _______, KC_PGDN, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
+  ),
 
-/*
- * Adjust Layer: Default layer settings, RGB
+/* Adjust layer (ported from Mitosis) - System controls and settings
+ *
+ * Accessed by holding LOWER + RAISE
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        | BASE |      |      |      |      |                              |      |      |      |      |      |        |
+ * |        | BASE |      |      |      |Compil|                              |MS_UP |MS_BT1|MS_BT2|MS_BT3| NKRO |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |                              |MS_LFT|MS_DN |MS_UP |MS_RGT|      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |      |      |      |      | GAME |      |      |  |      |      |MS_DN |WH_DN |WH_UP |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |EE_CLR| BOOT |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_ADJUST] = LAYOUT(
-      _______, TG(_BASE), _______, _______, _______, _______,                                       _______, _______, _______, _______,  _______, _______,
-      _______, _______, _______, _______, _______, _______,                                       _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______,  _______,
-                                 _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
-    ),
 
-// /*
-//  * Layer template
-//  *
-//  * ,-------------------------------------------.                              ,-------------------------------------------.
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
-//  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
-//  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
-//  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-//  *                        |      |      |      |      |      |  |      |      |      |      |      |
-//  *                        |      |      |      |      |      |  |      |      |      |      |      |
-//  *                        `----------------------------------'  `----------------------------------'
-//  */
-//     [_LAYERINDEX] = LAYOUT(
-//       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-//       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-//       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-//                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-//     ),
+  [_ADJUST] = LAYOUT( /* System controls - accessed by holding LOWER + RAISE */
+  _______, TG(_BASE), _______, _______, _______, KC_COMPILE,                                    MS_UP,   MS_BTN1, MS_BTN2, MS_BTN3, NK_TOGG, _______,
+    _______, _______, _______, _______, _______, _______,                                       MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, _______, _______,
+    _______, _______, _______, _______, _______, TG(_GAMING), _______, _______,  _______, _______, MS_DOWN, MS_WHLD, MS_WHLU, _______, _______, _______,
+                                 _______, EE_CLR,  QK_BOOT, _______, _______,  _______, _______, _______, _______, _______
+  ),
+
+/* Gaming layer (ported from Mitosis) - No home row mods, standard layout
+ *
+ * For gaming where you need direct key access without mod-tap delays
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |  ESC   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |Ctrl/Tab|   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  |  ;   |Ctrl/' "|
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  | [ {  | ESC  |  | FN   |  ] } |   N  |   M  |  ,   |  .   |  /   | RShift |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        | Mute | SPACE| BKSPC|  TAB |   1  |  | ENTER|  DEL |  FN  |TG_GAM|      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+
+  [_GAMING] = LAYOUT(
+     KC_ESC  , KC_Q   ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,    KC_U ,  KC_I ,   KC_O ,   KC_P , KC_BSPC,
+     CTL_TAB , KC_A   ,  KC_S   ,  KC_D  ,   KC_F ,   KC_G ,                                        KC_H,    KC_J ,  KC_K ,   KC_L , KC_SCLN,CTL_QUOT,
+     KC_LSFT , KC_Z   ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , _______, _______,     _______, _______, KC_N,    KC_M ,KC_COMM, KC_DOT,KC_SLSH, KC_RSFT,
+                              KC_MUTE, KC_LCTL, KC_TAB, KC_SPC, KC_BSPC,     KC_DEL, KC_ENT, MO(_FUNCTION), TG(_GAMING), KC_MUTE
+  ),
+
 };
 
-// Layer state checking for RGB and other tri-layer handling
+// Configure tapping term for home row mods - imported from Mitosis
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // Pinkies get longer tapping term (weaker fingers)
+        case HM_A:
+        case HM_SCLN:
+            return 185;
+        // Other home row mods
+        case HM_S:
+        case HM_D:
+        case HM_F:
+        case HM_J:
+        case HM_K:
+        case HM_L:
+            return 165;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+// Combos - J+K = Escape (vim classic!) - imported from Mitosis
+const uint16_t PROGMEM jk_combo[] = {HM_J, HM_K, COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(jk_combo, KC_ESC),
+};
+
+uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);
+
+// Key overrides - Shift+Backspace = Delete - imported from Mitosis
+const key_override_t shift_bspc_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+
+// Add all overrides to array
+const key_override_t *key_overrides[] = {
+    &shift_bspc_override,
+};
+
+// Flow tap customizing - imported from Mitosis
+bool is_flow_tap_key(uint16_t keycode) {
+    if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
+        return false; // Disable Flow Tap on hotkeys.
+    }
+    switch (get_tap_keycode(keycode)) {
+        case KC_SPC:
+        case KC_A ... KC_Z:
+        case KC_DOT:
+        case KC_COMM:
+        case KC_SCLN:
+        case KC_SLSH:
+            return true;
+    }
+    return false;
+}
+
+// Flow tap term configuration - imported from Mitosis
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
+                           uint16_t prev_keycode) {
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        return FLOW_TAP_TERM;
+    }
+    return 0;
+}
+
+// Process record user input function - imported from Mitosis
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+            case KC_COMPILE:
+                // Updated for Kyria compilation
+                SEND_STRING("qmk compile -kb splitkb/kyria/rev1 -km naughtyusername" SS_TAP(X_ENTER));
+                return false; // Stop normal key processing
+            case KC_ASSIGN:
+                // Assignment operator for Odin (:=)
+                tap_code16(KC_COLON);
+                tap_code16(KC_EQUAL);
+                return false;
+            case KC_ARROP:
+                // Arrow operator for Odin/C (->)
+                tap_code(KC_MINS);
+                tap_code16(KC_GT);
+                return false;
+            case KC_DCLN:
+                // Double colon for Odin (::)
+                tap_code16(KC_COLON);
+                tap_code16(KC_COLON);
+                return false;
+        }
+    }
+    return true; // Continue with normal key processing
+}
+
+// Layer state checking - merged Mitosis tri-layer with Kyria RGB
 layer_state_t layer_state_set_user(layer_state_t state) {
+    // RGB layer indication - using Mitosis color scheme
     switch (get_highest_layer(state)) {
         case _BASE:
-            rgblight_sethsv_noeeprom(HSV_PURPLE); // Green for gaming layer
+            rgblight_sethsv_noeeprom(HSV_BLUE); // Blue for base (matches Mitosis)
             break;
         case _LOWER:
-            rgblight_sethsv_noeeprom(HSV_BLUE); // Blue for numpad layer
+            rgblight_sethsv_noeeprom(HSV_RED); // Red for lower (matches Mitosis)
             break;
         case _RAISE:
-            rgblight_sethsv_noeeprom(HSV_ORANGE); // Blue for numpad layer
-            break;
-        case _ADJUST:
-            rgblight_sethsv_noeeprom(HSV_RED); // Blue for numpad layer
+            rgblight_sethsv_noeeprom(HSV_WHITE); // White for raise (matches Mitosis)
             break;
         case _FUNCTION:
-            rgblight_sethsv_noeeprom(HSV_YELLOW); // Blue for numpad layer
+            rgblight_sethsv_noeeprom(HSV_YELLOW); // Yellow for function
+            break;
+        case _ADJUST:
+            rgblight_sethsv_noeeprom(HSV_GREEN); // Green for adjust (matches Mitosis)
+            break;
+        case _GAMING:
+            rgblight_sethsv_noeeprom(HSV_PURPLE); // Purple for gaming
             break;
         default:
             rgblight_sethsv_noeeprom(HSV_WHITE); // White for default
             break;
     }
 
-  state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    // Update tri-layer state (LOWER + RAISE = ADJUST) - from Mitosis
+    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 
-  return state;
+    return state;
 }
 
-// Oled code below
-// Below is the default settings for oled and such,  i just uncommented them, havent edited yet 12/29/25
-oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
+// OLED code - Kyria specific, updated with Mitosis layer names
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_180;
+}
+
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-
         // QMK Logo and version information
         // clang-format off
         static const char PROGMEM qmk_logo[] = {
@@ -209,23 +371,26 @@ bool oled_task_user(void) {
         oled_write_P(qmk_logo, false);
         oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
 
-        // Host Keyboard Layer Status
+        // Host Keyboard Layer Status - updated with Mitosis layer names
         oled_write_P(PSTR("Layer: "), false);
         switch (get_highest_layer(layer_state | default_layer_state)) {
             case _BASE:
-                oled_write_P(PSTR("BASE\n"), false);
+                oled_write_P(PSTR("Base\n"), false);
                 break;
             case _LOWER:
-                oled_write_P(PSTR("Nav\n"), false);
+                oled_write_P(PSTR("Lower\n"), false);
                 break;
             case _RAISE:
-                oled_write_P(PSTR("Sym\n"), false);
+                oled_write_P(PSTR("Raise\n"), false);
                 break;
             case _FUNCTION:
                 oled_write_P(PSTR("Function\n"), false);
                 break;
             case _ADJUST:
                 oled_write_P(PSTR("Adjust\n"), false);
+                break;
+            case _GAMING:
+                oled_write_P(PSTR("Gaming\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
@@ -254,17 +419,17 @@ bool oled_task_user(void) {
     return false;
 }
 
-// Rotary encoder code
+// Rotary encoder code - Kyria specific
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        // Volume control
+        // Volume control on left encoder
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {
             tap_code(KC_VOLD);
         }
     } else if (index == 1) {
-        // Page up/Page down
+        // Page up/Page down on right encoder
         if (clockwise) {
             tap_code(KC_PGDN);
         } else {
@@ -273,3 +438,27 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return false;
 }
+
+// clang-format off
+/********************************************************************************************
+ * KYRIA BLANK TEMPLATE FOR FUTURE LAYERS
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+
+  [_BLANK] = LAYOUT(
+      _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  ),
+
+*/
