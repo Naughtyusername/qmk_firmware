@@ -1,0 +1,35 @@
+#+TITLE: Org file for QMK Firmware
+
+* This is the main current todo for my qmk config
+
+* Things i wanna play with and understand more and see if they are of use to me
+** Combos
+*** i dont think they will be of much use but i am curious to play with them for sure
+** Tapdance
+*** i think we could probably find some more use cases
+** Macros
+*** no idea if i will ever have any use for these but i am intrigued
+** Chording
+*** i am super interested in these and really want to implement them, as a long time home row mod key user this seems like it was the only thing i was missing from what ive read
+*** so we should implement it soon
+
+** Space Cadet
+*** Shift on its own types ( or ) apparently you can use them with alt and ctrl now too!
+
+* Kyria
+* URGENT
+** TODO : firmware is to large to flash! we dont care at the moment since the board doesnt work but we need to fix this before flashing it!
+
+* Planck ez glow
+** TODO just general clean up and it should be good to go.
+
+* TODO Sofle
+** Its in a pretty decent state i think, we will just have to test it when the new case shows up so we can actually put switches in there and have it stable
+
+* REVIEW Mitosis
+** Honestly this is the furthest along now and what we are basing everything else off of
+** Im slowly trying to figure out what else we need for it but its hard without being able to use it
+
+*** TODO we finally get to try it on the 10th at the latest i hope<2026-01-03 Sat>!
+* test
+DEADLINE: <2026-01-10 Sat>

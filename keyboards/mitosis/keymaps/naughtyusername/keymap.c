@@ -2,6 +2,7 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
 #include "keycodes.h"
+#include "quantum.h"
 #include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -26,6 +27,8 @@ enum custom_keycodes {
   KC_ASSIGN,
   KC_ARROP,
   KC_DCLN,
+  KC_RANGE,
+  KC_HMDR,
 };
 
 // Tap dance codes
@@ -69,7 +72,7 @@ tap_dance_action_t tap_dance_actions[] = {
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * |OS_SHFT|OS_CTRL|OS_ALT |CapsWrd|               |  ESC  |       |       |       |
+ * |OS_SHFT|OS_CTRL|OS_ALT |CapsWrd|               |  ESC  |MO/FUNC|       |       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
  * |  TAB  | CTRL  |SPC/RAI| Bkspc |               | Del   |ENT/LOW|OSL(FN)|       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
@@ -85,7 +88,7 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
     HM_A,     HM_S,     HM_D,    HM_F,    KC_G,                 KC_H,    HM_J,    HM_K,    HM_L,       HM_SCLN,
     KC_Z,     KC_X,     KC_C,    KC_V,    KC_B,                 KC_N,    KC_M,    KC_DOT,  KC_COMM,    KC_SLSH,
 
-         OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LALT), CW_TOGG,        KC_ESC,  _______, _______, _______,
+         OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LALT), CW_TOGG,        KC_ESC,  MO(_FUNCTION), _______, _______,
          KC_TAB,        KC_LCTL,       SP_RAI,        KC_BSPC,        KC_DEL,  ENT_LOW, OSL(_FUNCTION),  _______
   ),
 
@@ -93,16 +96,16 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
 
  * LEFT SIDE                                       RIGHT SIDE
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
- * |   %   |   $   |   -   |   |   |   [   |       |   ]   |   +   |   #   |   <   |   >   |
+ * |   \   |   $   |   |   |   -   |   [   |       |   ]   |   +   |   #   |   <   |   >   |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |   !   |   *   |   =   |   &   |   (   |       |   )   |   ^   |   _   |   "   |  ::   |
+ * |   ~   |   &   |   *   |   =   |   (   |       |   )   |   ^   |   _   |   %   |  ::   |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |       |       |   ->  |   :=  |   {   |       |   }   |   @   |   ,   |   .   |   /   |
+ * |  !=   |   !   |   ->  |   :=  |   {   |       |   }   |   @   |   ,   |   .   |   /   |
  * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * |       |       |       |       |               |       |       |       |       |
+ * |       |       |  ~/.  |   `   |               |   "   |   ?   |   ;   |       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
  * |       |       |HOLDING|       |               | Space |LOW/ADJ|       |       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
@@ -110,12 +113,12 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
 
   [_RAISE] = LAYOUT(
 
-    KC_PERC, KC_DLR, KC_MINS, KC_PIPE, KC_LBRC,       KC_RBRC, KC_PLUS, KC_HASH, KC_LT, KC_GT,
-    KC_EXLM, KC_ASTR, KC_EQL, KC_AMPR, KC_LPRN,       KC_RPRN, KC_CIRC, KC_UNDS, KC_DQT, KC_DCLN,
-    _______, _______, KC_ARROP, KC_ASSIGN, KC_LCBR,       KC_RCBR, KC_AT, _______, _______, _______,
+    KC_BSLS, KC_DLR, KC_PIPE, KC_MINS, KC_LBRC,       KC_RBRC, KC_PLUS, KC_HASH, KC_LT, KC_GT,
+    KC_TILD, KC_AMPR, KC_CIRC, KC_EQL, KC_LPRN,       KC_RPRN, KC_CIRC, KC_UNDS, KC_DQT, KC_DCLN,
+    KC_RANGE, KC_EXLM, KC_ARROP, KC_ASSIGN, KC_LCBR,   KC_RCBR, KC_AT, KC_COMM, KC_DOT, KC_SLSH,
 
-             _______, _______, _______, _______,       _______, _______, _______, _______,
-             _______, _______, _______, _______,       KC_SPC, _______, _______, _______
+         _______, _______, KC_HMDR, KC_GRV,       KC_DQT, KC_QUES, _______, _______,
+         _______, _______, _______, _______,      KC_SPC, _______, _______, _______
     ),
 
 /* Mitosis Lower layer - combined with raise for tri-layer Adjust
@@ -180,11 +183,11 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
  *
  * LEFT SIDE                                       RIGHT SIDE
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
- * |  BASE |       |       |       |Compile|       |MS_UP  |MS_BTN1|MS_BTN2|MS_BTN3| NKRO  |
+ * |  BASE | GAME  |       |       |Compile|       |MS_UP  |MS_BTN1|MS_BTN2|MS_BTN3| NKRO  |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
  * |       |       |       |       |       |       |MS_LEFT|MS_DOWN|MS_UP  |MS_RGHT|       |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |       |       |       |       | GAME  |       |MS_DOWN|WH_DOWN|WH_UP  |       |       |
+ * |       |       |       |       |       |       |MS_DOWN|WH_DOWN|WH_UP  |       |       |
  * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
  *
  * Left Thumb Cluster                              Right Thumb Cluster
@@ -196,9 +199,9 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
  */
 
   [_ADJUST] = LAYOUT( /* System controls - accessed by holding LOWER + RAISE */
-  TG(_BASE), _______, _______, _______, KC_COMPILE,       MS_UP,   MS_BTN1, MS_BTN2, MS_BTN3, NK_TOGG,
+  TG(_BASE), TG(_GAMING), _______, _______, KC_COMPILE,       MS_UP,   MS_BTN1, MS_BTN2, MS_BTN3, NK_TOGG,
     _______, _______, _______, _______, _______,          MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, _______,
-    _______, _______, _______, _______, TG(_GAMING),      MS_DOWN, MS_WHLD, MS_WHLU, _______, _______,
+    _______, _______, _______, _______, _______,      MS_DOWN, MS_WHLD, MS_WHLU, _______, _______,
 
              _______, _______, _______, _______,       _______, _______, _______, _______,
              EE_CLR,  QK_BOOT, _______, _______,       _______, _______, _______, _______
@@ -217,7 +220,7 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * | SHIFT |  ESC  |  TAB  |   1   |               |       |       |       |       |
+ * | SHIFT |  ESC  |  TAB  |   1   |               |   2   |   3   |   4   |   5   |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
  * | CTRL  |  ALT  | SPACE | BKSPC |               |  DEL  | ENTER |  FN   | BASE  |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
@@ -314,7 +317,6 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 /* }                                                                         */
 /*****************************************************************************/
 
-// clang-format off
 // process record user input function
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
@@ -331,15 +333,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // Type '='
                 tap_code16(KC_EQUAL);
                 return false; // Skip default handling
-          case KC_ARROP:
           // arrow operator for odin/C
+          case KC_ARROP:
           tap_code(KC_MINS);
           tap_code16(KC_GT);
           return false;
+
           // double colon
           case KC_DCLN:
           tap_code16(KC_COLON);
           tap_code16(KC_COLON);
+          return false;
+
+          // Odin range operator
+          case KC_RANGE:
+                SEND_STRING("..=");
+          return false;
+          // Home Dir
+          case KC_HMDR:
+                SEND_STRING("~/");
+          return false;
         }
     }
     return true; // Continue with normal key processing

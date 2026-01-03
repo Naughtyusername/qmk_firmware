@@ -1,0 +1,4 @@
+* Inbox
+** TODO Raise layer symbol change consideration
+
+[[file:~/qmk/qmk_firmware/keyboards/mitosis/keymaps/naughtyusername/keymap.c::// TODO: consider moving !, but its also not a big deal. " isnt a huge importance and could be better for that.]]
