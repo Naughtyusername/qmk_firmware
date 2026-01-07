@@ -2,6 +2,7 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
 #include "keycodes.h"
+#include "mitosis.h"
 #include "quantum.h"
 #include QMK_KEYBOARD_H
 
@@ -136,7 +137,7 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
  * |       |       |       |       |               | Delete|       |       |       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |       |       |SPC/RAI|       |               | Enter |HOLDING|       |       |
+ * |       |       |SPC/RAI| SPACE |               | Enter |HOLDING|       |       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
@@ -147,7 +148,7 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
     _______, _______, KC_MPRV, KC_MPLY, KC_MNXT,       _______, KC_1,    KC_2,    KC_3, _______,
 
              _______, _______, _______, _______,       _______, _______, _______, _______,
-             _______, _______, _______, _______,       _______, _______, _______, _______
+             _______, _______, _______, KC_SPC,       _______, _______, _______, _______
   ),
 
 /* Funtion layer
@@ -321,18 +322,19 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
+
             case KC_COMPILE:
                 // This sends "qmk compile" followed by the Enter key.
                 // Ensure you are in the correct QMK firmware directory in your terminal.
                 SEND_STRING("qmk compile -kb mitosis -km naughtyusername" SS_TAP(X_ENTER));
                 return false; // Stop normal key processing
+
             case KC_ASSIGN:
-              // these have to be tap_code16 for correct types, non shifted keys dont need the 16 typedef
-                // Type ':'
+              // these have to be tap_code16 for correct types, non shifted keys dont need the 16
                 tap_code16(KC_COLON);
-                // Type '='
                 tap_code16(KC_EQUAL);
                 return false; // Skip default handling
+
           // arrow operator for odin/C
           case KC_ARROP:
           tap_code(KC_MINS);
@@ -349,6 +351,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           case KC_RANGE:
                 SEND_STRING("..=");
           return false;
+
           // Home Dir
           case KC_HMDR:
                 SEND_STRING("~/");
@@ -369,7 +372,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     return state;
 }
-
+// clang-format on
 // This should change the LED color on the receiver piece when we swap layers since the mitosis doesnt have built in
 // RGB's this is nice to have to have a visual indicator for inital debugging
 void matrix_scan_user(void) {
@@ -380,20 +383,24 @@ void matrix_scan_user(void) {
             set_led_blue;
             break;
         case _RAISE:
-            set_led_white;
+            set_led_yellow;
             break;
         case _LOWER:
-            set_led_red;
+            set_led_cyan;
             break;
         case _ADJUST:
             set_led_green;
+            break;
+        case _FUNCTION:
+            set_led_magenta;
+            break;
+        case _GAMING:
+            set_led_white;
             break;
         default:
             break;
     }
 };
-
-
 
 // clang-format off
 /********************************************************************************************
@@ -426,3 +433,15 @@ void matrix_scan_user(void) {
   )
 
 */
+
+
+/*****************************************************************/
+/* #define set_led_off     red_led_off; grn_led_off; blu_led_off */
+/* #define set_led_red     red_led_on;  grn_led_off; blu_led_off */
+/* #define set_led_blue    red_led_off; grn_led_off; blu_led_on  */
+/* #define set_led_green   red_led_off; grn_led_on;  blu_led_off */
+/* #define set_led_yellow  red_led_on;  grn_led_on;  blu_led_off */
+/* #define set_led_magenta red_led_on;  grn_led_off; blu_led_on  */
+/* #define set_led_cyan    red_led_off; grn_led_on;  blu_led_on  */
+/* #define set_led_white   red_led_on;  grn_led_on;  blu_led_on  */
+/*****************************************************************/

@@ -44,10 +44,10 @@ enum custom_keycodes {
   KC_DCLN,
 };
 
-// Tap dance codes - imported from Mitosis
-enum tapdancers {
-  TD_Q_ESC,
-};
+// Tap dance codes - DISABLED to save space
+// enum tapdancers {
+//   TD_Q_ESC,
+// };
 
 // Home row mods - GACS (GUI, Alt, Ctrl, Shift) - imported from Mitosis
 #define HM_A LGUI_T(KC_A)
@@ -71,11 +71,11 @@ enum tapdancers {
 #define CTL_TAB MT(MOD_LCTL, KC_TAB)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
 
-// Tap Dance definitions - imported from Mitosis
-tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Q twice for Escape
-    [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
-};
+// Tap Dance definitions - DISABLED to save space
+// tap_dance_action_t tap_dance_actions[] = {
+//     // Tap once for Q twice for Escape
+//     [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
+// };
 
 /* Kyria Base layer (ported from Mitosis)
  *
@@ -106,7 +106,7 @@ tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT( /* Malt Layout with Home Row Mods (GACS) */
-     KC_ESC  ,TD(TD_Q_ESC), KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_BSPC,
+     KC_ESC  ,   KC_Q    , KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_BSPC,
      CTL_TAB ,    HM_A    ,  HM_S   ,  HM_D  ,   HM_F ,   KC_G ,                                        KC_H,   HM_J ,  HM_K ,   HM_L ,HM_SCLN,CTL_QUOT,
      KC_LSFT ,    KC_Z    ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , _______, _______,     _______, _______, KC_N,   KC_M ,KC_DOT, KC_COMM,KC_SLSH, KC_RSFT,
                               KC_MUTE, OSM(MOD_LCTL), KC_TAB, SP_RAI, KC_BSPC,     KC_DEL, ENT_LOW, OSL(_FUNCTION), KC_RALT, KC_MUTE
@@ -258,13 +258,13 @@ combo_t key_combos[] = {
 
 uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);
 
-// Key overrides - Shift+Backspace = Delete - imported from Mitosis
-const key_override_t shift_bspc_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
-
-// Add all overrides to array
-const key_override_t *key_overrides[] = {
-    &shift_bspc_override,
-};
+// Key overrides - DISABLED to save space
+// const key_override_t shift_bspc_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+//
+// // Add all overrides to array
+// const key_override_t *key_overrides[] = {
+//     &shift_bspc_override,
+// };
 
 // Flow tap customizing - imported from Mitosis
 bool is_flow_tap_key(uint16_t keycode) {

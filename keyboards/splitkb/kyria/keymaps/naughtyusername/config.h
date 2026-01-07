@@ -36,6 +36,7 @@
 // Layer specific lighting
 #define RGB_LIGHT_LAYERS
 
+// Keeps them the way im used to.
 #define ENCODER_DIRECTION_FLIP
 
 // Accordion/CHORDAL holds, primarily for mods on homerow
@@ -66,7 +67,7 @@
 
 // One-shot configuration
 #define ONESHOT_TAP_TOGGLE 2 // Tapping twice locks the one-shot
-// Note: ONESHOT_TIMEOUT is already defined in keyboard config.h as 500ms
+// Note: ONESHOT_TIMEOUT is already defined in the base keyboard config.h as 500ms
 
 // Mouse key configuration
 #define MOUSEKEY_INTERVAL 16
