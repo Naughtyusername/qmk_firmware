@@ -21,7 +21,7 @@ cd "$QMK_PATH" || exit
 
 # Build your keyboards
 build_keyboard "mitosis" "naughtyusername"
-build_keyboard "splitkb/kyria" "naughtyusername"
+build_keyboard "splitkb/kyria/rev1" "naughtyusername"
 build_keyboard "splitkb/zima" "naughtyusername"
 build_keyboard "zsa/planck_ez/glow" "naughtyusername"
 

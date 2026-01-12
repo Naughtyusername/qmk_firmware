@@ -1,51 +1,42 @@
-layout: {qmk_keyboard: mitosis, layout_name: LAYOUT}
+layout: {qmk_keyboard: splitkb/kyria/rev1/base, layout_name: LAYOUT}
 layers:
   L0:
   - [TD(TD Q ESC), W, E, R, T, Y, U, I, O, P]
   - [HM A, HM S, HM D, HM F, G, H, HM J, HM K, HM L, HM SCLN]
-  - [Z, X, C, V, B, N, M, ., ',', /]
+  - [Z, X, C, V, B, N, M, ',', ., /]
   - - {t: LSFT, h: sticky}
     - {t: LCTL, h: sticky}
     - {t: LALT, h: sticky}
-    - CW TOGG
-    - ESC
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
     - TAB
-    - LCTL
-  - - SP RAI
-    - BSPC
-    - DEL
-    - ENT LOW
+    - CW TOGG
     - OSL( FUNCTION)
+    - OSL( ADJUST)
+    - {t: ▽, type: trans}
+    - ESC
+    - LCTL
+  - - BSPC
+    - SP RAI
+    - ENT LOW
+    - ''''
+    - '"'
     - {t: ▽, type: trans}
   L1:
-  - ['%', $, '-', '|', '[', ']', +, '#', <, '>']
-  - ['!', '*', '=', '&', (, ), ^, _, '"', DCLN]
+  - [\, $, '|', '-', '[', ']', +, '#', ;, DCLN]
+  - ['~', '&', '*', '=', (, ), ^, _, '"', DCLN]
+  - [RANGE, '!', '''', '"', '{', '}', '@', <, '>', /]
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+    - HMDR
+    - '`'
     - ARROP
     - ASSIGN
-    - '{'
-    - '}'
-    - '@'
+    - /
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - SPC
+    - SP LOW
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -123,7 +114,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - TO( BASE)
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -136,10 +127,10 @@ layers:
     - {t: ▽, type: trans}
   L4:
   - - TG( BASE)
+    - TG( GAMING)
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - COMPILE
     - MS UP
     - MS BTN1
     - MS BTN2
@@ -159,7 +150,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - TG( GAMING)
+    - {t: ▽, type: trans}
     - MS DOWN
     - MS WHLD
     - MS WHLU
@@ -185,14 +176,5 @@ layers:
   - [Q, W, E, R, T, Y, U, I, O, P]
   - [A, S, D, F, G, H, J, K, L, ;]
   - [Z, X, C, V, B, N, M, ',', ., /]
-  - - LSFT
-    - ESC
-    - TAB
-    - '1'
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - LCTL
-    - LALT
-  - [SPC, BSPC, DEL, ENT, MO( FUNCTION), TG( GAMING)]
+  - [LSFT, ESC, TAB, '1', '2', '3', '4', '5', LCTL, LALT]
+  - [BSPC, SPC, ENT, DEL, MO( FUNCTION), TG( BASE)]

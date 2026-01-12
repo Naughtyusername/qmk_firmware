@@ -53,6 +53,7 @@ enum tapdancers {
 #define RAI MO(_RAISE)
 // make space and enter work with mod time layer swapping
 #define SP_RAI LT(RAI, KC_SPACE)
+#define SP_LOW LT(LOW, KC_SPACE) // this is so we can hit space with the other thumb when on Raise - Symbol layer
 #define ENT_LOW LT(LOW, KC_ENTER)
 
 // Tap Dance definitions
@@ -66,16 +67,16 @@ tap_dance_action_t tap_dance_actions[] = {
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
  * |Esc / Q|   W   |   E   |   R   |   T   |       |   Y   |   U   |   I   |   O   |   P   |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * | A/GUI | S/ALT | D/CTL | F/SFT |   G   |       |   H   | J/SFT | K/CTL | L/ALT |;/GUI  |
+ * | A/GUI | S/ALT | D/CTL | F/SFT |   G   |       |   H   | J/SFT | K/CTL | L/ALT | ;/GUI |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
  * |   Z   |   X   |   C   |   V   |   B   |       |   N   |   M   |   ,   |   .   |   /   |
  * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
- *
+
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * |OS_SHFT|OS_CTRL|OS_ALT |CapsWrd|               |  ESC  |MO/FUNC|       |       |
+ * |OS_SHFT|OS_CTRL|OS_ALT |  TAB  |               |CAPSWRD|OSL(FN)|OSL(AJ)|       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |  TAB  | CTRL  |SPC/RAI| Bkspc |               | Del   |ENT/LOW|OSL(FN)|       |
+ * |  ESC  | CTRL  | Bkspc |SPC/RAI|               |ENT/LOW|   '   |   "   |       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  *
  * COMBOS: J+K = Escape
@@ -87,39 +88,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT( /* Malt Layout with Home Row Mods (GACS) */
 TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,    KC_I,    KC_O,       KC_P,
     HM_A,     HM_S,     HM_D,    HM_F,    KC_G,                 KC_H,    HM_J,    HM_K,    HM_L,       HM_SCLN,
-    KC_Z,     KC_X,     KC_C,    KC_V,    KC_B,                 KC_N,    KC_M,    KC_DOT,  KC_COMM,    KC_SLSH,
+    KC_Z,     KC_X,     KC_C,    KC_V,    KC_B,                 KC_N,    KC_M,    KC_COMM,  KC_DOT,    KC_SLSH,
 
-         OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LALT), CW_TOGG,        KC_ESC,  MO(_FUNCTION), _______, _______,
-         KC_TAB,        KC_LCTL,       SP_RAI,        KC_BSPC,        KC_DEL,  ENT_LOW, OSL(_FUNCTION),  _______
+         OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LALT), KC_TAB,        CW_TOGG,  OSL(_FUNCTION), OSL(_ADJUST), _______,
+                      KC_ESC, KC_LCTL, KC_BSPC, SP_RAI,                           ENT_LOW,  KC_QUOT, KC_DQT,  _______
   ),
 
 /* Mitosis Raise layer - combine with lower for tri-layer Adjust
+   // TODO update the layer to match the chart
 
  * LEFT SIDE                                       RIGHT SIDE
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
- * |   \   |   $   |   |   |   -   |   [   |       |   ]   |   +   |   #   |   <   |   >   |
+ * |   \   |   $   |   |   |   -   |   [   |       |   ]   |   +   |   #   |   ;   |   ::  |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |   ~   |   &   |   *   |   =   |   (   |       |   )   |   ^   |   _   |   %   |  ::   |
+ * |   ~   |   &   |   *   |   =   |   (   |       |   )   |   ^   |   _   |   %   |   :   |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
- * |  !=   |   !   |   ->  |   :=  |   {   |       |   }   |   @   |   ,   |   .   |   /   |
+ * |  ..=  |   !   |   '   |   "   |   {   |       |   }   |   @   |   <   |   >   |   ?   |
  * `-------'-------'-------'-------'-------'       `-------'-------'-------'-------'-------'
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * |       |       |  ~/.  |   `   |               |   "   |   ?   |   ;   |       |
+ * |EMAIL  |       |  ~/.  |   `   |               |  ->   |  :=   |   /   |  ../  |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |       |       |HOLDING|       |               | Space |LOW/ADJ|       |       |
+ * |       |       |BCKSPC |HOLDING|               |LOW/ADJ|  <<   |  >>   |       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
   [_RAISE] = LAYOUT(
 
-    KC_BSLS, KC_DLR, KC_PIPE, KC_MINS, KC_LBRC,       KC_RBRC, KC_PLUS, KC_HASH, KC_LT, KC_GT,
-    KC_TILD, KC_AMPR, KC_CIRC, KC_EQL, KC_LPRN,       KC_RPRN, KC_CIRC, KC_UNDS, KC_DQT, KC_DCLN,
-    KC_RANGE, KC_EXLM, KC_ARROP, KC_ASSIGN, KC_LCBR,   KC_RCBR, KC_AT, KC_COMM, KC_DOT, KC_SLSH,
+    KC_BSLS, KC_DLR, KC_PIPE, KC_MINS, KC_LBRC,       KC_RBRC, KC_PLUS, KC_HASH, KC_SCLN, KC_DCLN,
+    KC_TILD, KC_AMPR, KC_ASTR, KC_EQL, KC_LPRN,       KC_RPRN, KC_CIRC, KC_UNDS, KC_PERC, KC_COLN,
+    KC_RANGE, KC_EXLM, KC_QUOT, KC_DQT, KC_LCBR,   KC_RCBR, KC_AT, KC_LT, KC_GT, KC_QUES,
 
-         _______, _______, KC_HMDR, KC_GRV,       KC_DQT, KC_QUES, _______, _______,
-         _______, _______, _______, _______,      KC_SPC, _______, _______, _______
+                    _______, _______, KC_HMDR, KC_GRV,       KC_ARROP, KC_ASSIGN, KC_SLSH, _______,
+         _______, _______, _______, _______,      SP_LOW, _______, _______, _______
     ),
 
 /* Mitosis Lower layer - combined with raise for tri-layer Adjust
@@ -135,9 +137,9 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * |       |       |       |       |               | Delete|       |       |       |
+ * |       |       |       |       |               |       |       |       |       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |       |       |SPC/RAI| SPACE |               | Enter |HOLDING|       |       |
+ * |       |       |       |       |               |       |       |       |       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
@@ -148,7 +150,7 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
     _______, _______, KC_MPRV, KC_MPLY, KC_MNXT,       _______, KC_1,    KC_2,    KC_3, _______,
 
              _______, _______, _______, _______,       _______, _______, _______, _______,
-             _______, _______, _______, KC_SPC,       _______, _______, _______, _______
+             _______, _______, _______, _______,       _______, _______, _______, _______
   ),
 
 /* Funtion layer
@@ -165,9 +167,9 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
  *
  * Left Thumb Cluster                              Right Thumb Cluster
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
- * |       |       |       |       |               |       |       |       |       |
+ * |       |       |       |       |               |       | BASE |       |       |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * |       |       |       |       |               |       |       | HOLD  |       |
+ * |       |       |       |       |               |       |       |       |       |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
 */
 
@@ -176,7 +178,7 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
     KC_F5,   KC_F6,  KC_F7,  KC_F8,  _______,       KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______,
     KC_F1,   KC_F2,  KC_F3,  KC_F4,  _______,       KC_PGDN, _______, _______, _______, _______,
 
-             _______, _______, _______, _______,       _______, _______, _______, _______,
+             _______, _______, _______, _______,       _______, TO(_BASE), _______, _______,
              _______, _______, _______, _______,       _______, _______, _______, _______
   ),
 
@@ -184,7 +186,7 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
  *
  * LEFT SIDE                                       RIGHT SIDE
  * ,-------.-------.-------.-------.-------.       ,-------.-------.-------.-------.-------.
- * |  BASE | GAME  |       |       |Compile|       |MS_UP  |MS_BTN1|MS_BTN2|MS_BTN3| NKRO  |
+ * |  BASE | GAME  |       |       |       |       |MS_UP  |MS_BTN1|MS_BTN2|MS_BTN3| NKRO  |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
  * |       |       |       |       |       |       |MS_LEFT|MS_DOWN|MS_UP  |MS_RGHT|       |
  * |-------+-------+-------+-------+-------|       |-------+-------+-------+-------+-------|
@@ -200,7 +202,7 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
  */
 
   [_ADJUST] = LAYOUT( /* System controls - accessed by holding LOWER + RAISE */
-  TG(_BASE), TG(_GAMING), _______, _______, KC_COMPILE,       MS_UP,   MS_BTN1, MS_BTN2, MS_BTN3, NK_TOGG,
+  TG(_BASE), TG(_GAMING), _______, _______, _______,       MS_UP,   MS_BTN1, MS_BTN2, MS_BTN3, NK_TOGG,
     _______, _______, _______, _______, _______,          MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, _______,
     _______, _______, _______, _______, _______,      MS_DOWN, MS_WHLD, MS_WHLU, _______, _______,
 
@@ -223,7 +225,7 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
  * ,-------.-------.-------.-------.               ,-------.-------.-------.-------.
  * | SHIFT |  ESC  |  TAB  |   1   |               |   2   |   3   |   4   |   5   |
  * |-------+-------+-------+-------|     [RX]      |-------+-------+-------+-------|
- * | CTRL  |  ALT  | SPACE | BKSPC |               |  DEL  | ENTER |  FN   | BASE  |
+ * | CTRL  |  ALT  | BKSPC | SPACE |               |  RET  |  DEL  |  FN   | BASE  |
  * `-------'-------'-------'-------'               `-------'-------'-------'-------'
  */
 
@@ -232,8 +234,8 @@ TD(TD_Q_ESC), KC_W,     KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,  
     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                 KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                 KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
 
-             KC_LSFT, KC_ESC,  KC_TAB,  KC_1,                 _______, _______, _______, _______,
-             KC_LCTL, KC_LALT, KC_SPC,  KC_BSPC,              KC_DEL,  KC_ENT,  MO(_FUNCTION), TG(_GAMING)
+             KC_LSFT, KC_ESC,  KC_TAB,  KC_1,                 KC_2, KC_3, KC_4, KC_5,
+             KC_LCTL, KC_LALT, KC_BSPC,  KC_SPC,              KC_ENT,  KC_DEL,  MO(_FUNCTION), TG(_BASE)
   ),
 
 };
@@ -281,7 +283,7 @@ bool is_flow_tap_key(uint16_t keycode) {
         return false; // Disable Flow Tap on hotkeys.
     }
     switch (get_tap_keycode(keycode)) {
-        case KC_SPC:
+        // case KC_SPC:
         case KC_A ... KC_Z:
         case KC_DOT:
         case KC_COMM:
@@ -328,6 +330,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // Ensure you are in the correct QMK firmware directory in your terminal.
                 SEND_STRING("qmk compile -kb mitosis -km naughtyusername" SS_TAP(X_ENTER));
                 return false; // Stop normal key processing
+          // TODO this can be removed, add in the email one maybe tho. build script kinda solves this
 
             case KC_ASSIGN:
               // these have to be tap_code16 for correct types, non shifted keys dont need the 16
