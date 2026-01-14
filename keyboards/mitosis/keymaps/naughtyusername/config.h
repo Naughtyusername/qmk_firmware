@@ -6,16 +6,21 @@
 // permissive hold / hold on other key press
 #define CHORDAL_HOLD
 #define PERMISSIVE_HOLD
+// Disable aggressive hold behavior - let chordal hold handle this more gracefully
+
+// Keep permissive hold for better fast typing support
+#define PERMISSIVE_HOLD
 
 // Caps Word configuration
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 #define CAPS_WORD_IDLE_TIMEOUT 3000 // 3 seconds
 
 // Flow tap for fast typing without mis-input on home row mods
-#define FLOW_TAP_TERM 150
+// Increased to reduce conflicts with tapping terms and make less aggressive
+#define FLOW_TAP_TERM 200
 
 // Tap terms for TD and Chords
-#define TAPPING_TERM 175
+#define TAPPING_TERM 150
 #define TAPPING_TERM_PER_KEY
 #define LONGPRESS_DELAY 150
 #define LAYER_TOGGLE_DELAY 300
@@ -32,7 +37,7 @@
 #define ONESHOT_TAP_TOGGLE 2 // Tapping twice locks the one-shot
 // Note: ONESHOT_TIMEOUT is already defined in keyboard config.h as 500ms
 
-// Mouse key configuration
+// Mouse key configuration - honestly never see myself using this - delete when done testing
 #define MOUSEKEY_INTERVAL 16
 #define MOUSEKEY_DELAY 0
 #define MOUSEKEY_TIME_TO_MAX 60

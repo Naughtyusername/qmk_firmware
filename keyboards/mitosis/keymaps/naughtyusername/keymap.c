@@ -260,6 +260,19 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record,
+                      uint16_t other_keycode, keyrecord_t *other_record) {
+
+    switch (tap_hold_keycode) {
+        // This "unlocks" your Space/Raise key so it works even on the same hand
+        case SP_RAI:
+        case ENT_LOW:
+            return true;
+    }
+    // Change this line to only pass the records:
+    return get_chordal_hold_default(tap_hold_record, other_record);
+}
+
 // Combos - J+K = Escape (vim classic!)
 const uint16_t PROGMEM jk_combo[] = {HM_J, HM_K, COMBO_END};
 
@@ -283,7 +296,7 @@ bool is_flow_tap_key(uint16_t keycode) {
         return false; // Disable Flow Tap on hotkeys.
     }
     switch (get_tap_keycode(keycode)) {
-        // case KC_SPC:
+        // case KC_SPC:  // Exclude space from flow tap - we want chordal hold but not flow tap timing
         case KC_A ... KC_Z:
         case KC_DOT:
         case KC_COMM:
