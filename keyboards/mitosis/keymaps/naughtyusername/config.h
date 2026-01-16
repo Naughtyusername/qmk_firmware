@@ -6,10 +6,8 @@
 // permissive hold / hold on other key press
 #define CHORDAL_HOLD
 #define PERMISSIVE_HOLD
+#define SPECULATIVE_HOLD
 // Disable aggressive hold behavior - let chordal hold handle this more gracefully
-
-// Keep permissive hold for better fast typing support
-#define PERMISSIVE_HOLD
 
 // Caps Word configuration
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
