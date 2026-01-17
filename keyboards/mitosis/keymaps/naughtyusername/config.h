@@ -2,26 +2,25 @@
 
 #pragma once
 
+// Caps Word configuration
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define CAPS_WORD_IDLE_TIMEOUT 3000 // 3 seconds
+
 // Accordion/CHORDAL holds, primarily for mods on homerow
 // permissive hold / hold on other key press
 #define CHORDAL_HOLD
 #define PERMISSIVE_HOLD
 #define SPECULATIVE_HOLD
-// Disable aggressive hold behavior - let chordal hold handle this more gracefully
-
-// Caps Word configuration
-#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-#define CAPS_WORD_IDLE_TIMEOUT 3000 // 3 seconds
 
 // Flow tap for fast typing without mis-input on home row mods
 // Increased to reduce conflicts with tapping terms and make less aggressive
-#define FLOW_TAP_TERM 200
+#define FLOW_TAP_TERM 100 // was at 200, but in theory this should be faster than the tapping term and we should stop that buggy feeling
 
 // Tap terms for TD and Chords
-#define TAPPING_TERM 150
+#define TAPPING_TERM 175
 #define TAPPING_TERM_PER_KEY
 #define LONGPRESS_DELAY 150
-#define LAYER_TOGGLE_DELAY 300
+// #define LAYER_TOGGLE_DELAY 300
 
 // Tri-layer configuration
 #define TRI_LAYER_LOWER_LAYER 1
@@ -42,5 +41,6 @@
 #define MOUSEKEY_MAX_SPEED 7
 #define MOUSEKEY_WHEEL_DELAY 0
 
+// TODO we need to change this, bootmagic lite. so we can use keyboards at boot time.
 // Enable NKRO by default (updated from deprecated FORCE_NKRO)
 #define NKRO_DEFAULT_ON true
