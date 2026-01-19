@@ -31,7 +31,7 @@
 #define COMBO_TERM 50 // Time window to hit both keys (ms)
 
 // One-shot configuration
-#define ONESHOT_TAP_TOGGLE 2 // Tapping twice locks the one-shot
+// #define ONESHOT_TAP_TOGGLE 2 // Tapping twice locks the one-shot // dont want probs
 // Note: ONESHOT_TIMEOUT is already defined in keyboard config.h as 500ms
 
 // Mouse key configuration - honestly never see myself using this - delete when done testing
